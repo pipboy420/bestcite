@@ -21,7 +21,7 @@ function toggleBurgerMenu() {
   nav.classList.toggle('open');
 }
 
-/* Анимации при прокрутке (обновлённый revealOnScroll) */
+/* Анимации при прокрутке */
 window.addEventListener('scroll', revealOnScroll);
 function revealOnScroll() {
   // Ищем все элементы с классами fade-up, fade-in, slide-up, scale-in
@@ -30,6 +30,7 @@ function revealOnScroll() {
 
   revealElems.forEach(el => {
     const rect = el.getBoundingClientRect();
+    // Если верх элемента выше нижней границы окна на 100px => показываем
     if (rect.top < windowHeight - 100) {
       el.classList.add('show');
     }
@@ -126,6 +127,7 @@ function resetFormFields() {
     }
   });
 }
+
 function selectPeople(value) {
   document.getElementById('peopleField').value = value;
   const buttons = document.querySelectorAll('.people-buttons button');
@@ -136,6 +138,7 @@ function selectPeople(value) {
     }
   });
 }
+
 function submitForm(e) {
   e.preventDefault();
   alert(
@@ -177,7 +180,10 @@ function initCustomCalendar() {
   };
 
   const title = document.createElement('div');
-  const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  const monthNames = [
+    'Январь','Февраль','Март','Апрель','Май','Июнь',
+    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'
+  ];
   title.textContent = `${monthNames[currentCalendarDate.getMonth()]} ${currentCalendarDate.getFullYear()}`;
 
   header.appendChild(prevBtn);
@@ -200,7 +206,7 @@ function initCustomCalendar() {
   const year = currentCalendarDate.getFullYear();
   const month = currentCalendarDate.getMonth();
   const firstDayOfMonth = new Date(year, month, 1);
-  const dayOfWeek = (firstDayOfMonth.getDay() + 6) % 7;
+  const dayOfWeek = (firstDayOfMonth.getDay() + 6) % 7; // Пн=0
   const lastDayCurrentMonth = new Date(year, month+1, 0).getDate();
   const lastDayPrevMonth = new Date(year, month, 0).getDate();
 
@@ -251,22 +257,38 @@ function formatDate(date) {
   return `${dd}.${mm}.${yyyy}`;
 }
 
-function toggleCalendar(show=true) {
+function toggleCalendar(show = true) {
   const cal = document.getElementById('customCalendar');
+  const isMobile = window.innerWidth <= 768;
+
   if (show) {
     initCustomCalendar();
-    cal.style.display = 'block';
-    // Плавное появление
-    cal.style.opacity = 0;
-    setTimeout(() => {
+    if (!isMobile) {
+      // Десктоп: плавная анимация появления
+      cal.style.display = 'block';
+      cal.style.opacity = 0;
+      setTimeout(() => {
+        cal.style.opacity = 1;
+        cal.style.transition = 'opacity 0.3s';
+      }, 10);
+    } else {
+      // Мобильный: просто показываем
+      cal.style.display = 'block';
       cal.style.opacity = 1;
-      cal.style.transition = 'opacity 0.3s';
-    }, 10);
+      cal.style.transition = 'none';
+    }
   } else {
-    cal.style.opacity = 0;
-    setTimeout(() => {
+    if (!isMobile) {
+      // Десктоп: плавное исчезновение
+      cal.style.opacity = 0;
+      setTimeout(() => {
+        cal.style.display = 'none';
+      }, 300);
+    } else {
+      // Мобильный: убираем сразу
       cal.style.display = 'none';
-    }, 300);
+      cal.style.opacity = 1;
+    }
   }
 }
 
@@ -282,3 +304,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
