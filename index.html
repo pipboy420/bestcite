@@ -292,89 +292,94 @@
     </div>
   </footer>
 
-  <!-- МОДАЛЬНОЕ ОКНО -->
-  <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
-    <div class="modal" id="modalContent">
-      <span class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</span>
+  <!-- ... остальная часть документа (header, секции, т.д.) ... -->
 
-      <h3 id="modalTitle"></h3>
-      <p id="modalInfo" class="modal-info"></p>
+<!-- ... остальная часть документа (header, секции, т.д.) ... -->
 
-      <!-- КАРУСЕЛЬ -->
-      <div class="carousel-container" id="carouselContainer">
-        <div class="carousel-slide" id="carouselSlide">
-          <img 
-            src="" 
-            alt="Изображение экскурсии" 
-            id="carouselImage" 
-            loading="lazy" />
-        </div>
-        <div class="carousel-controls">
-          <button 
-            type="button" 
-            onclick="prevImage()" 
-            aria-label="Предыдущее изображение">
-            Prev
-          </button>
-          <button 
-            type="button" 
-            onclick="nextImage()" 
-            aria-label="Следующее изображение">
-            Next
-          </button>
-        </div>
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
+  <div class="modal" id="modalContent">
+    <span class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</span>
+
+    <h3 id="modalTitle"></h3>
+    <p id="modalInfo" class="modal-info"></p>
+
+    <!-- КАРУСЕЛЬ -->
+    <div class="carousel-container" id="carouselContainer">
+      <div class="carousel-slide" id="carouselSlide">
+        <img 
+          src="" 
+          alt="Изображение экскурсии" 
+          id="carouselImage" 
+          loading="lazy" />
+      </div>
+      <div class="carousel-controls">
+        <button 
+          type="button" 
+          onclick="prevImage()" 
+          aria-label="Предыдущее изображение">
+          Prev
+        </button>
+        <button 
+          type="button" 
+          onclick="nextImage()" 
+          aria-label="Следующее изображение">
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Форма бронирования -->
+    <form onsubmit="submitForm(event)">
+      <!-- Оборачиваем поле даты + календарь в отдельный блок .date-group -->
+      <div class="form-group date-group">
+        <label>Дата экскурсии:</label>
+        <input type="text" id="dateField" placeholder="Выберите дату" readonly />
+        <!-- Календарь теперь прямо здесь -->
+        <div class="custom-datepicker" id="customCalendar"></div>
       </div>
 
-      <!-- Форма бронирования -->
-      <form onsubmit="submitForm(event)">
-        <div class="form-group">
-          <label>Дата экскурсии:</label>
-          <input type="text" id="dateField" placeholder="Выберите дату" readonly />
+      <div class="form-group">
+        <label>Время:</label>
+        <select id="timeField">
+          <option value="12:00" selected>12:00</option>
+          <option value="14:00">14:00</option>
+          <option value="18:00">18:00</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ваше имя:</label>
+        <input type="text" id="nameField" placeholder="Иван" required />
+      </div>
+      <div class="form-group">
+        <label>Телефон:</label>
+        <input 
+          type="tel" 
+          id="phoneField" 
+          placeholder="+7 (999) 999-99-99" 
+          pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$"
+          required 
+        />
+      </div>
+      <div class="form-group">
+        <label>Количество человек:</label>
+        <div class="people-buttons">
+          <button type="button" onclick="selectPeople(1)">1</button>
+          <button type="button" onclick="selectPeople(2)">2</button>
+          <button type="button" onclick="selectPeople(3)">3</button>
+          <button type="button" onclick="selectPeople(4)">4</button>
+          <button type="button" onclick="selectPeople(5)">5</button>
+          <button type="button" onclick="selectPeople('6+')">6+</button>
         </div>
-        <div class="form-group">
-          <label>Время:</label>
-          <select id="timeField">
-            <option value="12:00" selected>12:00</option>
-            <option value="14:00">14:00</option>
-            <option value="18:00">18:00</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Ваше имя:</label>
-          <input type="text" id="nameField" placeholder="Иван" required />
-        </div>
-        <div class="form-group">
-          <label>Телефон:</label>
-          <input 
-            type="tel" 
-            id="phoneField" 
-            placeholder="+7 (999) 999-99-99" 
-            pattern="^(\+7)\\s?\\(\\d{3}\\)\\s?\\d{3}-?\\d{2}-?\\d{2}$"
-            required 
-          />
-        </div>
-        <div class="form-group">
-          <label>Количество человек:</label>
-          <div class="people-buttons">
-            <button type="button" onclick="selectPeople(1)">1</button>
-            <button type="button" onclick="selectPeople(2)">2</button>
-            <button type="button" onclick="selectPeople(3)">3</button>
-            <button type="button" onclick="selectPeople(4)">4</button>
-            <button type="button" onclick="selectPeople(5)">5</button>
-            <button type="button" onclick="selectPeople('6+')">6+</button>
-          </div>
-          <input type="text" id="peopleField" value="1" hidden />
-        </div>
+        <input type="text" id="peopleField" value="1" hidden />
+      </div>
 
-        <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
-      </form>
-
-      <!-- Календарь -->
-      <div class="custom-datepicker" id="customCalendar"></div>
-    </div>
+      <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
+    </form>
   </div>
+</div>
 
-  <!-- Подключаем скрипты -->
-  <script src="script.js"></script>
+<!-- Подключаем скрипты -->
+<script src="script.js"></script>
 </body>
 </html>
