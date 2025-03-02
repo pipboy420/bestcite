@@ -168,8 +168,8 @@ function initCustomCalendar() {
   calendarEl.appendChild(daysWrapper);
 }
 function formatDate(date) {
-  const dd = String(date.getDate()).padStart(2, '0');
-  const mm = String(date.getMonth()+1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2,'0');
+  const mm = String(date.getMonth()+1).padStart(2,'0');
   const yyyy = date.getFullYear();
   return `${dd}.${mm}.${yyyy}`;
 }
@@ -187,16 +187,6 @@ function toggleCalendar(show = true) {
     setTimeout(() => { cal.style.display = 'none'; }, 300);
   }
 }
-
-/* Закрытие календаря при клике вне date-group */
-document.addEventListener('click', function(e) {
-  const dateGroup = document.querySelector('.date-group');
-  const calendar = document.getElementById('customCalendar');
-  if (calendar && calendar.style.display === 'block' && !dateGroup.contains(e.target)) {
-    toggleCalendar(false);
-  }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   const dateField = document.getElementById('dateField');
   if (dateField) {
@@ -204,4 +194,3 @@ document.addEventListener('DOMContentLoaded', () => {
     dateField.addEventListener('click', () => { toggleCalendar(true); });
   }
 });
-
