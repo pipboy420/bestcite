@@ -36,7 +36,7 @@
   <!-- Кнопка "Вверх" -->
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Прокрутить вверх">↑</button>
 
-  <!-- ШАПКА -->
+  <!-- Шапка -->
   <header>
     <div class="logo" onclick="scrollToTop()">SPb Inside</div>
     <div class="burger" id="burgerBtn" onclick="toggleBurgerMenu()" aria-label="Открыть меню" role="button" tabindex="0">
@@ -229,14 +229,12 @@
       <h3 id="modalTitle"></h3>
       <p id="modalInfo" class="modal-info"></p>
 
-      <!-- Карусель -->
+      <!-- Карусель с кнопками на фото -->
       <div class="carousel-container" id="carouselContainer">
         <div class="carousel-slide" id="carouselSlide">
           <img src="" alt="Изображение экскурсии" id="carouselImage" loading="lazy" />
-        </div>
-        <div class="carousel-controls">
-          <button type="button" onclick="prevImage()" aria-label="Предыдущее изображение">Prev</button>
-          <button type="button" onclick="nextImage()" aria-label="Следующее изображение">Next</button>
+          <button class="carousel-prev" onclick="prevImage()" aria-label="Предыдущее изображение">❮</button>
+          <button class="carousel-next" onclick="nextImage()" aria-label="Следующее изображение">❯</button>
         </div>
       </div>
 
@@ -245,7 +243,6 @@
         <div class="form-group date-group">
           <label>Дата экскурсии:</label>
           <input type="text" id="dateField" placeholder="Выберите дату" readonly />
-          <!-- Календарь привязан к этому блоку -->
           <div class="custom-datepicker" id="customCalendar"></div>
         </div>
         <div class="form-group">
