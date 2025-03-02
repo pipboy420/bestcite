@@ -10,8 +10,7 @@ function scrollToTop() {
 
 /* Бургер-меню */
 function toggleBurgerMenu() {
-  const nav = document.getElementById('mainNav');
-  nav.classList.toggle('open');
+  document.getElementById('mainNav').classList.toggle('open');
 }
 
 /* Анимации при прокрутке */
@@ -35,7 +34,7 @@ function scrollToSection(sectionId) {
   }
 }
 
-/* Закрытие модалки */
+/* Закрытие модалки при клике вне неё */
 function overlayClick(e) {
   if (e.target === document.getElementById('detailsModal')) {
     closeDetailsModal();
@@ -47,7 +46,6 @@ let currentImages = [];
 let currentImageIndex = 0;
 let currentTitle = '';
 let currentInfo = '';
-
 function openDetailsModal(title, info, images) {
   currentTitle = title;
   currentInfo = info;
@@ -60,11 +58,9 @@ function openDetailsModal(title, info, images) {
   resetFormFields();
   document.getElementById('detailsModal').style.display = 'flex';
 }
-
 function closeDetailsModal() {
   document.getElementById('detailsModal').style.display = 'none';
 }
-
 function showImage(index) {
   if (index < 0) index = currentImages.length - 1;
   if (index >= currentImages.length) index = 0;
@@ -172,8 +168,8 @@ function initCustomCalendar() {
   calendarEl.appendChild(daysWrapper);
 }
 function formatDate(date) {
-  const dd = String(date.getDate()).padStart(2,'0');
-  const mm = String(date.getMonth()+1).padStart(2,'0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth()+1).padStart(2, '0');
   const yyyy = date.getFullYear();
   return `${dd}.${mm}.${yyyy}`;
 }
@@ -191,6 +187,16 @@ function toggleCalendar(show = true) {
     setTimeout(() => { cal.style.display = 'none'; }, 300);
   }
 }
+
+/* Закрытие календаря при клике вне date-group */
+document.addEventListener('click', function(e) {
+  const dateGroup = document.querySelector('.date-group');
+  const calendar = document.getElementById('customCalendar');
+  if (calendar && calendar.style.display === 'block' && !dateGroup.contains(e.target)) {
+    toggleCalendar(false);
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const dateField = document.getElementById('dateField');
   if (dateField) {
