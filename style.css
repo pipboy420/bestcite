@@ -149,10 +149,10 @@ nav a:hover::after {
   transform: scale(1.05); /* лёгкое увеличение при наведении */
 }
 
-/* HERO (параллакс) */
+/* HERO (параллакс на десктопе) */
 .hero {
   min-height: 80vh;
-  background: url('images/background.png') center/cover no-repeat fixed; 
+  background: url('images/background.png') center/cover no-repeat fixed;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -357,7 +357,7 @@ nav a:hover::after {
   background-color: #ccc;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* параллакс */
+  background-attachment: fixed; /* параллакс на десктопе */
   border-radius: 8px;
   transition: transform 0.3s;
 }
@@ -562,7 +562,7 @@ footer {
   opacity: 0.85;
 }
 
-/* Календарь (Datepicker) */
+/* Календарь (Datepicker) — десктоп */
 .custom-datepicker {
   position: absolute;
   top: 440px; 
@@ -638,8 +638,17 @@ footer {
   transform: none;
 }
 
-/* Мобильная верстка (бургер + bottom sheet) */
+/* Мобильная верстка (до 768px) */
 @media (max-width: 768px) {
+  /* Отключаем параллакс */
+  .hero {
+    background-attachment: scroll;
+  }
+  .about-img {
+    background-attachment: scroll;
+  }
+
+  /* Бургер-меню становится видимым */
   .burger {
     display: block;
   }
@@ -661,6 +670,8 @@ footer {
     gap: 10px;
     padding: 20px;
   }
+
+  /* Модальное окно как bottom-sheet */
   .modal {
     width: 100%;
     max-width: 100%;
@@ -679,11 +690,29 @@ footer {
     top: 15px;
     right: 20px;
   }
+
+  /* Календарь статичен под полем даты */
   .custom-datepicker {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 120px; 
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 8px;
+    width: 100%;
+    max-width: 340px;
+    opacity: 1;
+    display: none; /* по умолчанию скрыто, пока не кликнем */
   }
 }
 
+/* При ещё более узких экранах (до 480px) — пример доп. правок */
+@media (max-width: 480px) {
+  body {
+    line-height: 1.7;
+    padding: 0 10px;
+  }
+  h1, h2, h3 {
+    line-height: 1.3;
+  }
+}
 
