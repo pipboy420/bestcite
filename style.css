@@ -358,7 +358,7 @@ nav a:hover::after {
   background-color: #ccc;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* включается для десктопа */
+  background-attachment: fixed;
   border-radius: 8px;
   transition: transform 0.3s;
 }
@@ -448,8 +448,10 @@ footer {
 /* Модальное окно */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   background: rgba(0,0,0,0.5);
   display: none;
   align-items: center;
@@ -489,10 +491,10 @@ footer {
   margin-bottom: 20px;
 }
 .carousel-slide {
-  text-align: center;
-  margin-bottom: 10px;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  margin-bottom: 10px;
 }
 .carousel-slide img {
   max-width: 100%;
@@ -501,22 +503,26 @@ footer {
   user-select: none;
   cursor: pointer;
 }
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-.carousel-controls button {
-  padding: 8px 16px;
-  background-color: #eee;
-  border: 1px solid #ccc;
+/* Кнопки на фото */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
+  font-size: 1.2rem;
+  z-index: 10;
 }
-.carousel-controls button:hover {
-  background-color: #ddd;
+.carousel-prev {
+  left: 10px;
+}
+.carousel-next {
+  right: 10px;
 }
 
 /* Форма в модалке */
@@ -563,7 +569,7 @@ footer {
   opacity: 0.85;
 }
 
-/* Календарь (Datepicker) для формы */
+/* Календарь (Datepicker) — календарь привязан к .date-group */
 .date-group {
   position: relative;
 }
@@ -603,7 +609,7 @@ footer {
   transform: none;
 }
 
-/* Media query для десктопа: добавляем параллакс */
+/* Media query для десктопа: включаем параллакс */
 @media (min-width: 769px) {
   .hero {
     background-attachment: fixed;
@@ -613,7 +619,7 @@ footer {
   }
 }
 
-/* Дополнительные правки для очень узких экранов */
+/* Дополнительные правки для узких экранов */
 @media (max-width: 480px) {
   body {
     line-height: 1.7;
