@@ -517,6 +517,25 @@ footer {
 .carousel-controls button:hover {
   background-color: #ddd;
 }
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+  z-index: 10;
+}
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+
+.carousel-prev:hover, .carousel-next:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
 
 /* Форма в модалке */
 .form-group {
@@ -758,4 +777,8 @@ footer {
     line-height: 1.3;
   }
 }
-
+@media (max-width: 768px) {
+  .carousel-controls {
+    display: none;
+  }
+}
