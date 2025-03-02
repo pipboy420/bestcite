@@ -623,6 +623,49 @@ footer {
   font-weight: 600;
   background: #f9f9f9;
 }
+/* ... ваш общий CSS (кнопки, анимации, и т.д.) ... */
+
+/* 
+   Блок с датой + календарём
+   Делаем .date-group позиционируемым, 
+   чтобы вложенный .custom-datepicker мог быть позиционирован ниже поля.
+*/
+.date-group {
+  position: relative; /* ключевой момент */
+}
+
+/* Теперь календарь абсолютно позиционируется относительно .date-group */
+.custom-datepicker {
+  position: absolute;
+  top: calc(100% + 4px); /* появляется ровно под инпутом, с зазором 4px */
+  left: 0;
+  z-index: 1002;         /* выше прочего контента формы */
+  width: 280px;          /* или auto/100% — по желанию */
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+  display: none; 
+  opacity: 0; 
+  transition: opacity 0.3s;
+}
+
+/* 
+   Удаляем старые правила вида:
+   top: 440px; left: 50%; transform: translateX(-50%);
+   из .custom-datepicker 
+   и переносим всё в этот новый вариант 
+*/
+
+/* Для мобильных можно расширить календарь на всю ширину поля: */
+@media (max-width: 768px) {
+  .custom-datepicker {
+    width: 100%; /* календарь растянется под инпут */
+    max-width: 340px; /* или убираем ограничение, если нужно */
+  }
+}
 
 /* Анимации при прокрутке */
 .fade-up, .fade-in, .slide-up, .scale-in {
