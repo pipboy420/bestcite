@@ -321,6 +321,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     dateField.addEventListener('click', () => {
       toggleCalendar(true);
+let startX = 0;
+let endX = 0;
+const carouselImage = document.getElementById('carouselImage');
+
+if (carouselImage) {
+  carouselImage.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  carouselImage.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (startX - endX > 50) {
+      nextImage(); // свайп влево
+    } else if (endX - startX > 50) {
+      prevImage(); // свайп вправо
+    }
+  }
+}
     });
   }
 });
