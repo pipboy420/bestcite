@@ -291,6 +291,26 @@ function toggleCalendar(show = true) {
     }
   }
 }
+function toggleCalendar(show = true) {
+  const cal = document.getElementById('customCalendar');
+
+  if (show) {
+    initCustomCalendar();
+    cal.style.display = 'block';
+    // Плавное появление
+    setTimeout(() => {
+      cal.style.opacity = 1;
+      cal.style.transition = 'opacity 0.3s';
+    }, 10);
+  } else {
+    // Плавное скрытие
+    cal.style.opacity = 0;
+    setTimeout(() => {
+      cal.style.display = 'none';
+    }, 300);
+  }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // При клике/фокусе на поле даты – показываем календарь
