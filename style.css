@@ -1,5 +1,5 @@
 /* ================
-   Глобальные стили (Mobile-first)
+   Глобальные стили
 ================ */
 * {
   margin: 0;
@@ -11,7 +11,6 @@ body {
   background-color: #fff;
   color: #333;
   line-height: 1.6;
-  padding: 0 10px;
 }
 a {
   text-decoration: none;
@@ -63,7 +62,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 30px;
   z-index: 999;
 }
 .logo {
@@ -74,7 +73,7 @@ header {
 }
 .burger {
   font-size: 1.4rem;
-  display: block;
+  display: none;
   cursor: pointer;
 }
 nav {
@@ -82,11 +81,11 @@ nav {
 }
 nav ul {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 nav a {
   font-weight: 500;
-  transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s;
   position: relative;
   display: inline-block;
 }
@@ -116,7 +115,7 @@ nav a:hover::after {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.2s;
 }
 .cta-btn:hover {
   opacity: 0.8;
@@ -147,13 +146,12 @@ nav a:hover::after {
 }
 .fancy-btn:hover {
   color: #fff;
-  transform: scale(1.05);
 }
 
 /* HERO */
 .hero {
   min-height: 80vh;
-  background: url('images/background.png') center/cover no-repeat;
+  background: url('images/background.png') center/cover no-repeat fixed;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -185,7 +183,7 @@ nav a:hover::after {
 
 /* Секции */
 .tours-section {
-  padding: 60px 10px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
@@ -207,10 +205,10 @@ nav a:hover::after {
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .tour-card:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 .tour-image {
@@ -250,17 +248,16 @@ nav a:hover::after {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.2s;
 }
 .tour-btn:hover {
   opacity: 0.8;
-  transform: scale(1.05);
 }
 
 /* Почему выбирают нас */
 .why-us {
   background-color: #f5f5f5;
-  padding: 60px 10px;
+  padding: 60px 20px;
 }
 .why-us-container {
   max-width: 1200px;
@@ -302,7 +299,7 @@ nav a:hover::after {
 
 /* Отзывы */
 .reviews {
-  padding: 60px 10px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
@@ -328,7 +325,7 @@ nav a:hover::after {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .review-card:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 .review-author {
@@ -344,7 +341,7 @@ nav a:hover::after {
 
 /* О нас */
 .about {
-  padding: 60px 10px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -381,7 +378,7 @@ nav a:hover::after {
 
 /* FAQ */
 .faq {
-  padding: 60px 10px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -408,7 +405,7 @@ nav a:hover::after {
 footer {
   background-color: #333;
   color: #fff;
-  padding: 40px 10px;
+  padding: 40px 20px;
 }
 .footer-container {
   max-width: 1200px;
@@ -491,10 +488,10 @@ footer {
   margin-bottom: 20px;
 }
 .carousel-slide {
-  position: relative;
-  overflow: hidden;
   text-align: center;
   margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
 }
 .carousel-slide img {
   max-width: 100%;
@@ -503,26 +500,22 @@ footer {
   user-select: none;
   cursor: pointer;
 }
-/* Кнопки на фото */
-.carousel-prev,
-.carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.carousel-controls button {
+  padding: 8px 16px;
+  background-color: #eee;
+  border: 1px solid #ccc;
   cursor: pointer;
   border-radius: 4px;
-  font-size: 1.2rem;
-  z-index: 10;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
-.carousel-prev {
-  left: 10px;
-}
-.carousel-next {
-  right: 10px;
+.carousel-controls button:hover {
+  background-color: #ddd;
 }
 
 /* Форма в модалке */
@@ -569,30 +562,22 @@ footer {
   opacity: 0.85;
 }
 
-/* Календарь (Datepicker) — календарь привязан к .date-group */
-.date-group {
-  position: relative;
-}
+/* Календарь (Datepicker) */
 .custom-datepicker {
   position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 1002;
-  width: 280px;
-  padding: 10px;
+  top: 440px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
+  width: 280px;
+  padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   display: none;
+  z-index: 10001;
   opacity: 0;
   transition: opacity 0.3s;
-}
-@media (max-width: 768px) {
-  .custom-datepicker {
-    width: 100%;
-    max-width: 340px;
-  }
 }
 
 /* Анимации при прокрутке */
@@ -609,7 +594,7 @@ footer {
   transform: none;
 }
 
-/* Media query для десктопа: включаем параллакс */
+/* Media query для десктопа: параллакс */
 @media (min-width: 769px) {
   .hero {
     background-attachment: fixed;
