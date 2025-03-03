@@ -51,23 +51,49 @@ label {
 }
 
 /* Основные стили кнопок */
-button, .cta-btn, .tour-btn {
+button:not(.people-btn), .cta-btn, .tour-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Градиентный фон */
   color: white;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(255, 103, 76, 0.4); /* Объёмная тень */
+  position: relative;
+  overflow: hidden;
 }
-button:hover, .cta-btn:hover, .tour-btn:hover {
-  background: linear-gradient(135deg, #ff6b6b, #ff9966);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(255, 103, 76, 0.4);
+
+.cta-btn:hover, .tour-btn:hover {
+  background: linear-gradient(135deg, #ff9966, #ff6b6b); /* Новый градиент */
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 103, 76, 0.5);
+}
+
+.cta-btn:active, .tour-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(255, 103, 76, 0.3);
+}
+
+/* Эффект вспышки при наведении */
+.cta-btn::before, .tour-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: all 0.4s ease-in-out;
+}
+
+.cta-btn:hover::before, .tour-btn:hover::before {
+  left: 150%;
 }
 
 /* Кнопка "Вверх" */
@@ -127,43 +153,31 @@ nav {
 }
 nav ul {
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
-nav a {
-  font-weight: 500;
-  text-transform: uppercase;
+/* Кнопки в HERO – отступ между ними */
+.hero-content {
   position: relative;
-  display: inline-block;
-  transition: color 0.3s, background-color 0.3s;
-}
-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  height: 2px;
-  width: 0;
-  background-color: currentColor;
-  transition: width 0.3s ease;
-}
-nav a:hover {
-  color: #E67E22;
-}
-nav a:hover::after {
-  width: 100%;
+  z-index: 1;
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
 }
 
-/* Кнопки в HERO – отступ между ними */
 .hero-btns {
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  justify-content: center; /* Можно поменять на flex-start или flex-end */
+  margin-top: 60px; /* Если нужно поднять выше */
 }
 
 /* CTA кнопки */
 .cta-btn {
   background-color: #E67E22;
   color: #fff;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -540,27 +554,88 @@ footer {
 
 /* Стили для Bottom Sheet в мобильной версии (для деталей экскурсии остаются стандартными) */
 @media (max-width: 768px) {
-  /* Для модального окна бронирования – центрируем, убираем ручку и изменяем стиль крестика */
   #bookingModalContent {
-    width: 80%;
-    max-width: 300px;
-    height: auto;
+    width: 90vw;
+    height: 90vh;
+    max-width: 95%;
+    max-height: 95%;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  #bookingModalContent .sheet-handle {
-    display: none;
-  }
+
   #bookingModalContent .close-modal {
-    font-size: 16px;
+    font-size: 24px; /* Увеличиваем размер крестика */
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 10px; /* Поднимаем выше */
+    right: 10px; /* Двигаем левее */
+    color: #000000 !important; /* Красный крестик */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+#bookingModalContent .close-modal:hover {
+    color: #C0392B !important; /* Темно-красный при наведении */
+    transform: scale(1.2); /* Легкое увеличение */
+}
+
+  /* Добавляем этот новый код сюда */
+  #bookingModalContent .form-group label {
+    font-size: 1.2rem;
+  }
+
+  #bookingModalContent .form-group input,
+  #bookingModalContent .form-group select {
+    font-size: 1.3rem;
+    padding: 14px;
+    width: 100%;
+    height: 55px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+  }
+
+  #bookingModalContent .form-group select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+    background-size: 24px;
+    padding-right: 40px;
+  }
+
+  #bookingModalContent .form-group {
+    margin-bottom: 20px;
+  }
+
+  #bookingModalContent   .people-buttons button {
+    font-size: 1.2rem;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 2px solid #28A745 !important; /* Зелёный контур */
+    background-color: transparent !important; /* Убираем оранжевый фон */
+    color: #28A745 !important; /* Зелёные цифры */
+    transition: all 0.3s ease;
+  }
+
+  .people-buttons button:hover {
+    background-color: #28A745 !important; /* Зелёный фон при наведении */
+    color: #ffffff !important;
+  }
+
+  .people-buttons button.active {
+    background-color: #1565C0 !important; /* Синий фон для активной кнопки */
+    color: #ffffff !important;
+    border-color: #1565C0 !important;
   }
 }
+
 
 /* Индикаторы точек карусели */
 .carousel-dots {
@@ -629,30 +704,30 @@ footer {
   display: flex;
   gap: 8px;
 }
-.people-buttons button {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  background-color: #eee;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.people-buttons button.active {
-  background-color: #1565C0;
-  color: #fff;
-}
 .modal form button[type="submit"] {
   margin-top: 15px;
-  background-color: #E67E22;
+  background: linear-gradient(135deg, #4CAF50, #2E8B57); /* Градиент зелёного */
   color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 12px;
-  font-weight: 600;
+  border-radius: 8px;
+  padding: 14px 30px;
+  font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
+  position: relative;
+  overflow: hidden;
 }
+
 .modal form button[type="submit"]:hover {
-  opacity: 0.85;
+  background: linear-gradient(135deg, #43A047, #1E7D32);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(46, 139, 87, 0.5);
+}
+
+.modal form button[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(46, 139, 87, 0.3);
 }
 
 /* Мобильная верстка для навигации и хедера */
@@ -664,34 +739,50 @@ footer {
     background-attachment: scroll;
   }
   .burger {
-    display: block;
     position: absolute;
     right: 20px;
-    top: 20px;
-  }
-  nav {
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #fff;
-    width: 200px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    transform: translateX(120%);
-    transition: transform 0.3s ease;
-  }
-  nav.open {
-    transform: translateX(0);
-  }
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-  }
-  header {
+    top: 5px; /* Было 20px, уменьшил, чтобы поднять выше */
+    font-size: 2rem; /* Размер иконки */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
   }
 }
+  .burger:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Затемняем при наведении */
+    transform: scale(1.05); /* Легкое увеличение */
+  }
+  .logo {
+    text-align: left; /* Текст слева */
+    margin-left: 0; /* Убираем возможные отступы */
+  }
+
+  @media (max-width: 768px) {
+    .burger {
+      position: absolute;
+      right: 20px;
+      top: 5px;
+      font-size: 3.5rem; /* Размер иконки */
+      width: 60px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent; /* Убираем серый фон */
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  
+    .burger:hover {
+      background-color: rgba(0, 0, 0, 0.1); /* Лёгкий серый фон при наведении */
+    }
+  }
 
 /* Дополнительные стили для кнопки действия в модальном окне деталей */
 .modal-action {
@@ -701,4 +792,87 @@ footer {
 .modal-booking-btn {
   padding: 10px 20px;
   font-size: 1rem;
+}
+.people-buttons button {
+  all: unset; /* Полностью убираем все унаследованные стили */
+  display: inline-block;
+  font-size: 1.3rem;
+  padding: 10px 15px;
+  border: 2px solid #FF5733; /* Новый цвет границы */
+  background-color: #FFF5E6; /* Новый цвет фона */
+  color: #FF5733; /* Новый цвет текста */
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.people-buttons button:hover {
+  background-color: #FF5733; /* Новый цвет фона при наведении */
+  color: white;
+}
+
+.people-buttons button.active {
+  background-color: #C70039; /* Новый цвет фона для активной кнопки */
+  color: white;
+  border-color: #C70039;
+}
+@media (max-width: 768px) {
+  .cta-btn, .tour-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: 6px;
+  }
+}
+@media (max-width: 768px) {
+  nav {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 250px; /* Ограничиваем ширину */
+    height: auto; /* Автоматическая высота */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    border-radius: 0 10px 10px 0;
+    padding: 20px;
+  }
+
+  nav.open {
+    transform: translateX(0);
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: left;
+  }
+
+  nav ul li a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    padding: 10px 15px;
+    display: block;
+    transition: background 0.3s ease-in-out;
+  }
+
+  nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }

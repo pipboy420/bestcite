@@ -109,7 +109,14 @@ function scrollToSection(sectionId) {
     window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" });
   }
 }
+const menuLinks = document.querySelectorAll("#mainNav ul li a");
 
+// Закрываем меню при клике на любую ссылку внутри бургера
+menuLinks.forEach(link => {
+  link.addEventListener("click", function () {
+    document.getElementById("mainNav").classList.remove("open");
+  });
+});
 // Переключение бургер-меню
 function toggleBurgerMenu() {
   const nav = document.getElementById("mainNav");
