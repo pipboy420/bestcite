@@ -4,54 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SPb Inside – Экскурсии по Санкт-Петербургу</title>
-
   <!-- Мета-описание (SEO) -->
   <meta name="description" content="Уникальные экскурсии по Санкт-Петербургу от опытных гидов. Бронируйте прямо на сайте!">
-
-  <!-- Open Graph (для соцсетей) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="SPb Inside – Экскурсии по Санкт-Петербургу" />
   <meta property="og:description" content="Уникальные экскурсии от профессиональных гидов. Ощутите красоту Северной столицы!" />
   <meta property="og:image" content="images/spb-team.jpeg" />
   <meta property="og:url" content="https://spbinside.ru" />
   <meta property="og:type" content="website" />
-
   <!-- Twitter cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SPb Inside — Экскурсии по Санкт-Петербургу">
   <meta name="twitter:description" content="Уникальные экскурсии, комфортный транспорт, лучшие гиды!">
   <meta name="twitter:image" content="images/spb-team.jpeg">
-
-  <!-- Шрифт (Montserrat: 300,400,600,700) -->
+  <!-- Шрифт -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" 
-    rel="stylesheet" 
-  />
-
-  <!-- Подключаем внешний файл стилей -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Подключаем CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <!-- Кнопка "Вверх" -->
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Прокрутить вверх">↑</button>
-
   <!-- ШАПКА -->
   <header>
-    <!-- Клик по логотипу => прокрутка наверх -->
     <div class="logo" onclick="scrollToTop()">SPb Inside</div>
-    
-    <!-- Кнопка-бургер для мобильного -->
-    <div 
-      class="burger" 
-      id="burgerBtn" 
-      onclick="toggleBurgerMenu()" 
-      aria-label="Открыть меню"
-      role="button"
-      tabindex="0">
+    <div class="burger" id="burgerBtn" onclick="toggleBurgerMenu()" aria-label="Открыть меню" role="button" tabindex="0">
       ☰
     </div>
-    
     <nav id="mainNav">
       <ul>
         <li><a href="#hero">Главная</a></li>
@@ -62,10 +42,8 @@
       </ul>
     </nav>
   </header>
-
   <div class="header-offset"></div>
-
-  <!-- HERO (с параллаксом на десктопе, отключено на мобильном) -->
+  <!-- HERO -->
   <section class="hero slide-up" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -73,35 +51,22 @@
       <p>Уникальные экскурсии от профессиональных гидов с многолетним опытом.  
          Ощутите красоту Северной столицы по-новому!</p>
       <div class="hero-btns">
-        <button 
-          class="cta-btn fancy-btn" 
-          onclick="openDetailsModal('Быстрая бронь', 'Заполните форму, мы свяжемся!', [])"
-          aria-label="Забронировать сейчас">
+        <button class="cta-btn fancy-btn" onclick="openDetailsModal('Быстрая бронь', 'Заполните форму, мы свяжемся!', [])" aria-label="Забронировать сейчас">
           Забронировать сейчас
         </button>
-        <button 
-          class="cta-btn fancy-btn"
-          onclick="scrollToSection('tours')"
-          aria-label="Узнать подробнее об экскурсиях">
+        <button class="cta-btn fancy-btn" onclick="scrollToSection('tours')" aria-label="Узнать подробнее об экскурсиях">
           Телеграм канал
         </button>
       </div>
     </div>
   </section>
-
-  <!-- ПОДБОРКА ЭКСКУРСИЙ (fade-up) -->
+  <!-- ПОДБОРКА ЭКСКУРСИЙ -->
   <section class="tours-section fade-up" id="tours">
     <h2>Популярные экскурсии</h2>
     <div class="tours-container">
-
       <!-- Экскурсия №1 -->
       <div class="tour-card">
-        <div 
-          class="tour-image"
-          style="background-image: url('images/image1.jpeg');"
-          role="img" 
-          aria-label="Речная прогулка по каналам">
-        </div>
+        <div class="tour-image" style="background-image: url('images/image1.jpeg');" role="img" aria-label="Речная прогулка по каналам"></div>
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Речная прогулка по каналам</h3>
@@ -109,9 +74,7 @@
           </div>
           <div>
             <p class="tour-price">от 1500 руб.</p>
-            <button 
-              class="tour-btn fancy-btn" 
-              onclick="openDetailsModal(
+            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Речная прогулка по каналам',
                 'Маршрут: Невский пр., река Мойка, канал Грибоедова.\\nДлительность ~1,5 часа.\\nУзнайте удивительные истории о городе!',
                 [
@@ -119,22 +82,15 @@
                   'images/image2.jpeg',
                   'images/image3.jpeg'
                 ]
-              )"
-              aria-label="Подробнее о речной прогулке по каналам">
+              )" aria-label="Подробнее о речной прогулке по каналам">
               Подробнее
             </button>
           </div>
         </div>
       </div>
-
       <!-- Экскурсия №2 -->
       <div class="tour-card">
-        <div 
-          class="tour-image" 
-          style="background-image: url('images/briges_background.jpeg');"
-          role="img" 
-          aria-label="Ночной развод мостов">
-        </div>
+        <div class="tour-image" style="background-image: url('images/briges_background.jpeg');" role="img" aria-label="Ночной развод мостов"></div>
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Ночной развод мостов</h3>
@@ -142,31 +98,22 @@
           </div>
           <div>
             <p class="tour-price">от 2000 руб.</p>
-            <button 
-              class="tour-btn fancy-btn" 
-              onclick="openDetailsModal(
+            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Ночной развод мостов',
                 'Старт в 00:30, длительность ~2 часа, объезд главных мостов.\\nНочная подсветка и романтика!',
                 [
                   'images/image1.jpeg',
                   'images/image2.jpeg'
                 ]
-              )"
-              aria-label="Подробнее о ночном разводе мостов">
+              )" aria-label="Подробнее о ночном разводе мостов">
               Подробнее
             </button>
           </div>
         </div>
       </div>
-
       <!-- Экскурсия №3 -->
       <div class="tour-card">
-        <div 
-          class="tour-image" 
-          style="background-image: url('images/tour3.jpeg');"
-          role="img" 
-          aria-label="Дворцовый Петербург">
-        </div>
+        <div class="tour-image" style="background-image: url('images/tour3.jpeg');" role="img" aria-label="Дворцовый Петербург"></div>
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Дворцовый Петербург</h3>
@@ -174,9 +121,7 @@
           </div>
           <div>
             <p class="tour-price">от 2500 руб.</p>
-            <button 
-              class="tour-btn fancy-btn"
-              onclick="openDetailsModal(
+            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Дворцовый Петербург',
                 'Зимний дворец, Михайловский дворец, особняки на набережной.\\nИстории о жизни царской семьи!',
                 [
@@ -184,18 +129,15 @@
                   'images/image2.jpeg',
                   'images/image3.jpeg'
                 ]
-              )"
-              aria-label="Подробнее о дворцовом Петербурге">
+              )" aria-label="Подробнее о дворцовом Петербурге">
               Подробнее
             </button>
           </div>
         </div>
       </div>
-
     </div>
   </section>
-
-  <!-- "ПОЧЕМУ ВЫБИРАЮТ НАС" (slide-up) -->
+  <!-- "ПОЧЕМУ ВЫБИРАЮТ НАС" -->
   <section class="why-us slide-up">
     <div class="why-us-container">
       <h2>Почему выбирают нас</h2>
@@ -219,8 +161,7 @@
       </div>
     </div>
   </section>
-
-  <!-- "ОТЗЫВЫ" (scale-in) -->
+  <!-- "ОТЗЫВЫ" -->
   <section class="reviews scale-in">
     <h2>Отзывы наших клиентов</h2>
     <div class="review-cards">
@@ -238,8 +179,7 @@
       </div>
     </div>
   </section>
-
-  <!-- "О НАС" (fade-up) -->
+  <!-- "О НАС" -->
   <section class="about fade-up" id="about">
     <div class="about-img" style="background-image: url('images/spb-team.jpeg');"></div>
     <div class="about-text">
@@ -250,8 +190,7 @@
       <p>Тысячи довольных туристов доверили нам показать самые красивые и значимые места города. Присоединяйтесь!</p>
     </div>
   </section>
-
-  <!-- Блок FAQ (slide-up) -->
+  <!-- FAQ -->
   <section class="faq slide-up" id="faq">
     <h2>Часто задаваемые вопросы</h2>
     <div class="faq-item">
@@ -267,7 +206,6 @@
       <p>Достаточно связаться с нами по телефону или электронной почте. Перенос возможен при наличии свободных мест на другую дату.</p>
     </div>
   </section>
-
   <!-- ПОДВАЛ -->
   <footer id="contacts">
     <div class="footer-container">
@@ -291,95 +229,62 @@
       </div>
     </div>
   </footer>
-
-  <!-- ... остальная часть документа (header, секции, т.д.) ... -->
-
-<!-- ... остальная часть документа (header, секции, т.д.) ... -->
-
-<!-- МОДАЛЬНОЕ ОКНО -->
-<div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
-  <div class="modal" id="modalContent">
-    <span class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</span>
-
-    <h3 id="modalTitle"></h3>
-    <p id="modalInfo" class="modal-info"></p>
-
-    <!-- КАРУСЕЛЬ -->
-    <div class="carousel-container" id="carouselContainer">
-      <div class="carousel-slide" id="carouselSlide">
-        <img 
-          src="" 
-          alt="Изображение экскурсии" 
-          id="carouselImage" 
-          loading="lazy" />
-      </div>
-      <div class="carousel-controls">
-        <button 
-          type="button" 
-          onclick="prevImage()" 
-          aria-label="Предыдущее изображение">
-          Prev
-        </button>
-        <button 
-          type="button" 
-          onclick="nextImage()" 
-          aria-label="Следующее изображение">
-          Next
-        </button>
-      </div>
-    </div>
-
-    <!-- Форма бронирования -->
-    <form onsubmit="submitForm(event)">
-      <!-- Оборачиваем поле даты + календарь в отдельный блок .date-group -->
-      <div class="form-group date-group">
-        <label>Дата экскурсии:</label>
-        <input type="text" id="dateField" placeholder="Выберите дату" readonly />
-        <!-- Календарь теперь прямо здесь -->
-        <div class="custom-datepicker" id="customCalendar"></div>
-      </div>
-
-      <div class="form-group">
-        <label>Время:</label>
-        <select id="timeField">
-          <option value="12:00" selected>12:00</option>
-          <option value="14:00">14:00</option>
-          <option value="18:00">18:00</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Ваше имя:</label>
-        <input type="text" id="nameField" placeholder="Иван" required />
-      </div>
-      <div class="form-group">
-        <label>Телефон:</label>
-        <input 
-          type="tel" 
-          id="phoneField" 
-          placeholder="+7 (999) 999-99-99" 
-          pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$"
-          required 
-        />
-      </div>
-      <div class="form-group">
-        <label>Количество человек:</label>
-        <div class="people-buttons">
-          <button type="button" onclick="selectPeople(1)">1</button>
-          <button type="button" onclick="selectPeople(2)">2</button>
-          <button type="button" onclick="selectPeople(3)">3</button>
-          <button type="button" onclick="selectPeople(4)">4</button>
-          <button type="button" onclick="selectPeople(5)">5</button>
-          <button type="button" onclick="selectPeople('6+')">6+</button>
+  <!-- МОДАЛЬНОЕ ОКНО -->
+  <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
+    <div class="modal" id="modalContent">
+      <span class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalInfo" class="modal-info"></p>
+      <!-- КАРУСЕЛЬ -->
+      <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-slide" id="carouselSlide">
+          <img src="" alt="Изображение экскурсии" id="carouselImage" loading="lazy" />
         </div>
-        <input type="text" id="peopleField" value="1" hidden />
+        <div class="carousel-controls">
+          <button type="button" onclick="prevImage()" aria-label="Предыдущее изображение">Prev</button>
+          <button type="button" onclick="nextImage()" aria-label="Следующее изображение">Next</button>
+        </div>
       </div>
-
-      <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
-    </form>
+      <!-- Форма бронирования -->
+      <form onsubmit="submitForm(event)">
+        <div class="form-group date-group">
+          <label>Дата экскурсии:</label>
+          <!-- Используем нативный input с type="date" -->
+          <input type="date" id="dateField" required />
+        </div>
+        <div class="form-group">
+          <label>Время:</label>
+          <select id="timeField">
+            <option value="12:00" selected>12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="18:00">18:00</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ваше имя:</label>
+          <input type="text" id="nameField" placeholder="Иван" required />
+        </div>
+        <div class="form-group">
+          <label>Телефон:</label>
+          <input type="tel" id="phoneField" placeholder="+7 (999) 999-99-99" pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$" required />
+        </div>
+        <div class="form-group">
+          <label>Количество человек:</label>
+          <div class="people-buttons">
+            <button type="button" onclick="selectPeople(1)">1</button>
+            <button type="button" onclick="selectPeople(2)">2</button>
+            <button type="button" onclick="selectPeople(3)">3</button>
+            <button type="button" onclick="selectPeople(4)">4</button>
+            <button type="button" onclick="selectPeople(5)">5</button>
+            <button type="button" onclick="selectPeople('6+')">6+</button>
+          </div>
+          <input type="text" id="peopleField" value="1" hidden />
+        </div>
+        <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
+      </form>
+    </div>
   </div>
-</div>
-
-<!-- Подключаем скрипты -->
-<script src="script.js"></script>
+  <!-- Подключаем скрипты -->
+  <script src="script.js"></script>
 </body>
 </html>

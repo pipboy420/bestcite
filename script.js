@@ -24,13 +24,10 @@ function toggleBurgerMenu() {
 /* Анимации при прокрутке */
 window.addEventListener('scroll', revealOnScroll);
 function revealOnScroll() {
-  // Ищем все элементы с классами fade-up, fade-in, slide-up, scale-in
   const revealElems = document.querySelectorAll('.fade-up, .fade-in, .slide-up, .scale-in');
   const windowHeight = window.innerHeight;
-
   revealElems.forEach(el => {
     const rect = el.getBoundingClientRect();
-    // Если верх элемента выше нижней границы окна на 100px => показываем
     if (rect.top < windowHeight - 100) {
       el.classList.add('show');
     }
@@ -68,29 +65,25 @@ function openDetailsModal(title, info, images) {
   currentInfo = info;
   currentImages = images || [];
   currentImageIndex = 0;
-
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalInfo').textContent = info;
-
   if (!images || images.length === 0) {
     document.getElementById('carouselContainer').style.display = 'none';
   } else {
     document.getElementById('carouselContainer').style.display = 'block';
     showImage(0);
   }
-
   resetFormFields();
-  document.getElementById('detailsModal').style.display = 'flex';
+  document.getElementById('detailsModal').classList.add('show');
 }
 
 function closeDetailsModal() {
-  document.getElementById('detailsModal').style.display = 'none';
+  document.getElementById('detailsModal').classList.remove('show');
 }
 
 function showImage(index) {
   if (index < 0) index = currentImages.length - 1;
   if (index >= currentImages.length) index = 0;
-  
   currentImageIndex = index;
   const imageElem = document.getElementById('carouselImage');
   imageElem.src = currentImages[currentImageIndex];
@@ -103,7 +96,6 @@ function prevImage() {
   showImage(currentImageIndex - 1);
 }
 
-// Клик по изображению => следующее фото
 const carouselImage = document.getElementById('carouselImage');
 if (carouselImage) {
   carouselImage.addEventListener('click', () => {
@@ -113,12 +105,12 @@ if (carouselImage) {
 
 /* ФОРМА БРОНИРОВАНИЯ */
 function resetFormFields() {
+  // Для нативного date input достаточно сбросить значение
   document.getElementById('dateField').value = '';
   document.getElementById('timeField').value = '12:00';
   document.getElementById('nameField').value = '';
   document.getElementById('phoneField').value = '';
   document.getElementById('peopleField').value = '1';
-
   const buttons = document.querySelectorAll('.people-buttons button');
   buttons.forEach((btn, index) => {
     btn.classList.remove('active');
@@ -153,245 +145,28 @@ function submitForm(e) {
   closeDetailsModal();
 }
 
-/* КАСТОМНЫЙ КАЛЕНДАРЬ */
-let currentCalendarDate = new Date();
-let selectedDate = null;
-
-function initCustomCalendar() {
-  const calendarEl = document.getElementById('customCalendar');
-  calendarEl.innerHTML = ''; 
-
-  // Шапка
-  const header = document.createElement('div');
-  header.className = 'custom-calendar-header';
-
-  const prevBtn = document.createElement('button');
-  prevBtn.textContent = '<';
-  prevBtn.onclick = () => {
-    currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
-    initCustomCalendar();
-  };
-
-  const nextBtn = document.createElement('button');
-  nextBtn.textContent = '>';
-  nextBtn.onclick = () => {
-    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
-    initCustomCalendar();
-  };
-
-  const title = document.createElement('div');
-  const monthNames = [
-    'Январь','Февраль','Март','Апрель','Май','Июнь',
-    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'
-  ];
-  title.textContent = `${monthNames[currentCalendarDate.getMonth()]} ${currentCalendarDate.getFullYear()}`;
-
-  header.appendChild(prevBtn);
-  header.appendChild(title);
-  header.appendChild(nextBtn);
-  calendarEl.appendChild(header);
-
-  // Дни недели
-  const daysWrapper = document.createElement('div');
-  daysWrapper.className = 'custom-calendar-days';
-  
-  const weekdays = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-  weekdays.forEach(wd => {
-    const wdEl = document.createElement('div');
-    wdEl.className = 'custom-calendar-day weekday';
-    wdEl.textContent = wd;
-    daysWrapper.appendChild(wdEl);
-  });
-
-  const year = currentCalendarDate.getFullYear();
-  const month = currentCalendarDate.getMonth();
-  const firstDayOfMonth = new Date(year, month, 1);
-  const dayOfWeek = (firstDayOfMonth.getDay() + 6) % 7; // Пн=0
-  const lastDayCurrentMonth = new Date(year, month+1, 0).getDate();
-  const lastDayPrevMonth = new Date(year, month, 0).getDate();
-
-  // Пустые дни предыдущего месяца
-  for (let i = 0; i < dayOfWeek; i++) {
-    const dEl = document.createElement('div');
-    dEl.className = 'custom-calendar-day other-month';
-    const dayNum = lastDayPrevMonth - dayOfWeek + i + 1;
-    dEl.textContent = dayNum;
-    daysWrapper.appendChild(dEl);
-  }
-
-  // Дни текущего месяца
-  for (let day = 1; day <= lastDayCurrentMonth; day++) {
-    const dEl = document.createElement('div');
-    dEl.className = 'custom-calendar-day';
-    dEl.textContent = day;
-
-    const tempDate = new Date(year, month, day);
-
-    // сегодня
-    const today = new Date();
-    if (tempDate.toDateString() === today.toDateString()) {
-      dEl.classList.add('today');
-    }
-    // выбранная
-    if (selectedDate && tempDate.toDateString() === selectedDate.toDateString()) {
-      dEl.classList.add('selected');
-    }
-
-    dEl.onclick = () => {
-      selectedDate = tempDate;
-      document.getElementById('dateField').value = formatDate(selectedDate);
-      toggleCalendar(false);
-    };
-
-    daysWrapper.appendChild(dEl);
-  }
-
-  calendarEl.appendChild(daysWrapper);
-}
-
-// Формат: DD.MM.YYYY
-function formatDate(date) {
-  const dd = String(date.getDate()).padStart(2,'0');
-  const mm = String(date.getMonth()+1).padStart(2,'0');
-  const yyyy = date.getFullYear();
-  return `${dd}.${mm}.${yyyy}`;
-}
-
-function toggleCalendar(show = true) {
-  const cal = document.getElementById('customCalendar');
-  const isMobile = window.innerWidth <= 768;
-
-  if (show) {
-    initCustomCalendar();
-    if (!isMobile) {
-      // Десктоп: плавная анимация появления
-      cal.style.display = 'block';
-      cal.style.opacity = 0;
-      setTimeout(() => {
-        cal.style.opacity = 1;
-        cal.style.transition = 'opacity 0.3s';
-      }, 10);
-    } else {
-      // Мобильный: просто показываем
-      cal.style.display = 'block';
-      cal.style.opacity = 1;
-      cal.style.transition = 'none';
-    }
-  } else {
-    if (!isMobile) {
-      // Десктоп: плавное исчезновение
-      cal.style.opacity = 0;
-      setTimeout(() => {
-        cal.style.display = 'none';
-      }, 300);
-    } else {
-      // Мобильный: убираем сразу
-      cal.style.display = 'none';
-      cal.style.opacity = 1;
-    }
-  }
-}
-function toggleCalendar(show = true) {
-  const cal = document.getElementById('customCalendar');
-
-  if (show) {
-    initCustomCalendar();
-    cal.style.display = 'block';
-    // Плавное появление
-    setTimeout(() => {
-      cal.style.opacity = 1;
-      cal.style.transition = 'opacity 0.3s';
-    }, 10);
-  } else {
-    // Плавное скрытие
-    cal.style.opacity = 0;
-    setTimeout(() => {
-      cal.style.display = 'none';
-    }, 300);
-  }
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  // При клике/фокусе на поле даты – показываем календарь
-  const dateField = document.getElementById('dateField');
-  if (dateField) {
-    dateField.addEventListener('focus', () => {
-      toggleCalendar(true);
-    });
-    dateField.addEventListener('click', () => {
-      toggleCalendar(true);
-    });
-  }
-});
-function openDetailsModal(title, info, images) {
-  currentTitle = title;
-  currentInfo = info;
-  currentImages = images || [];
-  currentImageIndex = 0;
-
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalInfo').textContent = info;
-
-  if (!images || images.length === 0) {
-    document.getElementById('carouselContainer').style.display = 'none';
-  } else {
-    document.getElementById('carouselContainer').style.display = 'block';
-    showImage(0);
-  }
-
-  resetFormFields();
-  document.getElementById('detailsModal').classList.add('show'); // Добавляет анимацию
-}
-
-function closeDetailsModal() {
-  document.getElementById('detailsModal').classList.remove('show'); // Закрывает с анимацией
-}
 document.addEventListener("DOMContentLoaded", function () {
-    const modalOverlay = document.getElementById("detailsModal");
-    const modal = document.querySelector(".modal");
-    const closeButton = document.querySelector(".close-modal");
-
-    // Открытие модального окна
-    function openModal() {
-        modalOverlay.classList.add("show");
-        document.body.style.overflow = "hidden"; // Запрещаем скролл страницы
-        setTimeout(() => document.getElementById("nameField")?.focus(), 300); // Автофокус на поле ввода
-    }
-
-    // Закрытие модального окна
-    function closeModal() {
-        modalOverlay.classList.remove("show");
-        document.body.style.overflow = "auto"; // Включаем прокрутку страницы
-    }
-
-    // Закрытие по клику вне окна
-    modalOverlay.addEventListener("click", (event) => {
-        if (event.target === modalOverlay) closeModal();
-    });
-
-    // Закрытие по кнопке "ESC"
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeModal();
-    });
-
-    // Закрытие по кнопке "Закрыть"
-    closeButton.addEventListener("click", closeModal);
-
-    // Добавляем поддержку свайпов на мобильных (закрытие вниз)
-    let touchStartY = 0;
-    let touchEndY = 0;
-
+  const modalOverlay = document.getElementById("detailsModal");
+  const modal = document.querySelector(".modal");
+  const closeButton = document.querySelector(".close-modal");
+  modalOverlay.addEventListener("click", (event) => {
+    if (event.target === modalOverlay) closeDetailsModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeDetailsModal();
+  });
+  if (closeButton) {
+    closeButton.addEventListener("click", closeDetailsModal);
+  }
+  let touchStartY = 0;
+  let touchEndY = 0;
+  if (modal) {
     modal.addEventListener("touchstart", (e) => {
-        touchStartY = e.changedTouches[0].screenY;
+      touchStartY = e.changedTouches[0].screenY;
     });
-
     modal.addEventListener("touchend", (e) => {
-        touchEndY = e.changedTouches[0].screenY;
-        if (touchEndY > touchStartY + 50) closeModal(); // Если свайп вниз
+      touchEndY = e.changedTouches[0].screenY;
+      if (touchEndY > touchStartY + 50) closeDetailsModal();
     });
-
-    // Экспорт функций
-    window.openModal = openModal;
-    window.closeModal = closeModal;
+  }
 });

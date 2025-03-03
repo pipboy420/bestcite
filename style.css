@@ -40,7 +40,7 @@ label {
   height: 46px;
   cursor: pointer;
   font-size: 1.2rem;
-  display: none; /* скрыта по умолчанию */
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 10000;
@@ -68,16 +68,16 @@ header {
 .logo {
   font-weight: 700;
   font-size: 1.4rem;
-  color: #1565C0; /* фирменный глубокий синий */
+  color: #1565C0;
   cursor: pointer;
 }
 .burger {
   font-size: 1.4rem;
-  display: none; /* скрыт на десктопе */
+  display: none;
   cursor: pointer;
 }
 nav {
-  position: relative; /* чтобы псевдоэлементы отображались корректно */
+  position: relative;
 }
 nav ul {
   display: flex;
@@ -108,7 +108,7 @@ nav a:hover::after {
 
 /* Кнопка общего CTA */
 .cta-btn {
-  background-color: #E67E22; /* акцентный оранжевый */
+  background-color: #E67E22;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -145,13 +145,13 @@ nav a:hover::after {
   width: 200%;
 }
 .fancy-btn:hover {
-  color: #fff; 
-  transform: scale(1.05); /* лёгкое увеличение при наведении */
+  color: #fff;
+  transform: scale(1.05);
 }
 
-/* HERO (параллакс на десктопе) */
+/* HERO */
 .hero {
-  min-height: 80vh;
+  min-height: 30vh;
   background: url('images/background.png') center/cover no-repeat fixed;
   position: relative;
   display: flex;
@@ -173,7 +173,7 @@ nav a:hover::after {
 .hero-content {
   position: relative;
   z-index: 1;
-  color: #fff; 
+  color: #fff;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -192,7 +192,7 @@ nav a:hover::after {
 .tours-section h2 {
   font-size: 1.8rem;
   margin-bottom: 40px;
-  font-weight: 700; /* более жирный заголовок */
+  font-weight: 700;
 }
 .tours-container {
   display: grid;
@@ -200,23 +200,24 @@ nav a:hover::after {
   gap: 20px;
 }
 .tour-card {
-  background-color: #fafafa;
-  border-radius: 8px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
   overflow: hidden;
-  border: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease-in-out;
 }
 .tour-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .tour-image {
-  height: 180px;
-  background-color: #ccc;
+  width: 100%;
+  height: 300px;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .tour-content {
   padding: 20px;
@@ -226,7 +227,7 @@ nav a:hover::after {
   justify-content: space-between;
 }
 .tour-title {
-  font-weight: 700; /* более жирный */
+  font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
@@ -234,15 +235,15 @@ nav a:hover::after {
   font-size: 0.95rem;
   margin-bottom: 15px;
   line-height: 1.4;
-  font-weight: 300; /* более тонкий */
+  font-weight: 300;
 }
 .tour-price {
   margin-bottom: 15px;
   font-weight: 600;
-  color: #1565C0; /* синий */
+  color: #1565C0;
 }
 .tour-btn {
-  background-color: #1565C0; /* основной синий */
+  background-color: #1565C0;
   color: #fff;
   padding: 10px 18px;
   border: none;
@@ -357,7 +358,7 @@ nav a:hover::after {
   background-color: #ccc;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* параллакс на десктопе */
+  background-attachment: fixed;
   border-radius: 8px;
   transition: transform 0.3s;
 }
@@ -447,40 +448,54 @@ footer {
 /* Модальное окно */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100vh;
-  background: rgba(0,0,0,0.5);
-  display: none; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.modal-overlay.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 .modal {
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.95);
   width: 90%;
-  max-width: 500px;
+  max-width: 700px;
+  max-height: 80vh;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 16px;
   position: relative;
+  transform: translateY(-20px) scale(0.9);
+  transition: transform 0.3s ease-out;
+  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+.modal-overlay.show .modal {
+  transform: translateY(0) scale(1);
 }
 .close-modal {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #555;
   cursor: pointer;
-  font-size: 24px;
-  color: #999;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 .close-modal:hover {
-  color: #333;
-}
-.modal h3 {
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-.modal-info {
-  margin-bottom: 20px;
-  white-space: pre-line;
+  color: #000;
+  transform: rotate(90deg);
 }
 
 /* Карусель */
@@ -491,7 +506,7 @@ footer {
   text-align: center;
   margin-bottom: 10px;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 }
 .carousel-slide img {
   max-width: 100%;
@@ -501,21 +516,7 @@ footer {
   cursor: pointer;
 }
 .carousel-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-.carousel-controls button {
-  padding: 8px 16px;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-.carousel-controls button:hover {
-  background-color: #ddd;
+  display: none;
 }
 
 /* Форма в модалке */
@@ -527,7 +528,8 @@ footer {
 }
 .form-group input[type="text"],
 .form-group input[type="tel"],
-.form-group select {
+.form-group select,
+.form-group input[type="date"] {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -562,136 +564,14 @@ footer {
   opacity: 0.85;
 }
 
-/* Календарь (Datepicker) — десктоп */
-.custom-datepicker {
-  position: absolute;
-  top: 440px; 
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 280px;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  display: none; 
-  z-index: 10001; 
-  opacity: 0; 
-}
-.custom-calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.custom-calendar-header button {
-  background: #eee;
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.custom-calendar-header button:hover {
-  background: #ddd;
-}
-.custom-calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-}
-.custom-calendar-day {
-  text-align: center;
-  padding: 6px 0;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.custom-calendar-day:hover {
-  background: #f0f0f0;
-}
-.custom-calendar-day.other-month {
-  color: #aaa;
-}
-.custom-calendar-day.today {
-  border: 1px solid #1565C0;
-  font-weight: 600;
-}
-.custom-calendar-day.selected {
-  background: #1565C0;
-  color: #fff;
-}
-.custom-calendar-day.weekday {
-  font-weight: 600;
-  background: #f9f9f9;
-}
-/* ... ваш общий CSS (кнопки, анимации, и т.д.) ... */
-
-/* 
-   Блок с датой + календарём
-   Делаем .date-group позиционируемым, 
-   чтобы вложенный .custom-datepicker мог быть позиционирован ниже поля.
-*/
-.date-group {
-  position: relative; /* ключевой момент */
-}
-
-/* Теперь календарь абсолютно позиционируется относительно .date-group */
-.custom-datepicker {
-  position: absolute;
-  top: calc(100% + 4px); /* появляется ровно под инпутом, с зазором 4px */
-  left: 0;
-  z-index: 1002;         /* выше прочего контента формы */
-  width: 280px;          /* или auto/100% — по желанию */
-  padding: 10px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-
-  display: none; 
-  opacity: 0; 
-  transition: opacity 0.3s;
-}
-
-/* 
-   Удаляем старые правила вида:
-   top: 440px; left: 50%; transform: translateX(-50%);
-   из .custom-datepicker 
-   и переносим всё в этот новый вариант 
-*/
-
-/* Для мобильных можно расширить календарь на всю ширину поля: */
+/* Мобильная верстка */
 @media (max-width: 768px) {
-  .custom-datepicker {
-    width: 100%; /* календарь растянется под инпут */
-    max-width: 340px; /* или убираем ограничение, если нужно */
-  }
-}
-
-/* Анимации при прокрутке */
-.fade-up, .fade-in, .slide-up, .scale-in {
-  opacity: 0;
-  transition: all 0.8s ease;
-  transform: translateY(30px);
-}
-.scale-in {
-  transform: scale(0.9);
-}
-.fade-up.show, .fade-in.show, .slide-up.show, .scale-in.show {
-  opacity: 1;
-  transform: none;
-}
-
-/* Мобильная верстка (до 768px) */
-@media (max-width: 768px) {
-  /* Отключаем параллакс */
   .hero {
     background-attachment: scroll;
   }
   .about-img {
     background-attachment: scroll;
   }
-
-  /* Бургер-меню становится видимым */
   .burger {
     display: block;
   }
@@ -713,8 +593,6 @@ footer {
     gap: 10px;
     padding: 20px;
   }
-
-  /* Модальное окно как bottom-sheet */
   .modal {
     width: 100%;
     max-width: 100%;
@@ -733,233 +611,13 @@ footer {
     top: 15px;
     right: 20px;
   }
-
-  /* Календарь статичен под полем даты */
-  .custom-datepicker {
-    position: static;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin-top: 8px;
-    width: 100%;
-    max-width: 340px;
-    opacity: 1;
-    display: none; /* по умолчанию скрыто, пока не кликнем */
-  }
-}
-
-/* При ещё более узких экранах (до 480px) — пример доп. правок */
-@media (max-width: 480px) {
-  body {
-    line-height: 1.7;
-    padding: 0 10px;
-  }
-  h1, h2, h3 {
-    line-height: 1.3;
-  }
-}
-/* ================
-   Глобальные стили
-================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #fff;
-  color: #333;
-  line-height: 1.6;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-ul {
-  list-style: none;
-}
-img {
-  max-width: 100%;
-  display: block;
-}
-label {
-  font-weight: 500;
-}
-
-/* ================
-   Глобальные стили
-================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #fff;
-  color: #333;
-  line-height: 1.6;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-ul {
-  list-style: none;
-}
-img {
-  max-width: 100%;
-  display: block;
-}
-label {
-  font-weight: 500;
-}
-
-/* HERO (параллакс на десктопе) */
-.hero {
-  min-height: 30vh; /* уменьшено ещё сильнее */
-  background: #f0f0f0; /* Однородный фон вместо изображения */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 15px;
-}
-.hero-overlay {
-  position: absolute;
-  top: 0; 
-  right: 0; 
-  bottom: 0; 
-  left: 0;
-  background: rgba(0, 0, 0, 0.15); /* ещё меньше затемнения */
-  z-index: 0;
-}
-.hero-content {
-  position: relative;
-  z-index: 1;
-  color: #fff; 
-  max-width: 500px; /* уменьшено */
-  margin: 0 auto;
-}
-.hero-content h1 {
-  font-size: 1.8rem; /* уменьшен заголовок */
-}
-.hero-content p {
-  font-size: 1rem; /* уменьшен текст */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-}
-/* МОДАЛЬНОЕ ОКНО – СТИЛЬНЫЙ ДИЗАЙН */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  backdrop-filter: blur(8px); /* Эффект стекла */
-}
-
-.modal {
-  background: rgba(255, 255, 255, 0.95); /* Легкая прозрачность */
-  width: 90%;
-  max-width: 700px;
-  max-height: 80vh;
-  padding: 30px;
-  border-radius: 16px;
-  position: relative;
-  transform: translateY(-20px) scale(0.9);
-  transition: transform 0.3s ease-out;
-  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.2);
-  overflow-y: auto;
-}
-
-.modal-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-overlay.show .modal {
-  transform: translateY(0) scale(1);
-}
-
-/* КНОПКА ЗАКРЫТИЯ */
-.close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: transparent;
-  border: none;
-  font-size: 22px;
-  color: #555;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.close-modal:hover {
-  color: #000;
-  transform: rotate(90deg);
-}
-
-/* КНОПКИ ДЕЙСТВИЙ */
-.modal .modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.modal .modal-buttons button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.modal .modal-buttons .cancel {
-  background: #ddd;
-  color: #333;
-}
-
-.modal .modal-buttons .cancel:hover {
-  background: #bbb;
-}
-
-.modal .modal-buttons .confirm {
-  background: #007BFF;
-  color: white;
-}
-
-.modal .modal-buttons .confirm:hover {
-  background: #0056b3;
-}
-
-/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ */
-@media (max-width: 768px) {
-  .modal-overlay {
-    align-items: flex-end;
-  }
-  
-  .modal {
-    width: 100%;
-    max-width: 100%;
-    height: 65vh;
-    border-radius: 16px 16px 0 0;
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .modal-overlay.show .modal {
-    transform: translateY(0);
+  @media (max-width: 480px) {
+    body {
+      line-height: 1.7;
+      padding: 0 10px;
+    }
+    h1, h2, h3 {
+      line-height: 1.3;
+    }
   }
 }
