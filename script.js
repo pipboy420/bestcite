@@ -4,6 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", revealOnScroll);
   window.addEventListener("scroll", checkScrollTop);
 
+  // Закрытие бургер-меню при клике вне его
+  document.addEventListener("click", function(event) {
+    const nav = document.getElementById("mainNav");
+    const burger = document.getElementById("burgerBtn");
+    if (nav.classList.contains("open") &&
+        !nav.contains(event.target) &&
+        event.target !== burger) {
+      nav.classList.remove("open");
+    }
+  });
+
   // Закрытие модального окна при клике вне его и при нажатии Escape
   const modalOverlay = document.getElementById("detailsModal");
   const modal = document.querySelector(".modal");
@@ -30,10 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Добавляем обработку свайпа по горизонтали для карусели
+  // Обработка свайпа по горизонтали для карусели
   let carouselTouchStartX = 0, carouselTouchEndX = 0;
   const carouselImageElem = document.getElementById("carouselImage");
   if (carouselImageElem) {
+    // Для мобильных свайпов
     carouselImageElem.addEventListener("touchstart", (e) => {
       carouselTouchStartX = e.changedTouches[0].screenX;
     });
@@ -41,6 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
       carouselTouchEndX = e.changedTouches[0].screenX;
       handleCarouselSwipe();
     });
+    // Для десктопа: переключение по клику
+    carouselImageElem.addEventListener("click", nextImage);
   }
   function handleCarouselSwipe() {
     const diff = carouselTouchStartX - carouselTouchEndX;
@@ -106,7 +120,7 @@ let currentImageIndex = 0;
 let currentTitle = "";
 let currentInfo = "";
 
-// Открытие модального окна с данными и каруселью
+// Открытие модального окна с данными и каруселью / bottom sheet
 function openDetailsModal(title, info, images = []) {
   currentTitle = title;
   currentInfo = info;
