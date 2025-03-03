@@ -48,8 +48,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Откройте Санкт-Петербург заново!</h1>
-      <p>Уникальные экскурсии от профессиональных гидов с многолетним опытом.  
-         Ощутите красоту Северной столицы по-новому!</p>
+      <p>Уникальные экскурсии от профессиональных гидов с многолетним опытом. Ощутите красоту Северной столицы по-новому!</p>
       <div class="hero-btns">
         <button class="cta-btn fancy-btn" onclick="openDetailsModal('Быстрая бронь', 'Заполните форму, мы свяжемся!', [])" aria-label="Забронировать сейчас">
           Забронировать сейчас
@@ -77,11 +76,7 @@
             <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Речная прогулка по каналам',
                 'Маршрут: Невский пр., река Мойка, канал Грибоедова.\\nДлительность ~1,5 часа.\\nУзнайте удивительные истории о городе!',
-                [
-                  'images/image1.jpeg',
-                  'images/image2.jpeg',
-                  'images/image3.jpeg'
-                ]
+                ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
               )" aria-label="Подробнее о речной прогулке по каналам">
               Подробнее
             </button>
@@ -101,10 +96,7 @@
             <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Ночной развод мостов',
                 'Старт в 00:30, длительность ~2 часа, объезд главных мостов.\\nНочная подсветка и романтика!',
-                [
-                  'images/image1.jpeg',
-                  'images/image2.jpeg'
-                ]
+                ['images/image1.jpeg', 'images/image2.jpeg']
               )" aria-label="Подробнее о ночном разводе мостов">
               Подробнее
             </button>
@@ -124,11 +116,7 @@
             <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Дворцовый Петербург',
                 'Зимний дворец, Михайловский дворец, особняки на набережной.\\nИстории о жизни царской семьи!',
-                [
-                  'images/image1.jpeg',
-                  'images/image2.jpeg',
-                  'images/image3.jpeg'
-                ]
+                ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
               )" aria-label="Подробнее о дворцовом Петербурге">
               Подробнее
             </button>
@@ -184,9 +172,7 @@
     <div class="about-img" style="background-image: url('images/spb-team.jpeg');"></div>
     <div class="about-text">
       <h2>О компании</h2>
-      <p>Наша экскурсионная компания уже более 10 лет помогает гостям и жителям Санкт-Петербурга 
-         открывать уникальные грани Северной столицы. Мы гордимся своими опытными гидами 
-         и комфортным транспортом.</p>
+      <p>Наша экскурсионная компания уже более 10 лет помогает гостям и жителям Санкт-Петербурга открывать уникальные грани Северной столицы. Мы гордимся своими опытными гидами и комфортным транспортом.</p>
       <p>Тысячи довольных туристов доверили нам показать самые красивые и значимые места города. Присоединяйтесь!</p>
     </div>
   </section>
@@ -232,7 +218,7 @@
   <!-- МОДАЛЬНОЕ ОКНО -->
   <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
     <div class="modal" id="modalContent">
-      <span class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</span>
+      <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
       <h3 id="modalTitle"></h3>
       <p id="modalInfo" class="modal-info"></p>
       <!-- КАРУСЕЛЬ -->
@@ -249,7 +235,6 @@
       <form onsubmit="submitForm(event)">
         <div class="form-group date-group">
           <label>Дата экскурсии:</label>
-          <!-- Используем нативный input с type="date" -->
           <input type="date" id="dateField" required />
         </div>
         <div class="form-group">
