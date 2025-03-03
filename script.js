@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Закрытие модального окна при клике вне его и при нажатии Escape
+  // Закрытие модального окна деталей при клике вне его и при нажатии Escape
   const modalOverlay = document.getElementById("detailsModal");
   const modal = document.querySelector(".modal");
   const closeButton = document.querySelector(".close-modal");
@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (event.target === modalOverlay) closeDetailsModal();
   });
   document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") closeDetailsModal();
+    if (event.key === "Escape") {
+      closeDetailsModal();
+      closeBookingModal();
+    }
   });
   if (closeButton) {
     closeButton.addEventListener("click", closeDetailsModal);
@@ -113,14 +116,14 @@ function toggleBurgerMenu() {
   nav.classList.toggle("open");
 }
 
-// --- МОДАЛЬНОЕ ОКНО и КАРУСЕЛЬ ---
+// --- МОДАЛЬНОЕ ОКНО и КАРУСЕЛЬ для деталей экскурсии ---
 
 let currentImages = [];
 let currentImageIndex = 0;
 let currentTitle = "";
 let currentInfo = "";
 
-// Открытие модального окна с данными и каруселью / bottom sheet
+// Открытие модального окна деталей экскурсии с данными и каруселью / bottom sheet
 function openDetailsModal(title, info, images = []) {
   currentTitle = title;
   currentInfo = info;
@@ -134,12 +137,28 @@ function openDetailsModal(title, info, images = []) {
   } else {
     document.getElementById("carouselContainer").style.display = "none";
   }
-  resetFormFields();
+  // Настраиваем кнопку действия в модальном окне деталей
+  const modalBookingBtn = document.getElementById("modalBookingActionBtn");
+  if (modalBookingBtn) {
+    if (window.innerWidth >= 769) {
+      modalBookingBtn.textContent = "КОНТАКТЫ";
+      modalBookingBtn.onclick = function() {
+        closeDetailsModal();
+        scrollToSection('contacts');
+      };
+    } else {
+      modalBookingBtn.textContent = "Забронировать";
+      modalBookingBtn.onclick = function() {
+        closeDetailsModal();
+        openBookingModal(currentTitle);
+      };
+    }
+  }
   document.getElementById("detailsModal").classList.add("show");
   document.body.style.overflow = "hidden";
 }
 
-// Закрытие модального окна
+// Закрытие модального окна деталей
 function closeDetailsModal() {
   document.getElementById("detailsModal").classList.remove("show");
   document.body.style.overflow = "";
@@ -182,25 +201,37 @@ function updateCarouselDots() {
   }
 }
 
-// Обработка формы бронирования
-function resetFormFields() {
-  document.getElementById("dateField").value = "";
-  document.getElementById("timeField").value = "12:00";
-  document.getElementById("nameField").value = "";
-  document.getElementById("phoneField").value = "";
-  document.getElementById("peopleField").value = "1";
-  document.querySelectorAll(".people-buttons button").forEach((btn, i) => {
-    if (i === 0) {
-      btn.classList.add("active");
-    } else {
-      btn.classList.remove("active");
-    }
-  });
+// --- МОДАЛЬНОЕ ОКНО для бронирования ---
+
+// Открытие модального окна бронирования
+function openBookingModal(preselectedTour) {
+  if (preselectedTour) {
+    document.getElementById("tourSelect").value = preselectedTour;
+  } else {
+    document.getElementById("tourSelect").value = "";
+  }
+  document.getElementById("bookingModal").classList.add("show");
+  document.body.style.overflow = "hidden";
 }
 
-function selectPeople(value) {
-  document.getElementById("peopleField").value = value;
-  document.querySelectorAll(".people-buttons button").forEach((btn) => {
+// Закрытие окна бронирования
+function closeBookingModal() {
+  document.getElementById("bookingModal").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+// Закрытие бронирования при клике по оверлею
+function bookingOverlayClick(e) {
+  const overlay = document.getElementById("bookingModal");
+  if (e.target === overlay) {
+    closeBookingModal();
+  }
+}
+
+// Обработка выбора количества человек в бронировании
+function selectBookingPeople(value) {
+  document.getElementById("bookingPeopleField").value = value;
+  document.querySelectorAll("#bookingModal .people-buttons button").forEach((btn) => {
     if (btn.textContent.trim() === String(value)) {
       btn.classList.add("active");
     } else {
@@ -209,27 +240,30 @@ function selectPeople(value) {
   });
 }
 
-function submitForm(e) {
+// Обработка отправки формы бронирования
+function submitBookingForm(e) {
   e.preventDefault();
+  const tour = document.getElementById("tourSelect").value;
+  const date = document.getElementById("bookingDateField").value;
+  const time = document.getElementById("bookingTimeField").value;
+  const name = document.getElementById("bookingNameField").value;
+  const phone = document.getElementById("bookingPhoneField").value;
+  const people = document.getElementById("bookingPeopleField").value;
+  
   alert(
     "Заявка отправлена!\n\n" +
-    "Экскурсия: " + currentTitle + "\n" +
-    "Дата: " + document.getElementById("dateField").value + "\n" +
-    "Время: " + document.getElementById("timeField").value + "\n" +
-    "Имя: " + document.getElementById("nameField").value + "\n" +
-    "Телефон: " + document.getElementById("phoneField").value + "\n" +
-    "Кол-во человек: " + document.getElementById("peopleField").value
+    "Экскурсия: " + tour + "\n" +
+    "Дата: " + date + "\n" +
+    "Время: " + time + "\n" +
+    "Имя: " + name + "\n" +
+    "Телефон: " + phone + "\n" +
+    "Кол-во человек: " + people
   );
-  closeDetailsModal();
+  closeBookingModal();
 }
 
-// Привязываем отправку формы
-document.querySelector("form").addEventListener("submit", submitForm);
-
-// Функция закрытия модалки при клике по оверлею
-function overlayClick(e) {
-  const overlay = document.getElementById("detailsModal");
-  if (e.target === overlay) {
-    closeDetailsModal();
-  }
+// Привязываем отправку формы бронирования
+const bookingForm = document.querySelector("#bookingModal form");
+if (bookingForm) {
+  bookingForm.addEventListener("submit", submitBookingForm);
 }

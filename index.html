@@ -19,7 +19,7 @@
   <meta name="twitter:image" content="images/spb-team.jpeg">
   <!-- Шрифт -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <!-- Подключаем CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -41,20 +41,22 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
+    <!-- Кнопка "Забронировать" убрана из хедера согласно требованию -->
   </header>
   <div class="header-offset"></div>
   <!-- HERO -->
   <section class="hero fade-up" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Откройте Санкт-Петербург заново!</h1>
-      <p>Уникальные экскурсии от профессиональных гидов с многолетним опытом. Ощутите красоту Северной столицы по-новому!</p>
+      <!-- Обновлённый текст и шрифт (см. CSS) -->
+      <h1>Это SPb Inside</h1>
+      <p>Мы уже более 9 лет проводим экскурсии с любовью к Петербургу и к Вам!</p>
       <div class="hero-btns">
-        <button class="cta-btn fancy-btn" onclick="openDetailsModal('Быстрая бронь', 'Заполните форму, мы свяжемся!', [])" aria-label="Забронировать сейчас">
+        <button class="cta-btn fancy-btn" onclick="openBookingModal()" aria-label="Забронировать сейчас">
           Забронировать сейчас
         </button>
-        <button class="cta-btn fancy-btn" onclick="scrollToSection('tours')" aria-label="Узнать подробнее об экскурсиях">
-          Телеграм канал
+        <button class="cta-btn fancy-btn" onclick="scrollToSection('why-us')" aria-label="О нас">
+          О НАС
         </button>
       </div>
     </div>
@@ -126,7 +128,7 @@
     </div>
   </section>
   <!-- "ПОЧЕМУ ВЫБИРАЮТ НАС" -->
-  <section class="why-us slide-up">
+  <section class="why-us slide-up" id="why-us">
     <div class="why-us-container">
       <h2>Почему выбирают нас</h2>
       <div class="benefits">
@@ -215,10 +217,10 @@
       </div>
     </div>
   </footer>
-  <!-- МОДАЛЬНОЕ ОКНО / BOTTOM SHEET -->
+  <!-- МОДАЛЬНОЕ ОКНО / DETAILS (только детали экскурсии) -->
   <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
     <div class="modal" id="modalContent">
-      <!-- Ручка для bottom sheet (видна на мобильных) -->
+      <!-- Ручка для bottom sheet (видна на десктопе, но далее не используется в booking modal) -->
       <div class="sheet-handle"></div>
       <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
       <h3 id="modalTitle"></h3>
@@ -235,15 +237,35 @@
         <!-- Индикаторы точек -->
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
-      <!-- Форма бронирования -->
-      <form onsubmit="submitForm(event)">
+      <!-- Новая кнопка для перехода в окно бронирования / контактов -->
+      <div class="modal-action">
+        <button id="modalBookingActionBtn" class="fancy-btn modal-booking-btn">Забронировать</button>
+      </div>
+    </div>
+  </div>
+  <!-- Модальное окно для бронирования -->
+  <div class="modal-overlay" id="bookingModal" onclick="bookingOverlayClick(event)">
+    <div class="modal" id="bookingModalContent">
+      <!-- Для booking modal на мобильной версии ручка убрана (см. CSS) -->
+      <button class="close-modal" onclick="closeBookingModal()" aria-label="Закрыть окно">×</button>
+      <h3>Бронирование</h3>
+      <form onsubmit="submitBookingForm(event)">
+        <div class="form-group">
+          <label>Выберите экскурсию:</label>
+          <select id="tourSelect" required>
+            <option value="">Выберите экскурсию</option>
+            <option value="Речная прогулка по каналам">Речная прогулка по каналам</option>
+            <option value="Ночной развод мостов">Ночной развод мостов</option>
+            <option value="Дворцовый Петербург">Дворцовый Петербург</option>
+          </select>
+        </div>
         <div class="form-group date-group">
           <label>Дата экскурсии:</label>
-          <input type="date" id="dateField" required />
+          <input type="date" id="bookingDateField" required />
         </div>
         <div class="form-group">
           <label>Время:</label>
-          <select id="timeField">
+          <select id="bookingTimeField">
             <option value="12:00" selected>12:00</option>
             <option value="14:00">14:00</option>
             <option value="18:00">18:00</option>
@@ -251,23 +273,23 @@
         </div>
         <div class="form-group">
           <label>Ваше имя:</label>
-          <input type="text" id="nameField" placeholder="Иван" required />
+          <input type="text" id="bookingNameField" placeholder="Иван" required />
         </div>
         <div class="form-group">
           <label>Телефон:</label>
-          <input type="tel" id="phoneField" placeholder="+7 (999) 999-99-99" pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$" required />
+          <input type="tel" id="bookingPhoneField" placeholder="+7 (999) 999-99-99" pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$" required />
         </div>
         <div class="form-group">
           <label>Количество человек:</label>
           <div class="people-buttons">
-            <button type="button" onclick="selectPeople(1)">1</button>
-            <button type="button" onclick="selectPeople(2)">2</button>
-            <button type="button" onclick="selectPeople(3)">3</button>
-            <button type="button" onclick="selectPeople(4)">4</button>
-            <button type="button" onclick="selectPeople(5)">5</button>
-            <button type="button" onclick="selectPeople('6+')">6+</button>
+            <button type="button" onclick="selectBookingPeople(1)">1</button>
+            <button type="button" onclick="selectBookingPeople(2)">2</button>
+            <button type="button" onclick="selectBookingPeople(3)">3</button>
+            <button type="button" onclick="selectBookingPeople(4)">4</button>
+            <button type="button" onclick="selectBookingPeople(5)">5</button>
+            <button type="button" onclick="selectBookingPeople('6+')">6+</button>
           </div>
-          <input type="text" id="peopleField" value="1" hidden />
+          <input type="text" id="bookingPeopleField" value="1" hidden />
         </div>
         <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
       </form>
