@@ -44,7 +44,7 @@
   </header>
   <div class="header-offset"></div>
   <!-- HERO -->
-  <section class="hero slide-up" id="hero">
+  <section class="hero fade-up" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Откройте Санкт-Петербург заново!</h1>
@@ -64,7 +64,7 @@
     <h2>Популярные экскурсии</h2>
     <div class="tours-container">
       <!-- Экскурсия №1 -->
-      <div class="tour-card">
+      <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/image1.jpeg');" role="img" aria-label="Речная прогулка по каналам"></div>
         <div class="tour-content">
           <div>
@@ -84,7 +84,7 @@
         </div>
       </div>
       <!-- Экскурсия №2 -->
-      <div class="tour-card">
+      <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/briges_background.jpeg');" role="img" aria-label="Ночной развод мостов"></div>
         <div class="tour-content">
           <div>
@@ -104,7 +104,7 @@
         </div>
       </div>
       <!-- Экскурсия №3 -->
-      <div class="tour-card">
+      <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/tour3.jpeg');" role="img" aria-label="Дворцовый Петербург"></div>
         <div class="tour-content">
           <div>
@@ -150,18 +150,18 @@
     </div>
   </section>
   <!-- "ОТЗЫВЫ" -->
-  <section class="reviews scale-in">
+  <section class="reviews fade-up">
     <h2>Отзывы наших клиентов</h2>
     <div class="review-cards">
-      <div class="review-card">
+      <div class="review-card fade-up">
         <div class="review-author">Мария</div>
         <div class="review-text">«Очень понравилась экскурсия по рекам и каналам! Гид замечательный, много интересных фактов услышали!»</div>
       </div>
-      <div class="review-card">
+      <div class="review-card fade-up">
         <div class="review-author">Андрей</div>
         <div class="review-text">«Отличная организация, всё чётко по времени, автобусы комфортные, успели посмотреть весь город!»</div>
       </div>
-      <div class="review-card">
+      <div class="review-card fade-up">
         <div class="review-author">Светлана</div>
         <div class="review-text">«Спонтанно решили пойти на ночную экскурсию по разводным мостам – осталось незабываемое впечатление!»</div>
       </div>
@@ -179,15 +179,15 @@
   <!-- FAQ -->
   <section class="faq slide-up" id="faq">
     <h2>Часто задаваемые вопросы</h2>
-    <div class="faq-item">
+    <div class="faq-item fade-up">
       <h3>Можно ли оплатить экскурсию онлайн?</h3>
       <p>Да, мы принимаем онлайн-оплату (карты Visa/MasterCard). После оформления заявки с вами свяжется менеджер и пришлёт ссылку на оплату.</p>
     </div>
-    <div class="faq-item">
+    <div class="faq-item fade-up">
       <h3>Есть ли скидки для групп?</h3>
       <p>Да, при бронировании от 10 человек предусмотрены скидки. Подробности можно уточнить у менеджера.</p>
     </div>
-    <div class="faq-item">
+    <div class="faq-item fade-up">
       <h3>Как отменить/перенести экскурсию?</h3>
       <p>Достаточно связаться с нами по телефону или электронной почте. Перенос возможен при наличии свободных мест на другую дату.</p>
     </div>
@@ -215,9 +215,11 @@
       </div>
     </div>
   </footer>
-  <!-- МОДАЛЬНОЕ ОКНО -->
+  <!-- МОДАЛЬНОЕ ОКНО / BOTTOM SHEET -->
   <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
     <div class="modal" id="modalContent">
+      <!-- Ручка для bottom sheet (видна на мобильных) -->
+      <div class="sheet-handle"></div>
       <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
       <h3 id="modalTitle"></h3>
       <p id="modalInfo" class="modal-info"></p>
@@ -230,6 +232,8 @@
           <button type="button" onclick="prevImage()" aria-label="Предыдущее изображение">Prev</button>
           <button type="button" onclick="nextImage()" aria-label="Следующее изображение">Next</button>
         </div>
+        <!-- Индикаторы точек -->
+        <div class="carousel-dots" id="carouselDots"></div>
       </div>
       <!-- Форма бронирования -->
       <form onsubmit="submitForm(event)">
