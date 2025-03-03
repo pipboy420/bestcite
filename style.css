@@ -517,25 +517,6 @@ footer {
 .carousel-controls button:hover {
   background-color: #ddd;
 }
-.carousel-prev, .carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 4px;
-  z-index: 10;
-}
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-
-.carousel-prev:hover, .carousel-next:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
 
 /* Форма в модалке */
 .form-group {
@@ -777,8 +758,208 @@ footer {
     line-height: 1.3;
   }
 }
+/* ================
+   Глобальные стили
+================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #333;
+  line-height: 1.6;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+label {
+  font-weight: 500;
+}
+
+/* ================
+   Глобальные стили
+================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #333;
+  line-height: 1.6;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+label {
+  font-weight: 500;
+}
+
+/* HERO (параллакс на десктопе) */
+.hero {
+  min-height: 30vh; /* уменьшено ещё сильнее */
+  background: #f0f0f0; /* Однородный фон вместо изображения */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 15px;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
+  background: rgba(0, 0, 0, 0.15); /* ещё меньше затемнения */
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: #fff; 
+  max-width: 500px; /* уменьшено */
+  margin: 0 auto;
+}
+.hero-content h1 {
+  font-size: 1.8rem; /* уменьшен заголовок */
+}
+.hero-content p {
+  font-size: 1rem; /* уменьшен текст */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+/* МОДАЛЬНОЕ ОКНО – СТИЛЬНЫЙ ДИЗАЙН */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  backdrop-filter: blur(8px); /* Эффект стекла */
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.95); /* Легкая прозрачность */
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  padding: 30px;
+  border-radius: 16px;
+  position: relative;
+  transform: translateY(-20px) scale(0.9);
+  transition: transform 0.3s ease-out;
+  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-overlay.show .modal {
+  transform: translateY(0) scale(1);
+}
+
+/* КНОПКА ЗАКРЫТИЯ */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.close-modal:hover {
+  color: #000;
+  transform: rotate(90deg);
+}
+
+/* КНОПКИ ДЕЙСТВИЙ */
+.modal .modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal .modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modal .modal-buttons .cancel {
+  background: #ddd;
+  color: #333;
+}
+
+.modal .modal-buttons .cancel:hover {
+  background: #bbb;
+}
+
+.modal .modal-buttons .confirm {
+  background: #007BFF;
+  color: white;
+}
+
+.modal .modal-buttons .confirm:hover {
+  background: #0056b3;
+}
+
+/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ */
 @media (max-width: 768px) {
-  .carousel-controls {
-    display: none;
+  .modal-overlay {
+    align-items: flex-end;
+  }
+  
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    height: 65vh;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .modal-overlay.show .modal {
+    transform: translateY(0);
   }
 }

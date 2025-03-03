@@ -321,29 +321,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     dateField.addEventListener('click', () => {
       toggleCalendar(true);
-let startX = 0;
-let endX = 0;
-const carouselImage = document.getElementById('carouselImage');
-
-if (carouselImage) {
-  carouselImage.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-  });
-
-  carouselImage.addEventListener('touchend', (e) => {
-    endX = e.changedTouches[0].clientX;
-    handleSwipe();
-  });
-
-  function handleSwipe() {
-    if (startX - endX > 50) {
-      nextImage(); // свайп влево
-    } else if (endX - startX > 50) {
-      prevImage(); // свайп вправо
-    }
-  }
-}
     });
   }
 });
+function openDetailsModal(title, info, images) {
+  currentTitle = title;
+  currentInfo = info;
+  currentImages = images || [];
+  currentImageIndex = 0;
 
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalInfo').textContent = info;
+
+  if (!images || images.length === 0) {
+    document.getElementById('carouselContainer').style.display = 'none';
+  } else {
+    document.getElementById('carouselContainer').style.display = 'block';
+    showImage(0);
+  }
+
+  resetFormFields();
+  document.getElementById('detailsModal').classList.add('show'); // Добавляет анимацию
+}
+
+function closeDetailsModal() {
+  document.getElementById('detailsModal').classList.remove('show'); // Закрывает с анимацией
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const modalOverlay = document.getElementById("detailsModal");
+    const modal = document.querySelector(".modal");
+    const closeButton = document.querySelector(".close-modal");
+
+    // Открытие модального окна
+    function openModal() {
+        modalOverlay.classList.add("show");
+        document.body.style.overflow = "hidden"; // Запрещаем скролл страницы
+        setTimeout(() => document.getElementById("nameField")?.focus(), 300); // Автофокус на поле ввода
+    }
+
+    // Закрытие модального окна
+    function closeModal() {
+        modalOverlay.classList.remove("show");
+        document.body.style.overflow = "auto"; // Включаем прокрутку страницы
+    }
+
+    // Закрытие по клику вне окна
+    modalOverlay.addEventListener("click", (event) => {
+        if (event.target === modalOverlay) closeModal();
+    });
+
+    // Закрытие по кнопке "ESC"
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+    });
+
+    // Закрытие по кнопке "Закрыть"
+    closeButton.addEventListener("click", closeModal);
+
+    // Добавляем поддержку свайпов на мобильных (закрытие вниз)
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    modal.addEventListener("touchstart", (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    });
+
+    modal.addEventListener("touchend", (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        if (touchEndY > touchStartY + 50) closeModal(); // Если свайп вниз
+    });
+
+    // Экспорт функций
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+});
