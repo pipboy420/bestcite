@@ -147,20 +147,12 @@ function openDetailsModal(title, info, images = []) {
   // Настраиваем кнопку действия в модальном окне деталей
   const modalBookingBtn = document.getElementById("modalBookingActionBtn");
   if (modalBookingBtn) {
-    if (window.innerWidth >= 769) {
-      modalBookingBtn.textContent = "КОНТАКТЫ";
-      modalBookingBtn.onclick = function() {
-        closeDetailsModal();
-        scrollToSection('contacts');
-      };
-    } else {
-      modalBookingBtn.textContent = "Забронировать";
-      modalBookingBtn.onclick = function() {
+    modalBookingBtn.textContent = "Забронировать";
+    modalBookingBtn.onclick = function() {
         closeDetailsModal();
         openBookingModal(currentTitle);
-      };
-    }
-  }
+    };
+}
   document.getElementById("detailsModal").classList.add("show");
   document.body.style.overflow = "hidden";
 }
@@ -234,19 +226,35 @@ function bookingOverlayClick(e) {
     closeBookingModal();
   }
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const minusBtn = document.querySelector(".people-minus");
+  const plusBtn = document.querySelector(".people-plus");
+  const inputField = document.getElementById("peopleCount");
 
-// Обработка выбора количества человек в бронировании
-function selectBookingPeople(value) {
-  document.getElementById("bookingPeopleField").value = value;
-  document.querySelectorAll("#bookingModal .people-buttons button").forEach((btn) => {
-    if (btn.textContent.trim() === String(value)) {
-      btn.classList.add("active");
-    } else {
-      btn.classList.remove("active");
-    }
+  minusBtn.addEventListener("click", function () {
+      let currentValue = parseInt(inputField.value);
+      if (currentValue > 1) {
+          inputField.value = currentValue - 1;
+      }
   });
-}
 
+  plusBtn.addEventListener("click", function () {
+      let currentValue = parseInt(inputField.value);
+      if (currentValue < 10) { // Максимум 10 человек
+          inputField.value = currentValue + 1;
+      }
+  });
+
+  // Ограничиваем ввод в поле (только числа от 1 до 10)
+  inputField.addEventListener("input", function () {
+      let value = parseInt(inputField.value);
+      if (isNaN(value) || value < 1) {
+          inputField.value = 1;
+      } else if (value > 10) {
+          inputField.value = 10;
+      }
+  });
+});
 // Обработка отправки формы бронирования
 function submitBookingForm(e) {
   e.preventDefault();
@@ -255,7 +263,7 @@ function submitBookingForm(e) {
   const time = document.getElementById("bookingTimeField").value;
   const name = document.getElementById("bookingNameField").value;
   const phone = document.getElementById("bookingPhoneField").value;
-  const people = document.getElementById("bookingPeopleField").value;
+  const people = document.getElementById("peopleCount").value;
   
   alert(
     "Заявка отправлена!\n\n" +
@@ -273,4 +281,13 @@ function submitBookingForm(e) {
 const bookingForm = document.querySelector("#bookingModal form");
 if (bookingForm) {
   bookingForm.addEventListener("submit", submitBookingForm);
+}
+function openBookingModalFromTour(tourName) {
+  const modal = document.getElementById("bookingModal");
+  const tourSelect = document.getElementById("tourSelect"); // Поле выбора экскурсии в форме
+
+  if (modal && tourSelect) {
+      modal.classList.add("show"); // Открываем окно бронирования
+      tourSelect.value = tourName; // Автоматически выбираем экскурсию
+  }
 }
