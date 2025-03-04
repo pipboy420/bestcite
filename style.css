@@ -188,8 +188,32 @@ nav ul {
   padding: 20px;
   position: relative;
 }
+.hero-line-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;               /* расстояние между линиями и текстом */
+  width: 100vw;            /* блок занимает всю ширину окна */
+  margin-left: calc(-50vw + 50%); /* центрирует блок относительно окна */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.hero-line {
+  flex: 1;
+  border: none;
+  border-top: 3px solid #fff; /* если нужно увеличить толщину */
+  margin: 0 10px; /* отступы слева и справа, чтобы линии не сливались с текстом */
+}
+
+.hero-line-text {
+  color: #fff;           /* Текст белого цвета, под фон hero */
+  font-size: 1.2rem;     /* Подберите размер */
+  font-family: 'Space Mono', monospace; /* Или ваш шрифт */
+  white-space: nowrap;   /* Чтобы текст не переносился на две строки */
+}
 .hero-overlay {
-  display: none;
+  display: block;
 }
 .hero-content {
   position: relative;
@@ -302,6 +326,7 @@ nav ul {
   font-size: 1.8rem;
   margin-bottom: 30px;
   font-weight: 700;
+  color: #F8961E;
 }
 .benefits {
   display: grid;
@@ -343,6 +368,7 @@ nav ul {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 40px;
+  color: #F8961E;
 }
 .review-cards {
   display: flex;
@@ -565,7 +591,10 @@ footer {
 
 .modal-action {
   margin-top: 20px;
-}
+}Uncaught TypeError: Cannot set properties of null (setting 'src')
+at showImage (script.js:151:48)
+at openDetailsModal (script.js:125:5)
+at HTMLButtonElement.onclick (VM386 index.html:1:1)Understand this errorAI
 .close-modal {
   font-size: 28px;
   position: absolute;
@@ -893,5 +922,52 @@ footer {
     nav ul li a:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
+  }
+}
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem; /* Уменьшите значение по необходимости */
+  }
+  .hero-content p {
+    font-size: 1rem; /* Уменьшите значение по необходимости */
+  }
+}
+/* По умолчанию (десктоп) — линии слева и справа */
+.hero-line-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.hero-line {
+  flex: 1;
+  border: none;
+  border-top: 2px solid #fff;
+  margin: 0;
+}
+
+.hero-line-text {
+  color: #fff;
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+/* Мобильная версия: линии сверху и снизу */
+@media (max-width: 768px) {
+  .hero-line-block {
+    display: flex;
+    flex-direction: column; /* Ставим линии и текст друг под другом */
+    align-items: center;    /* Центрируем по горизонтали */
+    gap: 10px;             /* Расстояние между элементами */
+  }
+  .hero-line {
+    width: 80%; /* или 100%, если нужно во всю ширину */
+    border-top: 2px solid #fff;
+  }
+  .hero-line-text {
+    /* Можно чуть уменьшить шрифт на мобильном, если нужно */
+    font-size: 1rem;
   }
 }
