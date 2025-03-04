@@ -55,23 +55,62 @@ label {
   opacity: 1;
   transform: scale(1);
 }
+/* Кнопка Book Now */
+.book-now {
+  background-color: #000;  /* Чёрный фон */
+  color: #f1a552;          /* Оранжевый текст (подобран под Discover More) */
+}
 
+.book-now:hover {
+  background-color: #333;  /* Слегка осветляем при наведении */
+}
+
+/* Кнопка Discover More */
+.discover-more {
+  background-color: #f1a552; /* Оранжевый фон */
+  color: #000;              /* Тёмный текст */
+}
+
+.discover-more:hover {
+  background-color: #ffa86f; /* Более светлый оранжевый при наведении */
+}
 /* Кнопки – сплошной фон */
-.cta-btn, .tour-btn {
+/* Общие базовые стили для всех кнопок */
+.cta-btn {
   display: inline-block;
-  background-color: #f8961e;
-  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: normal;  /* текст не жирный */
+  text-transform: uppercase;
   padding: 14px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;  /* более округлые углы */
   cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  box-shadow: 0 5px 15px rgba(248, 150, 30, 0.4);
-  position: relative;
-  overflow: hidden;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* Индивидуальные стили для кнопки Book Now */
+.cta-btn.book-now {
+  background-color: #000;
+  color: #f1a552;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  font-weight: normal;  /* менее жирный текст */
+  border-radius: 30px;  /* округлее */
+}
+.cta-btn.book-now:hover {
+  background-color: #333;
+}
+
+/* Индивидуальные стили для кнопки Discover More */
+.cta-btn.discover-more {
+  background-color: #f1a552;
+  color: #000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  font-weight: normal;
+  border-radius: 30px;
+}
+.cta-btn.discover-more:hover {
+  background-color: #ffa86f;
 }
 
 .cta-btn:hover {
@@ -969,5 +1008,22 @@ at HTMLButtonElement.onclick (VM386 index.html:1:1)Understand this errorAI
   .hero-line-text {
     /* Можно чуть уменьшить шрифт на мобильном, если нужно */
     font-size: 1rem;
+  }
+}
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-btns .cta-btn {
+    width: 90%;
+    max-width: none;
+    text-align: center;
+    margin-bottom: 10px; /* отступ снизу */
+  }
+  /* Убираем отступ у последней кнопки */
+  .hero-btns .cta-btn:last-child {
+    margin-bottom: 0;
   }
 }

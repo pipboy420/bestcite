@@ -55,8 +55,18 @@
       </div>
       
       <div class="hero-btns">
-        <button class="cta-btn fancy-btn" onclick="openBookingModal()" aria-label="Забронировать сейчас">
-          Забронировать сейчас
+        <!-- Кнопка Book Now -->
+        <button class="cta-btn fancy-btn book-now" 
+                onclick="openBookingModal()" 
+                aria-label="Забронировать сейчас">
+          Забронировать
+        </button>
+      
+        <!-- Кнопка Discover More (ведёт к блоку #contacts) -->
+        <button class="cta-btn fancy-btn discover-more" 
+                onclick="scrollToSection('contacts')" 
+                aria-label="Перейти к контактам">
+          Контакты
         </button>
       </div>
     </div>
