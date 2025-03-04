@@ -5,29 +5,35 @@
   box-sizing: border-box;
   backface-visibility: hidden;
 }
+
+/* Убираем градиент у body – базовый фон будет белым */
 body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #f8f9fa;
+  font-family: 'Space Mono', monospace;
+  background-color: #fff;
   color: #333;
   line-height: 1.6;
 }
+
 a {
   text-decoration: none;
   color: inherit;
   transition: color 0.3s ease-in-out;
 }
+
 ul {
   list-style: none;
 }
+
 img {
   max-width: 100%;
   display: block;
 }
+
 label {
   font-weight: 600;
 }
 
-/* Анимация появления при прокрутке */
+/* Анимация появления */
 .fade-up,
 .slide-up,
 .scale-in,
@@ -50,11 +56,10 @@ label {
   transform: scale(1);
 }
 
-/* Основные стили кнопок */
-button:not(.people-btn):not(.close-modal):not(.people-input-container button), 
+/* Кнопки – сплошной фон */
 .cta-btn, .tour-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Градиентный фон */
+  background-color: #f8961e;
   color: white;
   padding: 14px 28px;
   border: none;
@@ -63,38 +68,42 @@ button:not(.people-btn):not(.close-modal):not(.people-input-container button),
   font-size: 1.1rem;
   font-weight: 700;
   text-transform: uppercase;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 5px 15px rgba(255, 103, 76, 0.4); /* Объёмная тень */
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(248, 150, 30, 0.4);
   position: relative;
   overflow: hidden;
 }
 
-.cta-btn:hover, .tour-btn:hover {
-  background: linear-gradient(135deg, #ff9966, #ff6b6b); /* Новый градиент */
+.cta-btn:hover {
+  background-color: #f9c74f;
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(255, 103, 76, 0.5);
+  box-shadow: 0 10px 25px rgba(248, 150, 30, 0.5);
 }
 
-.cta-btn:active, .tour-btn:active {
+.cta-btn:active {
   transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(255, 103, 76, 0.3);
+  box-shadow: 0 3px 10px rgba(248, 150, 30, 0.3);
 }
 
-/* Эффект вспышки при наведении */
+/* Кнопки "Подробнее" – черный фон, текст #F8961E */
+.tour-btn {
+  background-color: #000;
+  color: #F8961E;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.tour-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* Убираем ::before эффекты у кнопок */
 .cta-btn::before, .tour-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: skewX(-20deg);
-  transition: all 0.4s ease-in-out;
-}
-
-.cta-btn:hover::before, .tour-btn:hover::before {
-  left: 150%;
+  display: none;
 }
 
 /* Кнопка "Вверх" */
@@ -138,18 +147,26 @@ header {
   padding: 0 40px;
   z-index: 999;
 }
+
+/* Заголовки с шрифтом Oi */
+h1, h2, h3, .logo {
+  font-family: 'Space Mono', sans-serif;
+}
+
 .logo {
   font-weight: 700;
   font-size: 1.6rem;
-  color: #1565C0;
+  color: #277da1;
   cursor: pointer;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Тень */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }
+
 .burger {
   font-size: 1.6rem;
   display: none;
   cursor: pointer;
 }
+
 nav {
   position: relative;
 }
@@ -157,81 +174,22 @@ nav ul {
   display: flex;
   gap: 20px;
 }
-/* Кнопки в HERO – отступ между ними */
-.hero-content {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-}
 
-.hero-btns {
-  display: flex;
-  gap: 30px;
-  justify-content: center; /* Можно поменять на flex-start или flex-end */
-  margin-top: 60px; /* Если нужно поднять выше */
-}
-
-/* CTA кнопки */
-.cta-btn {
-  background-color: #E67E22;
-  color: #fff;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.cta-btn:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-}
-.fancy-btn {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-.fancy-btn::before {
-  content: "";
-  position: absolute;
-  left: -50%;
-  top: 0;
-  width: 0;
-  height: 100%;
-  background: rgba(255,255,255,0.2);
-  transition: all 0.4s ease;
-  transform: skewX(-20deg);
-}
-.fancy-btn:hover::before {
-  width: 200%;
-}
-
-/* Отступ для фиксированной шапки */
-.header-offset {
-  margin-top: 70px;
-}
-
-/* HERO с новым шрифтом (Roboto) и обновлённым текстом */
+/* HERO – убираем фоновой рисунок, устанавливаем сплошной фон #277da1 */
 .hero {
-  min-height: 45vh;
-  background: url('images/background.png') center/cover no-repeat;
+  width: 100%;
+  min-height: 35vh;
+  background-color: #277da1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   text-align: center;
   padding: 20px;
   position: relative;
 }
 .hero-overlay {
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
+  display: none;
 }
 .hero-content {
   position: relative;
@@ -250,41 +208,61 @@ nav ul {
   margin-bottom: 20px;
 }
 
-/* Секции экскурсий */
+/* Блок "Популярные экскурсии" – фон #277DA1 */
 .tours-section {
   padding: 60px 20px;
+  width: 100%;
+  background-color: #277da1;
+  color: #fff;
+  text-align: center;
+}
+.tours-container {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  gap: 20px;
+  justify-content: center;
 }
 .tours-section h2 {
   font-size: 1.8rem;
   margin-bottom: 40px;
   font-weight: 700;
 }
-.tours-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
 .tour-card {
-  background: #fff;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  /* если нужно, можно задать фиксированную минимальную высоту карточки */
+  min-height: 450px; /* пример, подберите нужное значение */
+  border: none;
+  background: transparent;
   padding: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-  overflow: hidden;
   transition: transform 0.2s ease-in-out;
 }
+
 .tour-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 15px #F8961E, 0 0 30px #F8961E;
+}
+
+/* Внутренний контейнер карточки выравнивается по вертикали */
+.tour-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Блок с ценой и кнопкой – кнопка отодвигается вниз */
+.tour-content > div:last-child {
+  margin-top: auto;
 }
 .tour-image {
   width: 100%;
   height: 300px;
   background-size: cover;
   background-position: center;
+  border: 5px solid #fff; /* белая рамка, можно заменить нужным цветом */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* эффект глубины */
 }
 .tour-content {
   padding: 20px;
@@ -308,25 +286,12 @@ nav ul {
   font-weight: 600;
   color: #1565C0;
 }
-.tour-btn {
-  background-color: #1565C0;
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.tour-btn:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-}
 
-/* Блок "Почему выбирают нас" */
+/* Блок "Почему выбирают нас" – фон #F8961E, текст #90BE6D */
 .why-us {
-  background-color: #f5f5f5;
+  background-color: #000;
   padding: 60px 20px;
+  color: #90BE6D;
 }
 .why-us-container {
   max-width: 1200px;
@@ -345,20 +310,20 @@ nav ul {
   margin-top: 30px;
 }
 .benefit-item {
-  background-color: #ffffff;
+  background-color: #111;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .benefit-item:hover {
   transform: scale(1.03);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(255,255,255,0.2);
 }
 .benefit-icon {
   font-size: 30px;
   margin-bottom: 10px;
-  color: #1565C0;
+  /* Можно оставить прежний цвет или изменить при необходимости */
 }
 .benefit-desc {
   font-size: 0.95rem;
@@ -366,12 +331,13 @@ nav ul {
   font-weight: 300;
 }
 
-/* Отзывы */
+/* Блок "Отзывы наших клиентов" – фон черный, текст отзывов #90BE6D, имя #F8961E */
 .reviews {
   padding: 60px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   text-align: center;
+  background-color: #000;
+  color: #90BE6D;
 }
 .reviews h2 {
   font-size: 1.8rem;
@@ -386,9 +352,9 @@ nav ul {
 }
 .review-card {
   width: 300px;
-  background-color: #fafafa;
+  background-color: #222;
   border-radius: 8px;
-  border: 1px solid #eee;
+  border: 1px solid #333;
   padding: 20px;
   text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -400,6 +366,7 @@ nav ul {
 .review-author {
   font-weight: 700;
   margin-bottom: 5px;
+  color: #F8961E;
 }
 .review-text {
   font-size: 0.9rem;
@@ -462,7 +429,7 @@ nav ul {
 .faq-item h3 {
   font-size: 1.2rem;
   margin-bottom: 5px;
-  color: #1565C0;
+  color: #f8961e;
   font-weight: 700;
 }
 .faq-item p {
@@ -470,10 +437,10 @@ nav ul {
   font-weight: 300;
 }
 
-/* Подвал */
+/* Подвал – фон белый, текст тёмный */
 footer {
-  background-color: #333;
-  color: #fff;
+  background-color: #fff;
+  color: #333;
   padding: 40px 20px;
 }
 .footer-container {
@@ -501,18 +468,17 @@ footer {
   gap: 10px;
 }
 .footer-social a {
-  background-color: #555;
+  background-color: #ddd;
   padding: 8px 12px;
   border-radius: 4px;
   display: block;
   transition: background-color 0.2s;
 }
 .footer-social a:hover {
-  background-color: #E67E22;
+  background-color: #f8961e;
 }
 
-/* Модальное окно / Bottom Sheet */
-/* Эффект стекла с блюром заднего фона */
+/* Модальное окно */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -535,8 +501,6 @@ footer {
   pointer-events: auto;
   backdrop-filter: blur(10px);
 }
-
-/* Стили модального окна для десктопа */
 .modal {
   background: rgba(255, 255, 255, 0.95);
   width: 90%;
@@ -551,40 +515,79 @@ footer {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирует содержимое */
-  text-align: center; /* Центрирует текст */
-}
-.modal-content {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   text-align: center;
 }
 .modal-overlay.show .modal {
   transform: translateY(0) scale(1);
 }
-.close-modal {
-  font-size: 28px; /* Размер */
-  position: absolute;
-  top: 10px; /* Расположение сверху */
-  right: 20px; /* Расположение справа */
-  color: #000; /* Черный цвет */
-  background: none; /* Убираем фон */
-  border: none; /* Убираем рамку */
-  cursor: pointer; /* Делаем курсор в виде указателя */
-  transition: transform 0.2s ease-in-out;
+.modal-content-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  /* Если требуется, можно ограничить максимальную ширину */
+  width: 100%;
 }
 
-.close-modal:hover {
-  transform: scale(1.2); /* Легкое увеличение при наведении */
+.modal-photo {
+  flex: 1;
+  max-width: 40%; /* Фото занимает примерно 40% ширины */
 }
-/* Стили для Bottom Sheet в мобильной версии (для деталей экскурсии остаются стандартными) */
+
+.modal-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  /* При желании можно добавить рамку или тень */
+  border: 2px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-text {
+  flex: 2;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-text h3 {
+  margin-top: 0;
+  font-size: 2rem;
+  /* Если нужен другой шрифт или цвет, можно добавить их здесь */
+}
+
+.modal-text p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.modal-action {
+  margin-top: 20px;
+}
+.close-modal {
+  font-size: 28px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.close-modal:hover {
+  transform: scale(1.2);
+}
+
+/* Мобильное оформление модального окна */
 @media (max-width: 768px) {
   #bookingModalContent {
     width: 90vw;
-    height: auto; /* Меняем фиксированную высоту на автоматическую */
+    height: auto;
     max-width: 95%;
-    max-height: none; /* Убираем ограничение по высоте */
+    max-height: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -597,21 +600,19 @@ footer {
     align-items: center;
   }
   #bookingModalContent .close-modal {
-    font-size: 24px; /* Увеличиваем размер крестика */
+    font-size: 24px;
     position: absolute;
-    top: 10px; /* Поднимаем выше */
-    right: 10px; /* Двигаем левее */
-    color: #000000 !important; /* Красный крестик */
+    top: 10px;
+    right: 10px;
+    color: #000000 !important;
     background: none;
     border: none;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.2s ease-in-out;
-}
-  /* Добавляем этот новый код сюда */
+  }
   #bookingModalContent .form-group label {
     font-size: 1.2rem;
   }
-
   #bookingModalContent .form-group input,
   #bookingModalContent .form-group select {
     font-size: 1.3rem;
@@ -621,31 +622,27 @@ footer {
     border-radius: 8px;
     border: 2px solid #ccc;
   }
-
   #bookingModalContent .form-group select {
     appearance: none;
     background: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
     background-size: 24px;
     padding-right: 40px;
   }
-
   #bookingModalContent .form-group {
     margin-bottom: 20px;
   }
-
-  #bookingModalContent   .people-buttons button {
+  #bookingModalContent .people-buttons button {
     font-size: 1.2rem;
     padding: 12px 18px;
     border-radius: 8px;
-    border: 2px solid #28A745 !important; /* Зелёный контур */
-    background-color: transparent !important; /* Убираем оранжевый фон */
-    color: #28A745 !important; /* Зелёные цифры */
+    border: 2px solid #28A745 !important;
+    background-color: transparent !important;
+    color: #28A745 !important;
     transition: all 0.3s ease;
   }
 }
 
-
-/* Индикаторы точек карусели */
+/* Индикаторы карусели */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -685,7 +682,7 @@ footer {
   display: none;
 }
 
-/* Для мобильной версии в модальном окне деталей делаем изображения меньше */
+/* Мобильное оформление для карусели */
 @media (max-width: 768px) {
   #modalContent .carousel-slide img {
     max-height: 200px;
@@ -693,7 +690,7 @@ footer {
   }
 }
 
-/* Форма в модалках */
+/* Форма в модальных окнах */
 .form-group {
   margin-bottom: 15px;
   display: flex;
@@ -710,37 +707,35 @@ footer {
 }
 .modal form button[type="submit"] {
   margin-top: 15px;
-  background: linear-gradient(135deg, #4CAF50, #2E8B57); /* Градиент зелёного */
+  background-color: #4CAF50;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 14px 30px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
   box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
   position: relative;
   overflow: hidden;
 }
-
 .modal form button[type="submit"]:hover {
-  background: linear-gradient(135deg, #43A047, #1E7D32);
+  background-color: #43A047;
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(46, 139, 87, 0.5);
 }
-
 .modal form button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 3px 10px rgba(46, 139, 87, 0.3);
 }
+
 .people-input-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Центрируем внутри контейнера */
-  gap: 15px; /* Увеличим расстояние между элементами */
-  width: 100%; /* Чтобы контейнер центрировался */
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
 }
-
 .people-input-container button {
   all: unset;
   width: 15px !important;
@@ -756,12 +751,10 @@ footer {
   cursor: pointer !important;
   transition: all 0.3s ease-in-out !important;
 }
-
 .people-input-container button:hover {
   background-color: #28A745;
   color: white;
 }
-
 .people-input-container input {
   width: 50px;
   height: 40px;
@@ -770,6 +763,7 @@ footer {
   border: 2px solid #ccc;
   border-radius: 5px;
 }
+
 /* Мобильная верстка для навигации и хедера */
 @media (max-width: 768px) {
   .hero {
@@ -781,8 +775,8 @@ footer {
   .burger {
     position: absolute;
     right: 20px;
-    top: 5px; /* Было 20px, уменьшил, чтобы поднять выше */
-    font-size: 2rem; /* Размер иконки */
+    top: 5px;
+    font-size: 2rem;
     width: 50px;
     height: 50px;
     display: flex;
@@ -794,126 +788,110 @@ footer {
     transition: background 0.3s ease, transform 0.2s ease;
   }
 }
+.burger:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+.logo {
+  text-align: left;
+  margin-left: 0;
+}
+@media (max-width: 768px) {
+  .burger {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    font-size: 3.5rem;
+    width: 60px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+  }
   .burger:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Затемняем при наведении */
-    transform: scale(1.05); /* Легкое увеличение */
-  }
-  .logo {
-    text-align: left; /* Текст слева */
-    margin-left: 0; /* Убираем возможные отступы */
-  }
-
-  @media (max-width: 768px) {
-    .burger {
-      position: absolute;
-      right: 20px;
-      top: 5px;
-      font-size: 3.5rem; /* Размер иконки */
-      width: 60px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: transparent; /* Убираем серый фон */
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  
-    .burger:hover {
-      background-color: rgba(0, 0, 0, 0.1); /* Лёгкий серый фон при наведении */
-    }
-  }
-
-/* Дополнительные стили для кнопки действия в модальном окне деталей */
-.modal-action {
-  text-align: center;
-  margin-top: 20px;
-}
-.modal-booking-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-}
-@media (max-width: 768px) {
-  .cta-btn, .tour-btn {
-    font-size: 1rem;
-    padding: 12px 24px;
-    border-radius: 6px;
-  }
-}
-@media (max-width: 768px) {
-  nav {
-    position: fixed;
-    top: 60px;
-    right: 0;
-    width: 250px; /* Ограничиваем ширину */
-    height: auto; /* Автоматическая высота */
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    transform: translateX(120%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-    border-radius: 0 10px 10px 0;
-    padding: 20px;
-  }
-
-  nav.open {
-    transform: translateX(0);
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-    list-style: none;
-    padding: 0;
-    width: 100%;
-  }
-
-  nav ul li {
-    width: 100%;
-    text-align: left;
-  }
-
-  nav ul li a {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    padding: 10px 15px;
-    display: block;
-    transition: background 0.3s ease-in-out;
-  }
-
-  nav ul li a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 @media (max-width: 768px) {
   .logo {
-      position: absolute;
-      left: 10px; /* Сдвигаем левее */
-      top: 14px; /* Приподнимаем */
-      font-size: 1.6rem; /* Можно уменьшить */
+    position: absolute;
+    left: 10px;
+    top: 14px;
+    font-size: 1.6rem;
   }
 }
 @media (max-width: 768px) {
   .people-input-container {
-      width: 100%;
-      max-width: 250px;
+    width: 100%;
+    max-width: 250px;
   }
-
   .people-input-container button {
-      padding: 10px 14px;
-      font-size: 1.2rem;
+    padding: 10px 14px;
+    font-size: 1.2rem;
   }
-
   .people-input-container input {
+    font-size: 1.2rem;
+    height: 40px;
+    width: 50px;
+  }
+  @media (max-width: 768px) {
+    /* Стили для мобильного меню */
+    nav {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      width: 250px;
+      /* Высота может быть auto, чтобы меню автоматически подстраивалось под контент */
+      height: auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      transform: translateX(120%); /* Меню скрыто справа */
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+      border-radius: 0 10px 10px 0;
+      padding: 20px;
+    }
+  
+    /* Когда меню открыто, класс .open добавляется к nav */
+    nav.open {
+      transform: translateX(0);
+    }
+  
+    /* Стили для списка меню */
+    nav ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+  
+    nav ul li {
+      width: 100%;
+      text-align: left;
+    }
+  
+    nav ul li a {
       font-size: 1.2rem;
-      height: 40px;
-      width: 50px;
+      font-weight: 600;
+      color: #333;
+      padding: 10px 15px;
+      display: block;
+      transition: background 0.3s ease-in-out;
+    }
+  
+    nav ul li a:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
   }
 }

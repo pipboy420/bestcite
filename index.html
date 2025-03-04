@@ -17,9 +17,9 @@
   <meta name="twitter:title" content="SPb Inside — Экскурсии по Санкт-Петербургу">
   <meta name="twitter:description" content="Уникальные экскурсии, комфортный транспорт, лучшие гиды!">
   <meta name="twitter:image" content="images/spb-team.jpeg">
-  <!-- Шрифт -->
+  <!-- Подключаем Google Fonts: Oi для заголовков и Space Mono для описания -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Oi&family=Space+Mono&display=swap" rel="stylesheet" />
   <!-- Подключаем CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -48,7 +48,6 @@
   <section class="hero fade-up" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <!-- Обновлённый текст и шрифт (см. CSS) -->
       <h1>Это SPb Inside</h1>
       <p>Мы уже более 9 лет проводим экскурсии с любовью к Петербургу и к Вам!</p>
       <div class="hero-btns">
@@ -68,10 +67,8 @@
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Речная прогулка по каналам</h3>
-            <p class="tour-desc">Погрузитесь в атмосферу «северной Венеции», осмотрите достопримечательности прямо с воды.</p>
           </div>
           <div>
-            <p class="tour-price">от 1500 руб.</p>
             <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Речная прогулка по каналам',
                 'Маршрут: Невский пр., река Мойка, канал Грибоедова.\\nДлительность ~1,5 часа.\\nУзнайте удивительные истории о городе!',
@@ -88,18 +85,14 @@
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Ночной развод мостов</h3>
-            <p class="tour-desc">Самое известное зрелище Петербурга! Осмотрите город с палубы теплохода в час разводки мостов.</p>
           </div>
-          <div>
-            <p class="tour-price">от 2000 руб.</p>
-            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
-                'Ночной развод мостов',
-                'Старт в 00:30, длительность ~2 часа, объезд главных мостов.\\nНочная подсветка и романтика!',
-                ['images/image1.jpeg', 'images/image2.jpeg']
-              )" aria-label="Подробнее о ночном разводе мостов">
-              Подробнее
-            </button>
-          </div>
+          <button class="tour-btn fancy-btn" onclick="openDetailsModal(
+              'Ночной развод мостов',
+              'Старт в 00:30, длительность ~2 часа, объезд главных мостов.\\nНочная подсветка и романтика!',
+              ['images/image1.jpeg', 'images/image2.jpeg']
+            )" aria-label="Подробнее о ночном разводе мостов">
+            Подробнее
+          </button>
         </div>
       </div>
       <!-- Экскурсия №3 -->
@@ -108,18 +101,14 @@
         <div class="tour-content">
           <div>
             <h3 class="tour-title">Дворцовый Петербург</h3>
-            <p class="tour-desc">Экскурсия по главным дворцам и архитектурным шедеврам. Увлекательные факты и царская роскошь.</p>
           </div>
-          <div>
-            <p class="tour-price">от 2500 руб.</p>
-            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
-                'Дворцовый Петербург',
-                'Зимний дворец, Михайловский дворец, особняки на набережной.\\nИстории о жизни царской семьи!',
-                ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
-              )" aria-label="Подробнее о дворцовом Петербурге">
-              Подробнее
-            </button>
-          </div>
+          <button class="tour-btn fancy-btn" onclick="openDetailsModal(
+              'Дворцовый Петербург',
+              'Зимний дворец, Михайловский дворец, особняки на набережной.\\nИстории о жизни царской семьи!',
+              ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
+            )" aria-label="Подробнее о дворцовом Петербурге">
+            Подробнее
+          </button>
         </div>
       </div>
     </div>
@@ -214,36 +203,27 @@
       </div>
     </div>
   </footer>
-  <!-- МОДАЛЬНОЕ ОКНО / DETAILS (только детали экскурсии) -->
-  <div class="modal-overlay" id="detailsModal" onclick="overlayClick(event)">
+  <!-- МОДАЛЬНОЕ ОКНО / DETAILS -->
+  <div class="modal-overlay" id="detailsModal" onclick="closeDetailsModal()">
     <div class="modal" id="modalContent">
-      <!-- Ручка для bottom sheet (видна на десктопе, но далее не используется в booking modal) -->
-      <div class="sheet-handle"></div>
       <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
-      <h3 id="modalTitle"></h3>
-      <p id="modalInfo" class="modal-info"></p>
-      <!-- КАРУСЕЛЬ -->
-      <div class="carousel-container" id="carouselContainer">
-        <div class="carousel-slide" id="carouselSlide">
-          <img src="" alt="Изображение экскурсии" id="carouselImage" loading="lazy" />
+      <div class="modal-content-wrapper">
+        <div class="modal-photo">
+          <img src="" alt="Изображение экскурсии" id="modalImage" loading="lazy" />
         </div>
-        <div class="carousel-controls">
-          <button type="button" onclick="prevImage()" aria-label="Предыдущее изображение">Prev</button>
-          <button type="button" onclick="nextImage()" aria-label="Следующее изображение">Next</button>
+        <div class="modal-text">
+          <h3 id="modalTitle"></h3>
+          <p id="modalInfo" class="modal-info"></p>
+          <div class="modal-action">
+            <button id="modalBookingActionBtn" class="fancy-btn modal-booking-btn">Забронировать</button>
+          </div>
         </div>
-        <!-- Индикаторы точек -->
-        <div class="carousel-dots" id="carouselDots"></div>
-      </div>
-      <!-- Новая кнопка для перехода в окно бронирования / контактов -->
-      <div class="modal-action">
-        <button id="modalBookingActionBtn" class="fancy-btn modal-booking-btn">Забронировать</button>
       </div>
     </div>
   </div>
   <!-- Модальное окно для бронирования -->
   <div class="modal-overlay" id="bookingModal" onclick="bookingOverlayClick(event)">
     <div class="modal" id="bookingModalContent">
-      <!-- Для booking modal на мобильной версии ручка убрана (см. CSS) -->
       <button class="close-modal" onclick="closeBookingModal()" aria-label="Закрыть окно">×</button>
       <h3>Бронирование</h3>
       <form onsubmit="submitBookingForm(event)">
@@ -278,12 +258,12 @@
         </div>
         <div class="form-group">
           <label>Сколько вас будет:</label>
-              <div class="people-input-container">
-                <button type="button" class="people-minus">−</button>
-                <input type="number" id="peopleCount" value="1" min="1" max="10">
-                <button type="button" class="people-plus">+</button>
-              </div>
-            </div>
+          <div class="people-input-container">
+            <button type="button" class="people-minus">−</button>
+            <input type="number" id="peopleCount" value="1" min="1" max="10">
+            <button type="button" class="people-plus">+</button>
+          </div>
+        </div>
         <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
       </form>
     </div>
