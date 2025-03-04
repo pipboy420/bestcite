@@ -6,11 +6,11 @@
   backface-visibility: hidden;
 }
 
-/* Убираем градиент у body – базовый фон будет белым */
+/* Фон сайта – градиент от #F5F5F5 к #EAEFF3 */
 body {
   font-family: 'Space Mono', monospace;
-  background-color: #fff;
-  color: #333;
+  background: linear-gradient(to bottom right, #F5F5F5, #EAEFF3);
+  color: #1C1F2A; /* Основной тёмно-синий цвет для текста */
   line-height: 1.6;
 }
 
@@ -55,93 +55,46 @@ label {
   opacity: 1;
   transform: scale(1);
 }
-/* Кнопка Book Now */
-.book-now {
-  background-color: #000;  /* Чёрный фон */
-  color: #f1a552;          /* Оранжевый текст (подобран под Discover More) */
-}
 
-.book-now:hover {
-  background-color: #333;  /* Слегка осветляем при наведении */
-}
-
-/* Кнопка Discover More */
-.discover-more {
-  background-color: #f1a552; /* Оранжевый фон */
-  color: #000;              /* Тёмный текст */
-}
-
-.discover-more:hover {
-  background-color: #ffa86f; /* Более светлый оранжевый при наведении */
-}
-/* Кнопки – сплошной фон */
-/* Общие базовые стили для всех кнопок */
-.cta-btn {
+/* Кнопки – общий стиль */
+.cta-btn,
+.tour-btn {
   display: inline-block;
   font-family: 'Space Mono', monospace;
-  font-size: 0.8rem;
-  font-weight: normal;  /* текст не жирный */
+  font-size: 0.9rem;
+  font-weight: 600;
   text-transform: uppercase;
   padding: 14px 28px;
   border: none;
-  border-radius: 20px;  /* более округлые углы */
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s;
 }
 
-/* Индивидуальные стили для кнопки Book Now */
-.cta-btn.book-now {
-  background-color: #000;
-  color: #f1a552;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-  font-weight: normal;  /* менее жирный текст */
-  border-radius: 30px;  /* округлее */
-}
-.cta-btn.book-now:hover {
-  background-color: #333;
-}
-
-/* Индивидуальные стили для кнопки Discover More */
-.cta-btn.discover-more {
-  background-color: #f1a552;
-  color: #000;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-  font-weight: normal;
-  border-radius: 30px;
-}
-.cta-btn.discover-more:hover {
-  background-color: #ffa86f;
-}
-
-.cta-btn:hover {
-  background-color: #f9c74f;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(248, 150, 30, 0.5);
-}
-
-.cta-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(248, 150, 30, 0.3);
-}
-
-/* Кнопки "Подробнее" – черный фон, текст #F8961E */
+/* Основная кнопка (Book Now, Discover More, Подробнее) – коралловый #FF6B35 */
+.cta-btn,
 .tour-btn {
-  background-color: #000;
-  color: #F8961E;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s, transform 0.2s;
-}
-.tour-btn:hover {
-  background-color: #333;
-  transform: scale(1.05);
+  background-color: #FF6B35; 
+  color: #fff; /* Белый текст поверх кораллового фона */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Убираем ::before эффекты у кнопок */
-.cta-btn::before, .tour-btn::before {
+.cta-btn:hover,
+.tour-btn:hover {
+  background-color: #e65f2f; /* Более тёмный оттенок кораллового при наведении */
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cta-btn:active,
+.tour-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Убираем ::before эффекты у кнопок (если были) */
+.cta-btn::before,
+.tour-btn::before {
   display: none;
 }
 
@@ -150,7 +103,7 @@ label {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background: #E67E22;
+  background: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -187,17 +140,17 @@ header {
   z-index: 999;
 }
 
-/* Заголовки с шрифтом Oi */
+/* Заголовки (h1, h2, h3) и логотип */
 h1, h2, h3, .logo {
-  font-family: 'Space Mono', sans-serif;
+  font-family: 'Space Mono', monospace;
+  color: #1C1F2A; /* Тёмно-синий для заголовков */
 }
 
 .logo {
   font-weight: 700;
   font-size: 1.6rem;
-  color: #277da1;
   cursor: pointer;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .burger {
@@ -214,11 +167,12 @@ nav ul {
   gap: 20px;
 }
 
-/* HERO – убираем фоновой рисунок, устанавливаем сплошной фон #277da1 */
+/* HERO */
 .hero {
   width: 100%;
   min-height: 35vh;
-  background-color: #277da1;
+  /* Можно оставить фоновое изображение или убрать */
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -227,57 +181,60 @@ nav ul {
   padding: 20px;
   position: relative;
 }
-.hero-line-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;               /* расстояние между линиями и текстом */
-  width: 100vw;            /* блок занимает всю ширину окна */
-  margin-left: calc(-50vw + 50%); /* центрирует блок относительно окна */
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.hero-line {
-  flex: 1;
-  border: none;
-  border-top: 3px solid #fff; /* если нужно увеличить толщину */
-  margin: 0 10px; /* отступы слева и справа, чтобы линии не сливались с текстом */
-}
-
-.hero-line-text {
-  color: #fff;           /* Текст белого цвета, под фон hero */
-  font-size: 1.2rem;     /* Подберите размер */
-  font-family: 'Space Mono', monospace; /* Или ваш шрифт */
-  white-space: nowrap;   /* Чтобы текст не переносился на две строки */
-}
 .hero-overlay {
   display: block;
 }
 .hero-content {
   position: relative;
   z-index: 1;
-  color: #fff;
   max-width: 600px;
   margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
+  text-align: center;
 }
 .hero-content h1 {
   font-size: 2.8rem;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
-/* Блок "Популярные экскурсии" – фон #277DA1 */
+/* Блок с кнопками в HERO */
+.hero-btns {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* Мобильная версия для кнопок в HERO */
+@media (max-width: 768px) {
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  .hero-btns .cta-btn {
+    width: 90%;
+    max-width: none;
+    text-align: center;
+  }
+}
+
+/* Пример для секции "Популярные экскурсии" */
 .tours-section {
   padding: 60px 20px;
   width: 100%;
-  background-color: #277da1;
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.4); /* Можно слегка прозрачный белый, чтобы градиент снизу был виден */
+  color: #1C1F2A;
   text-align: center;
+}
+.tours-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 40px;
+  font-weight: 700;
 }
 .tours-container {
   max-width: 1200px;
@@ -287,56 +244,37 @@ nav ul {
   gap: 20px;
   justify-content: center;
 }
-.tours-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 40px;
-  font-weight: 700;
-}
 .tour-card {
   display: flex;
   flex-direction: column;
-  /* если нужно, можно задать фиксированную минимальную высоту карточки */
-  min-height: 450px; /* пример, подберите нужное значение */
-  border: none;
-  background: transparent;
+  min-height: 450px; 
+  background: #fff;
+  border-radius: 12px;
   padding: 15px;
+  border: 1px solid #ddd;
   transition: transform 0.2s ease-in-out;
 }
-
 .tour-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 15px #F8961E, 0 0 30px #F8961E;
-}
-
-/* Внутренний контейнер карточки выравнивается по вертикали */
-.tour-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-/* Блок с ценой и кнопкой – кнопка отодвигается вниз */
-.tour-content > div:last-child {
-  margin-top: auto;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 .tour-image {
   width: 100%;
   height: 300px;
   background-size: cover;
   background-position: center;
-  border: 5px solid #fff; /* белая рамка, можно заменить нужным цветом */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* эффект глубины */
 }
 .tour-content {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 20px;
 }
 .tour-title {
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 10px;
+  color: #1C1F2A;
 }
 .tour-desc {
   font-size: 0.95rem;
@@ -347,14 +285,30 @@ nav ul {
 .tour-price {
   margin-bottom: 15px;
   font-weight: 600;
-  color: #1565C0;
+  color: #1C1F2A;
 }
 
-/* Блок "Почему выбирают нас" – фон #F8961E, текст #90BE6D */
+/* Кнопка Подробнее (используем .tour-btn) */
+.tour-btn {
+  background-color: #FF6B35;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.tour-btn:hover {
+  background-color: #e65f2f;
+  transform: scale(1.05);
+}
+
+/* Пример для секции "Почему выбирают нас" */
 .why-us {
-  background-color: #000;
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 60px 20px;
-  color: #90BE6D;
+  color: #1C1F2A;
 }
 .why-us-container {
   max-width: 1200px;
@@ -365,7 +319,6 @@ nav ul {
   font-size: 1.8rem;
   margin-bottom: 30px;
   font-weight: 700;
-  color: #F8961E;
 }
 .benefits {
   display: grid;
@@ -374,40 +327,39 @@ nav ul {
   margin-top: 30px;
 }
 .benefit-item {
-  background-color: #111;
+  background-color: #fff;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .benefit-item:hover {
   transform: scale(1.03);
-  box-shadow: 0 8px 16px rgba(255,255,255,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 .benefit-icon {
   font-size: 30px;
   margin-bottom: 10px;
-  /* Можно оставить прежний цвет или изменить при необходимости */
+  color: #FF6B35;
 }
 .benefit-desc {
   font-size: 0.95rem;
   line-height: 1.4;
   font-weight: 300;
+  color: #1C1F2A;
 }
 
-/* Блок "Отзывы наших клиентов" – фон черный, текст отзывов #90BE6D, имя #F8961E */
+/* Пример для секции "Отзывы" */
 .reviews {
   padding: 60px 20px;
   width: 100%;
   text-align: center;
-  background-color: #000;
-  color: #90BE6D;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #1C1F2A;
 }
 .reviews h2 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 40px;
-  color: #F8961E;
 }
 .review-cards {
   display: flex;
@@ -417,9 +369,9 @@ nav ul {
 }
 .review-card {
   width: 300px;
-  background-color: #222;
+  background-color: #fff;
   border-radius: 8px;
-  border: 1px solid #333;
+  border: 1px solid #eee;
   padding: 20px;
   text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -431,7 +383,7 @@ nav ul {
 .review-author {
   font-weight: 700;
   margin-bottom: 5px;
-  color: #F8961E;
+  color: #1C1F2A;
 }
 .review-text {
   font-size: 0.9rem;
@@ -440,7 +392,7 @@ nav ul {
   font-weight: 300;
 }
 
-/* Блок "О нас" */
+/* Пример для секции "О нас" */
 .about {
   padding: 60px 20px;
   max-width: 1200px;
@@ -449,6 +401,8 @@ nav ul {
   flex-wrap: wrap;
   gap: 30px;
   align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #1C1F2A;
 }
 .about-img {
   flex: 1 1 400px;
@@ -456,7 +410,6 @@ nav ul {
   background-color: #ccc;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   border-radius: 8px;
   transition: transform 0.3s;
 }
@@ -475,18 +428,21 @@ nav ul {
   margin-bottom: 15px;
   line-height: 1.4;
   font-weight: 300;
+  color: #1C1F2A;
 }
 
-/* FAQ */
+/* Пример для секции "FAQ" */
 .faq {
   padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 .faq h2 {
   font-size: 1.8rem;
   margin-bottom: 30px;
   font-weight: 700;
+  color: #1C1F2A;
 }
 .faq-item {
   margin-bottom: 20px;
@@ -494,18 +450,19 @@ nav ul {
 .faq-item h3 {
   font-size: 1.2rem;
   margin-bottom: 5px;
-  color: #f8961e;
+  color: #FF6B35; /* Подчёркиваем заголовки в FAQ акцентным цветом */
   font-weight: 700;
 }
 .faq-item p {
   line-height: 1.4;
   font-weight: 300;
+  color: #1C1F2A;
 }
 
-/* Подвал – фон белый, текст тёмный */
+/* Подвал */
 footer {
-  background-color: #fff;
-  color: #333;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #1C1F2A;
   padding: 40px 20px;
 }
 .footer-container {
@@ -527,6 +484,7 @@ footer {
   margin-bottom: 10px;
   font-size: 1.2rem;
   font-weight: 600;
+  color: #1C1F2A;
 }
 .footer-social ul {
   display: flex;
@@ -540,7 +498,7 @@ footer {
   transition: background-color 0.2s;
 }
 .footer-social a:hover {
-  background-color: #f8961e;
+  background-color: #FF6B35;
 }
 
 /* Модальное окно */
@@ -550,7 +508,7 @@ footer {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(28, 31, 42, 0.4); /* затемнение в тон основного цвета */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,7 +525,7 @@ footer {
   backdrop-filter: blur(10px);
 }
 .modal {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   width: 90%;
   max-width: 700px;
   max-height: 80vh;
@@ -586,60 +544,12 @@ footer {
 .modal-overlay.show .modal {
   transform: translateY(0) scale(1);
 }
-.modal-content-wrapper {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  /* Если требуется, можно ограничить максимальную ширину */
-  width: 100%;
-}
-
-.modal-photo {
-  flex: 1;
-  max-width: 40%; /* Фото занимает примерно 40% ширины */
-}
-
-.modal-photo img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  /* При желании можно добавить рамку или тень */
-  border: 2px solid #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-text {
-  flex: 2;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.modal-text h3 {
-  margin-top: 0;
-  font-size: 2rem;
-  /* Если нужен другой шрифт или цвет, можно добавить их здесь */
-}
-
-.modal-text p {
-  margin: 10px 0;
-  font-size: 1.1rem;
-  line-height: 1.4;
-}
-
-.modal-action {
-  margin-top: 20px;
-}Uncaught TypeError: Cannot set properties of null (setting 'src')
-at showImage (script.js:151:48)
-at openDetailsModal (script.js:125:5)
-at HTMLButtonElement.onclick (VM386 index.html:1:1)Understand this errorAI
 .close-modal {
   font-size: 28px;
   position: absolute;
   top: 10px;
   right: 20px;
-  color: #000;
+  color: #1C1F2A;
   background: none;
   border: none;
   cursor: pointer;
@@ -649,197 +559,8 @@ at HTMLButtonElement.onclick (VM386 index.html:1:1)Understand this errorAI
   transform: scale(1.2);
 }
 
-/* Мобильное оформление модального окна */
+/* Адаптивные стили */
 @media (max-width: 768px) {
-  #bookingModalContent {
-    width: 90vw;
-    height: auto;
-    max-width: 95%;
-    max-height: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  #bookingModalContent .close-modal {
-    font-size: 24px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #000000 !important;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.2s ease-in-out;
-  }
-  #bookingModalContent .form-group label {
-    font-size: 1.2rem;
-  }
-  #bookingModalContent .form-group input,
-  #bookingModalContent .form-group select {
-    font-size: 1.3rem;
-    padding: 14px;
-    width: 100%;
-    height: 55px;
-    border-radius: 8px;
-    border: 2px solid #ccc;
-  }
-  #bookingModalContent .form-group select {
-    appearance: none;
-    background: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
-    background-size: 24px;
-    padding-right: 40px;
-  }
-  #bookingModalContent .form-group {
-    margin-bottom: 20px;
-  }
-  #bookingModalContent .people-buttons button {
-    font-size: 1.2rem;
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: 2px solid #28A745 !important;
-    background-color: transparent !important;
-    color: #28A745 !important;
-    transition: all 0.3s ease;
-  }
-}
-
-/* Индикаторы карусели */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-.carousel-dots .dot {
-  width: 10px;
-  height: 10px;
-  background-color: #ddd;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.carousel-dots .dot.active {
-  background-color: #1565C0;
-}
-
-/* Карусель */
-.carousel-container {
-  margin-bottom: 20px;
-}
-.carousel-slide {
-  text-align: center;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.carousel-slide img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-  user-select: none;
-  cursor: pointer;
-}
-.carousel-controls {
-  display: none;
-}
-
-/* Мобильное оформление для карусели */
-@media (max-width: 768px) {
-  #modalContent .carousel-slide img {
-    max-height: 200px;
-    object-fit: cover;
-  }
-}
-
-/* Форма в модальных окнах */
-.form-group {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.form-group input[type="text"],
-.form-group input[type="tel"],
-.form-group select,
-.form-group input[type="date"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.modal form button[type="submit"] {
-  margin-top: 15px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 14px 30px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-.modal form button[type="submit"]:hover {
-  background-color: #43A047;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(46, 139, 87, 0.5);
-}
-.modal form button[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(46, 139, 87, 0.3);
-}
-
-.people-input-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  width: 100%;
-}
-.people-input-container button {
-  all: unset;
-  width: 15px !important;
-  height: 15px !important;
-  font-size: 0.8rem !important;
-  font-weight: bold !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border: 2px solid #28A745 !important;
-  color: #a79028 !important;
-  border-radius: 5px !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease-in-out !important;
-}
-.people-input-container button:hover {
-  background-color: #28A745;
-  color: white;
-}
-.people-input-container input {
-  width: 50px;
-  height: 40px;
-  text-align: center;
-  font-size: 1.2rem;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Мобильная верстка для навигации и хедера */
-@media (max-width: 768px) {
-  .hero {
-    background-attachment: scroll;
-  }
-  .about-img {
-    background-attachment: scroll;
-  }
   .burger {
     position: absolute;
     right: 20px;
@@ -850,180 +571,91 @@ at HTMLButtonElement.onclick (VM386 index.html:1:1)Understand this errorAI
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(28, 31, 42, 0.1);
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
   }
-}
-.burger:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
-}
-.logo {
-  text-align: left;
-  margin-left: 0;
-}
-@media (max-width: 768px) {
-  .burger {
-    position: absolute;
-    right: 20px;
-    top: 5px;
-    font-size: 3.5rem;
-    width: 60px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border-radius: 10px;
-    cursor: pointer;
-  }
   .burger:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(28, 31, 42, 0.2);
+    transform: scale(1.05);
   }
-}
-@media (max-width: 768px) {
   .logo {
     position: absolute;
     left: 10px;
     top: 14px;
     font-size: 1.6rem;
   }
-}
-@media (max-width: 768px) {
-  .people-input-container {
+  nav {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 250px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    border-radius: 0 10px 10px 0;
+    padding: 20px;
+  }
+  nav.open {
+    transform: translateX(0);
+  }
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     width: 100%;
-    max-width: 250px;
+    padding: 0;
   }
-  .people-input-container button {
-    padding: 10px 14px;
+  nav ul li {
+    width: 100%;
+    text-align: left;
+  }
+  nav ul li a {
     font-size: 1.2rem;
+    font-weight: 600;
+    color: #1C1F2A;
+    padding: 10px 15px;
+    display: block;
+    transition: background 0.3s ease-in-out;
   }
-  .people-input-container input {
-    font-size: 1.2rem;
-    height: 40px;
-    width: 50px;
+  nav ul li a:hover {
+    background-color: rgba(28, 31, 42, 0.05);
   }
-  @media (max-width: 768px) {
-    /* Стили для мобильного меню */
-    nav {
-      position: fixed;
-      top: 60px;
-      right: 0;
-      width: 250px;
-      /* Высота может быть auto, чтобы меню автоматически подстраивалось под контент */
-      height: auto;
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      transform: translateX(120%); /* Меню скрыто справа */
-      transition: transform 0.3s ease-in-out;
-      z-index: 1000;
-      border-radius: 0 10px 10px 0;
-      padding: 20px;
-    }
-  
-    /* Когда меню открыто, класс .open добавляется к nav */
-    nav.open {
-      transform: translateX(0);
-    }
-  
-    /* Стили для списка меню */
-    nav ul {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-      list-style: none;
-      padding: 0;
-      width: 100%;
-    }
-  
-    nav ul li {
-      width: 100%;
-      text-align: left;
-    }
-  
-    nav ul li a {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #333;
-      padding: 10px 15px;
-      display: block;
-      transition: background 0.3s ease-in-out;
-    }
-  
-    nav ul li a:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
+  #bookingModalContent {
+    width: 90vw;
+    max-width: 95%;
+    max-height: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    padding: 20px;
   }
-}
-@media (max-width: 768px) {
+  #bookingModalContent .close-modal {
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #1C1F2A !important;
+  }
   .hero-content h1 {
-    font-size: 2rem; /* Уменьшите значение по необходимости */
+    font-size: 2rem;
   }
   .hero-content p {
-    font-size: 1rem; /* Уменьшите значение по необходимости */
-  }
-}
-/* По умолчанию (десктоп) — линии слева и справа */
-.hero-line-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.hero-line {
-  flex: 1;
-  border: none;
-  border-top: 2px solid #fff;
-  margin: 0;
-}
-
-.hero-line-text {
-  color: #fff;
-  font-size: 1.2rem;
-  white-space: nowrap;
-}
-
-/* Мобильная версия: линии сверху и снизу */
-@media (max-width: 768px) {
-  .hero-line-block {
-    display: flex;
-    flex-direction: column; /* Ставим линии и текст друг под другом */
-    align-items: center;    /* Центрируем по горизонтали */
-    gap: 10px;             /* Расстояние между элементами */
-  }
-  .hero-line {
-    width: 80%; /* или 100%, если нужно во всю ширину */
-    border-top: 2px solid #fff;
-  }
-  .hero-line-text {
-    /* Можно чуть уменьшить шрифт на мобильном, если нужно */
     font-size: 1rem;
   }
-}
-/* Мобильная версия */
-@media (max-width: 768px) {
   .hero-btns {
     flex-direction: column;
     align-items: center;
-  }
-  .hero-btns .cta-btn {
-    width: 90%;
-    max-width: none;
-    text-align: center;
-    margin-bottom: 10px; /* отступ снизу */
-  }
-  /* Убираем отступ у последней кнопки */
-  .hero-btns .cta-btn:last-child {
-    margin-bottom: 0;
+    gap: 15px;
   }
 }
