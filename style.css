@@ -74,17 +74,19 @@ label { font-weight: 600; }
 
 /* Стили для .fancy-btn */
 .fancy-btn {
+  background: white;
+  color: #1A73E8;
+  border: 2px solid #1A73E8;
+  border-radius: 8px;
   padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #FF6B35;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
 }
 
 .fancy-btn:hover {
-  background-color: #e65b27;
+  background: #1A73E8;
+  color: white;
+  transform: scale(1.05);
 }
 
 /* Навигация */
@@ -118,17 +120,18 @@ nav ul li a:hover::after {
 
 /* Кнопки в HERO */
 .hero .book-now {
-  background-color: #FF6B35;
-  color: #fff;
+  background: #1A73E8;
+  color: white;
+  border: none;
 }
 .hero .book-now:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .hero .discover-more {
-  background-color: #fff;
-  border: 2px solid #FF6B35;
-  color: #FF6B35;
+  background: white;
+  border: 2px solid #1A73E8;
+  color: #1A73E8;
 }
 .hero .discover-more:hover {
   transform: translateY(-3px);
@@ -295,7 +298,7 @@ nav ul {
   }
 }
 
-/* Рамка для изображений (карточки, карусель) */
+/* Рамка для изображений */
 .tour-image,
 .modal-photo img {
   border: 2px solid #ddd;
@@ -889,7 +892,9 @@ nav ul {
     background: #1558c8;
   }
 }
-        @media (max-width: 768px) {
+
+/* Мобильная версия для Sidebar */
+@media (max-width: 768px) {
   .sidebar-overlay {
     width: 100%;
     right: -100%;
@@ -947,4 +952,17 @@ footer {
 }
 .social-icons a:hover {
   color: #FF6B35;
+}
+
+/* === Исправление модальных окон на мобильных устройствах === */
+@media (max-width: 768px) {
+    .modal {
+        width: 90vw;
+        height: auto;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    .modal-content-wrapper {
+        flex-direction: column;
+    }
 }

@@ -82,7 +82,6 @@
         <hr class="hero-line" />
       </div>
       <div class="hero-btns">
-        <!-- При клике на "Забронировать" из карточки в модальном окне будет передана выбранная экскурсия -->
         <button class="cta-btn fancy-btn book-now" onclick="openBookingSidebar()" aria-label="Забронировать сейчас">
           Забронировать
         </button>
@@ -248,7 +247,6 @@
     <div class="modal" id="modalContent">
       <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
       <div class="modal-content-wrapper mobile-reverse">
-        <!-- На мобильных фото сверху, текст снизу -->
         <div class="modal-photo">
           <button class="carousel-prev" onclick="prevImage()" aria-label="Предыдущее изображение">‹</button>
           <img src="" alt="Изображение экскурсии" id="modalImage" loading="lazy" />
@@ -259,7 +257,6 @@
           <h3 id="modalTitle" tabindex="0"></h3>
           <p id="modalInfo" class="modal-info"></p>
           <div class="modal-action">
-            <!-- Теперь при клике передаётся название экскурсии для предварительного выбора -->
             <button id="modalBookingActionBtn" class="fancy-btn modal-booking-btn">Забронировать</button>
           </div>
         </div>

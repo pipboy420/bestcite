@@ -13,7 +13,7 @@ function scrollToSection(sectionId) {
   }
 }
 
-/* Бургер-меню */
+/* Бургер-меню (переключение класса "open") */
 function toggleBurgerMenu() {
   const nav = document.getElementById("mainNav");
   nav.classList.toggle("open");
@@ -124,7 +124,6 @@ function openBookingSidebar(preselectedTour = "") {
   backdrop.classList.add("show");
   document.body.style.overflow = "hidden";
   const tourSelect = document.getElementById("bookingTourSelect");
-  // Если передан заголовок экскурсии, выбираем его в списке
   if (tourSelect && preselectedTour) {
     tourSelect.value = preselectedTour;
   }
@@ -167,7 +166,6 @@ function openDetailsModal(title, info, images = []) {
   const modalBookingBtn = document.getElementById("modalBookingActionBtn");
   if (modalBookingBtn) {
     modalBookingBtn.textContent = "Забронировать";
-    // Передаём название экскурсии для предварительного выбора в форме бронирования
     modalBookingBtn.onclick = function() {
       closeDetailsModal();
       openBookingSidebar(title);
@@ -259,7 +257,7 @@ function submitBookingForm(event) {
   alert("Спасибо! Ваша заявка отправлена.");
 }
 
-/* ===== DOMContentLoaded: назначение обработчиков ===== */
+/* ===== ИНИЦИАЛИЗАЦИЯ ===== */
 document.addEventListener("DOMContentLoaded", function () {
   // Intersection observer для анимаций
   const observer = new IntersectionObserver((entries, obs) => {
@@ -277,22 +275,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("scroll", checkScrollTop);
 
-  // Назначаем обработчики для изменений в select для обновления цены
   document.getElementById('bookingTourSelect').addEventListener('change', updateTotalPrice);
   document.getElementById('bookingTypeSelect').addEventListener('change', updateTotalPrice);
 
-  // Закрытие бургер-меню при клике вне его области
+  // Закрытие бургер-меню при клике вне его области (используя класс "open")
+  const burgerBtn = document.getElementById("burgerBtn");
+  const mainNav = document.getElementById("mainNav");
   document.addEventListener("click", function(event) {
-    const nav = document.getElementById("mainNav");
-    const burger = document.getElementById("burgerBtn");
-    if (nav.classList.contains("open") &&
-        !nav.contains(event.target) &&
-        event.target !== burger) {
-      nav.classList.remove("open");
+    if (mainNav.classList.contains("open") &&
+        !mainNav.contains(event.target) &&
+        event.target !== burgerBtn) {
+      mainNav.classList.remove("open");
     }
   });
 
-  // Обработка нажатия Escape
+  // Обработка нажатия Escape для закрытия модальных окон и сайдбара
   document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
       closeDetailsModal();
@@ -315,5 +312,18 @@ document.addEventListener("DOMContentLoaded", function () {
     el.addEventListener("click", function(e) {
       e.stopPropagation();
     });
+  });
+
+  // Настройка размеров модального окна при изменении размера окна
+  const modal = document.getElementById("detailsModal");
+  window.addEventListener("resize", function () {
+    if (window.innerWidth < 768) {
+      modal.style.width = "90vw";
+      modal.style.height = "auto";
+      modal.style.maxHeight = "80vh";
+    } else {
+      modal.style.width = "50vw";
+      modal.style.height = "auto";
+    }
   });
 });
