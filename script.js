@@ -1,3 +1,105 @@
+
+function toggleBurgerMenu(event) {
+    const menu = document.querySelector("nav");
+    const burgerBtn = document.getElementById("burgerBtn");
+
+    // Переключаем класс open у меню
+    menu.classList.toggle("open");
+
+    function closeMenu() {
+        menu.classList.remove("open");
+        document.removeEventListener("click", outsideClickListener);
+        document.querySelectorAll("nav a, nav button").forEach(element => {
+            element.removeEventListener("click", closeMenu);
+        });
+    }
+
+    function outsideClickListener(e) {
+        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
+            closeMenu();
+        }
+    }
+
+    // Удаляем старые обработчики перед добавлением новых, чтобы избежать дублирования
+    document.querySelectorAll("nav a, nav button").forEach(element => {
+        element.removeEventListener("click", closeMenu);
+        element.addEventListener("click", closeMenu);
+    });
+
+    // Закрываем меню при клике за его пределами
+    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
+}
+
+function toggleBurgerMenu(event) {
+    const menu = document.querySelector("nav");
+    const burgerBtn = document.getElementById("burgerBtn");
+
+    menu.classList.toggle("open");
+
+    function closeMenu() {
+        menu.classList.remove("open");
+        document.removeEventListener("click", outsideClickListener);
+    }
+
+    function outsideClickListener(e) {
+        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
+            closeMenu();
+        }
+    }
+
+    // Закрываем меню при клике на любую ссылку или кнопку внутри него
+    document.querySelectorAll("nav a, nav button").forEach(element => {
+        element.addEventListener("click", closeMenu);
+    });
+
+    // Закрываем меню при клике за его пределами
+    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
+}
+
+function toggleBurgerMenu(event) {
+    const menu = document.querySelector("nav");
+    const burgerBtn = document.getElementById("burgerBtn");
+
+    menu.classList.toggle("open");
+
+    function closeMenu() {
+        menu.classList.remove("open");
+        document.removeEventListener("click", outsideClickListener);
+    }
+
+    function outsideClickListener(e) {
+        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
+            closeMenu();
+        }
+    }
+
+    // Закрываем меню при клике на любую ссылку внутри него
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
+
+    // Закрываем меню при клике за его пределами
+    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
+}
+
+function toggleBurgerMenu(event) {
+    const menu = document.querySelector("nav");
+    menu.classList.toggle("open");
+
+    // Закрытие меню при клике на ссылку
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", () => {
+            menu.classList.remove("open");
+        });
+    });
+
+    // Закрытие при клике вне меню
+    document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && !event.target.closest(".burger")) {
+            menu.classList.remove("open");
+        }
+    });
+}
 /* ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ ===== */
 
 /* Прокрутка наверх */
@@ -10,26 +112,6 @@ function scrollToSection(sectionId) {
   const el = document.getElementById(sectionId);
   if (el) {
     window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
-  }
-}
-
-/* Бургер-меню (переключение класса "open") */
-function toggleBurgerMenu() {
-  const nav = document.getElementById("mainNav");
-  nav.classList.toggle("open");
-}
-
-/* Функция проверки прокрутки для кнопки "Вверх" */
-function checkScrollTop() {
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  if (scrollTopBtn) {
-    if (window.scrollY > 300) {
-      scrollTopBtn.style.opacity = "1";
-      scrollTopBtn.style.pointerEvents = "auto";
-    } else {
-      scrollTopBtn.style.opacity = "0";
-      scrollTopBtn.style.pointerEvents = "none";
-    }
   }
 }
 
@@ -257,6 +339,14 @@ function submitBookingForm(event) {
   alert("Спасибо! Ваша заявка отправлена.");
 }
 
+/* ===== ОБРАБОТКА БУРГЕР-МЕНЮ ===== */
+/* Функция переключения меню. Используется в inline-обработчике onclick */
+function toggleBurgerMenu(event) {
+  event.stopPropagation();
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("open");
+}
+
 /* ===== ИНИЦИАЛИЗАЦИЯ ===== */
 document.addEventListener("DOMContentLoaded", function () {
   // Intersection observer для анимаций
@@ -273,29 +363,21 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(el);
   });
 
-  window.addEventListener("scroll", checkScrollTop);
+  window.addEventListener("scroll", function() {
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (scrollTopBtn) {
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.opacity = "1";
+        scrollTopBtn.style.pointerEvents = "auto";
+      } else {
+        scrollTopBtn.style.opacity = "0";
+        scrollTopBtn.style.pointerEvents = "none";
+      }
+    }
+  });
 
   document.getElementById('bookingTourSelect').addEventListener('change', updateTotalPrice);
   document.getElementById('bookingTypeSelect').addEventListener('change', updateTotalPrice);
-
-  // Закрытие бургер-меню при клике вне его области (используя класс "open")
-  const burgerBtn = document.getElementById("burgerBtn");
-  const mainNav = document.getElementById("mainNav");
-  document.addEventListener("click", function(event) {
-    if (mainNav.classList.contains("open") &&
-        !mainNav.contains(event.target) &&
-        event.target !== burgerBtn) {
-      mainNav.classList.remove("open");
-    }
-  });
-
-  // Обработка нажатия Escape для закрытия модальных окон и сайдбара
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-      closeDetailsModal();
-      closeBookingSidebar();
-    }
-  });
 
   // Инициализация FAQ-аккордеона
   document.querySelectorAll('.faq-question').forEach(btn => {
@@ -324,6 +406,19 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       modal.style.width = "50vw";
       modal.style.height = "auto";
+    }
+  });
+
+  // Глобальный обработчик клика для закрытия бургер-меню,
+  // если клик вне области меню и кнопки
+  const burgerBtn = document.getElementById("burgerBtn");
+  const mainNav = document.getElementById("mainNav");
+  document.addEventListener("click", function(event) {
+    const path = event.composedPath();
+    if (mainNav.classList.contains("open") &&
+        !path.includes(mainNav) &&
+        !path.includes(burgerBtn)) {
+      mainNav.classList.remove("open");
     }
   });
 });
