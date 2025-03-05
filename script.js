@@ -1,84 +1,25 @@
-document.addEventListener("DOMContentLoaded", function () {
-  revealOnScroll();
-  window.addEventListener("scroll", revealOnScroll);
-  window.addEventListener("scroll", checkScrollTop);
+/* ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ ===== */
 
-  document.addEventListener("click", function(event) {
-    const nav = document.getElementById("mainNav");
-    const burger = document.getElementById("burgerBtn");
-    if (nav.classList.contains("open") &&
-        !nav.contains(event.target) &&
-        event.target !== burger) {
-      nav.classList.remove("open");
-    }
-  });
-
-  const modalOverlay = document.getElementById("detailsModal");
-  const modal = document.querySelector(".modal");
-  const closeButton = document.querySelector(".close-modal");
-  modalOverlay.addEventListener("click", function(event) {
-    if (event.target === modalOverlay) closeDetailsModal();
-  });
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-      closeDetailsModal();
-      closeBookingModal();
-    }
-  });
-  if (closeButton) {
-    closeButton.addEventListener("click", closeDetailsModal);
-  }
-
-  let touchStartY = 0, touchEndY = 0;
-  if (modal) {
-    modal.addEventListener("touchstart", (e) => {
-      touchStartY = e.changedTouches[0].screenY;
-    });
-    modal.addEventListener("touchend", (e) => {
-      touchEndY = e.changedTouches[0].screenY;
-      if (touchEndY > touchStartY + 50) closeDetailsModal();
-    });
-  }
-
-  let carouselTouchStartX = 0, carouselTouchEndX = 0;
-  const carouselImageElem = document.getElementById("carouselImage");
-  if (carouselImageElem) {
-    carouselImageElem.addEventListener("touchstart", (e) => {
-      carouselTouchStartX = e.changedTouches[0].screenX;
-    });
-    carouselImageElem.addEventListener("touchend", (e) => {
-      carouselTouchEndX = e.changedTouches[0].screenX;
-      handleCarouselSwipe();
-    });
-    carouselImageElem.addEventListener("click", nextImage);
-  }
-  function handleCarouselSwipe() {
-    const diff = carouselTouchStartX - carouselTouchEndX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        nextImage();
-      } else {
-        prevImage();
-      }
-    }
-  }
-});
-
+/* Прокрутка наверх */
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function revealOnScroll() {
-  const revealElems = document.querySelectorAll(".fade-up, .slide-up, .scale-in, .fade-in");
-  const windowHeight = window.innerHeight;
-  revealElems.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < windowHeight - 100) {
-      el.classList.add("show");
-    }
-  });
+/* Прокрутка к секции */
+function scrollToSection(sectionId) {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+  }
 }
 
+/* Бургер-меню */
+function toggleBurgerMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("open");
+}
+
+/* Функция проверки прокрутки для кнопки "Вверх" */
 function checkScrollTop() {
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   if (scrollTopBtn) {
@@ -92,37 +33,133 @@ function checkScrollTop() {
   }
 }
 
-function scrollToSection(sectionId) {
-  const el = document.getElementById(sectionId);
-  if (el) {
-    window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" });
-  }
-}
-const menuLinks = document.querySelectorAll("#mainNav ul li a");
-menuLinks.forEach(link => {
-  link.addEventListener("click", function () {
-    document.getElementById("mainNav").classList.remove("open");
+/* Фокус в модальном окне */
+function trapFocus(modal) {
+  const focusableElements = modal.querySelectorAll(
+    'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  if (focusableElements.length === 0) return;
+  
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+  
+  modal.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
   });
-});
-function toggleBurgerMenu() {
-  const nav = document.getElementById("mainNav");
-  nav.classList.toggle("open");
 }
 
+/* ===== ЦЕНЫ ДЛЯ ЭКСКУРСИЙ ===== */
+const tourPrices = {
+  "Речная прогулка по каналам": { group: 1500, individual: 2000 },
+  "Ночной развод мостов": { group: 2000, individual: 2500 },
+  "Дворцовый Петербург": { group: 1800, individual: 2300 }
+};
+
+/* Функция обновления итоговой цены в форме бронирования */
+function updateTotalPrice() {
+  const tourSelect = document.getElementById('bookingTourSelect');
+  const typeSelect = document.getElementById('bookingTypeSelect');
+  const adultCount = parseInt(document.getElementById('adultCount').innerText);
+  const childCount = parseInt(document.getElementById('childCount').innerText);
+  let priceAdult = 0;
+  let priceChild = 0;
+  const selectedTour = tourSelect.value;
+  const selectedType = typeSelect.value;
+  if (selectedTour && tourPrices[selectedTour]) {
+    const prices = tourPrices[selectedTour];
+    if (selectedType === "Групповая") {
+      priceAdult = prices.group;
+      priceChild = Math.round(prices.group * 0.67);
+    } else if (selectedType === "Индивидуальная") {
+      priceAdult = prices.individual;
+      priceChild = Math.round(prices.individual * 0.67);
+    }
+  }
+  const totalPrice = (adultCount * priceAdult) + (childCount * priceChild);
+  document.getElementById('totalPrice').innerText = totalPrice;
+}
+
+/* Функции для изменения количества участников */
+function increaseCount(id) {
+  let countElement = document.getElementById(id);
+  let count = parseInt(countElement.innerText);
+  countElement.innerText = count + 1;
+  updateTotalPrice();
+}
+
+function decreaseCount(id) {
+  let countElement = document.getElementById(id);
+  let count = parseInt(countElement.innerText);
+  if (count > 0) {
+    countElement.innerText = count - 1;
+    updateTotalPrice();
+  }
+}
+
+/* Функции для боковой панели бронирования */
+function openBookingSidebar(preselectedTour = "") {
+  const sidebar = document.getElementById("bookingSidebar");
+  let backdrop = document.querySelector(".sidebar-backdrop");
+  if (!backdrop) {
+    backdrop = document.createElement("div");
+    backdrop.classList.add("sidebar-backdrop");
+    document.body.appendChild(backdrop);
+    backdrop.addEventListener("click", closeBookingSidebar);
+  }
+  if (sidebar) {
+    sidebar.classList.add("open");
+  }
+  backdrop.classList.add("show");
+  document.body.style.overflow = "hidden";
+  const tourSelect = document.getElementById("bookingTourSelect");
+  // Если передан заголовок экскурсии, выбираем его в списке
+  if (tourSelect && preselectedTour) {
+    tourSelect.value = preselectedTour;
+  }
+  updateTotalPrice();
+}
+
+function closeBookingSidebar() {
+  const sidebar = document.getElementById("bookingSidebar");
+  const backdrop = document.querySelector(".sidebar-backdrop");
+  if (sidebar) {
+    sidebar.classList.remove("open");
+  }
+  if (backdrop) {
+    backdrop.classList.remove("show");
+  }
+  document.body.style.overflow = "";
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО С ДЕТАЛЯМИ ЭКСКУРСИИ ===== */
+let lastFocusedElementModal;
 let currentImages = [];
 let currentImageIndex = 0;
 let currentTitle = "";
 let currentInfo = "";
 
 function openDetailsModal(title, info, images = []) {
+  lastFocusedElementModal = document.activeElement;
   currentTitle = title;
   currentInfo = info;
   currentImages = images || [];
   currentImageIndex = 0;
+  
   document.getElementById("modalTitle").textContent = title;
   document.getElementById("modalInfo").textContent = info;
   
-  // Если изображения переданы, отображаем первое
   if (currentImages.length > 0) {
     showImage(0);
   }
@@ -130,24 +167,35 @@ function openDetailsModal(title, info, images = []) {
   const modalBookingBtn = document.getElementById("modalBookingActionBtn");
   if (modalBookingBtn) {
     modalBookingBtn.textContent = "Забронировать";
+    // Передаём название экскурсии для предварительного выбора в форме бронирования
     modalBookingBtn.onclick = function() {
       closeDetailsModal();
-      openBookingModal(currentTitle);
+      openBookingSidebar(title);
     };
   }
-  document.getElementById("detailsModal").classList.add("show");
+  
+  const detailsModal = document.getElementById("detailsModal");
+  detailsModal.classList.add("show");
   document.body.style.overflow = "hidden";
+  
+  document.getElementById("modalTitle").focus();
+  trapFocus(detailsModal);
 }
 
 function closeDetailsModal() {
   document.getElementById("detailsModal").classList.remove("show");
   document.body.style.overflow = "";
+  if (lastFocusedElementModal) {
+    lastFocusedElementModal.focus();
+  }
 }
 
+/* ===== КАРУСЕЛЬ ИЗОБРАЖЕНИЙ ===== */
 function showImage(index) {
   if (index < 0) index = currentImages.length - 1;
   if (index >= currentImages.length) index = 0;
   currentImageIndex = index;
+  
   const modalImageElem = document.getElementById("modalImage");
   if (modalImageElem) {
     modalImageElem.src = currentImages[currentImageIndex];
@@ -167,6 +215,7 @@ function updateCarouselDots() {
   const dotsContainer = document.getElementById("carouselDots");
   if (!dotsContainer) return;
   dotsContainer.innerHTML = "";
+  
   for (let i = 0; i < currentImages.length; i++) {
     const dot = document.createElement("span");
     dot.classList.add("dot");
@@ -180,88 +229,91 @@ function updateCarouselDots() {
   }
 }
 
-function openBookingModal(preselectedTour) {
-  if (preselectedTour) {
-    document.getElementById("tourSelect").value = preselectedTour;
-  } else {
-    document.getElementById("tourSelect").value = "";
-  }
-  document.getElementById("bookingModal").classList.add("show");
-  document.body.style.overflow = "hidden";
+/* ===== ОТПРАВКА ФОРМЫ ===== */
+function submitBookingForm(event) {
+  event.preventDefault();
+  
+  let tour = document.getElementById('bookingTourSelect').value;
+  let type = document.getElementById('bookingTypeSelect').value;
+  let time = document.getElementById('bookingTimeSelect').value;
+  let date = document.getElementById('bookingDateField').value;
+  let adultCount = document.getElementById('adultCount').innerText;
+  let childCount = document.getElementById('childCount').innerText;
+  let name = document.getElementById('bookingNameField').value;
+  let phone = document.getElementById('bookingPhoneField').value;
+  let comment = document.getElementById('bookingComment').value;
+
+  let bookingData = {
+    tour,
+    type,
+    time,
+    date,
+    adultCount,
+    childCount,
+    name,
+    phone,
+    comment
+  };
+
+  console.log("Отправка данных на сервер:", bookingData);
+  alert("Спасибо! Ваша заявка отправлена.");
 }
 
-function closeBookingModal() {
-  document.getElementById("bookingModal").classList.remove("show");
-  document.body.style.overflow = "";
-}
-
-function bookingOverlayClick(e) {
-  const overlay = document.getElementById("bookingModal");
-  if (e.target === overlay) {
-    closeBookingModal();
-  }
-}
-
+/* ===== DOMContentLoaded: назначение обработчиков ===== */
 document.addEventListener("DOMContentLoaded", function () {
-  const minusBtn = document.querySelector(".people-minus");
-  const plusBtn = document.querySelector(".people-plus");
-  const inputField = document.getElementById("peopleCount");
+  // Intersection observer для анимаций
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll(".fade-up, .slide-up, .scale-in, .fade-in").forEach(el => {
+    observer.observe(el);
+  });
 
-  minusBtn.addEventListener("click", function () {
-    let currentValue = parseInt(inputField.value);
-    if (currentValue > 1) {
-      inputField.value = currentValue - 1;
+  window.addEventListener("scroll", checkScrollTop);
+
+  // Назначаем обработчики для изменений в select для обновления цены
+  document.getElementById('bookingTourSelect').addEventListener('change', updateTotalPrice);
+  document.getElementById('bookingTypeSelect').addEventListener('change', updateTotalPrice);
+
+  // Закрытие бургер-меню при клике вне его области
+  document.addEventListener("click", function(event) {
+    const nav = document.getElementById("mainNav");
+    const burger = document.getElementById("burgerBtn");
+    if (nav.classList.contains("open") &&
+        !nav.contains(event.target) &&
+        event.target !== burger) {
+      nav.classList.remove("open");
     }
   });
 
-  plusBtn.addEventListener("click", function () {
-    let currentValue = parseInt(inputField.value);
-    if (currentValue < 10) {
-      inputField.value = currentValue + 1;
+  // Обработка нажатия Escape
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeDetailsModal();
+      closeBookingSidebar();
     }
   });
 
-  inputField.addEventListener("input", function () {
-    let value = parseInt(inputField.value);
-    if (isNaN(value) || value < 1) {
-      inputField.value = 1;
-    } else if (value > 10) {
-      inputField.value = 10;
-    }
+  // Инициализация FAQ-аккордеона
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      answer.classList.toggle("open", !expanded);
+    });
+  });
+
+  // Предотвращаем закрытие модального окна при клике внутрь контента
+  document.querySelectorAll(".modal .modal-content-wrapper").forEach(el => {
+    el.addEventListener("click", function(e) {
+      e.stopPropagation();
+    });
   });
 });
-
-function submitBookingForm(e) {
-  e.preventDefault();
-  const tour = document.getElementById("tourSelect").value;
-  const date = document.getElementById("bookingDateField").value;
-  const time = document.getElementById("bookingTimeField").value;
-  const name = document.getElementById("bookingNameField").value;
-  const phone = document.getElementById("bookingPhoneField").value;
-  const people = document.getElementById("peopleCount").value;
-  
-  alert(
-    "Заявка отправлена!\n\n" +
-    "Экскурсия: " + tour + "\n" +
-    "Дата: " + date + "\n" +
-    "Время: " + time + "\n" +
-    "Имя: " + name + "\n" +
-    "Телефон: " + phone + "\n" +
-    "Кол-во человек: " + people
-  );
-  closeBookingModal();
-}
-
-const bookingForm = document.querySelector("#bookingModal form");
-if (bookingForm) {
-  bookingForm.addEventListener("submit", submitBookingForm);
-}
-
-function openBookingModalFromTour(tourName) {
-  const modal = document.getElementById("bookingModal");
-  const tourSelect = document.getElementById("tourSelect");
-  if (modal && tourSelect) {
-    modal.classList.add("show");
-    tourSelect.value = tourName;
-  }
-}

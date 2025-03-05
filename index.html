@@ -17,18 +17,47 @@
   <meta name="twitter:title" content="SPb Inside — Экскурсии по Санкт-Петербургу">
   <meta name="twitter:description" content="Уникальные экскурсии, комфортный транспорт, лучшие гиды!">
   <meta name="twitter:image" content="images/spb-team.jpeg">
-  <!-- Подключаем Google Fonts: Oi для заголовков и Space Mono для описания -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Oi&family=Space+Mono&display=swap" rel="stylesheet" />
+  <!-- Подключаем FontAwesome для иконок в подвале -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+        integrity="sha512-Fo3rlrZj/k7ujTTXRN41b5rCjwS6J+/dH3I7E3jH+z6fP2+vMjPJzp2d4HgR8DOP+J4l7rCJ/1Q1VnfdKVQJpA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Подключаем кастомные шрифты -->
+  <style>
+    @font-face {
+      font-family: 'Gotham Pro';
+      src: url('fonts/GothamPro.ttf') format('woff2'),
+           url('fonts/GothamPro.ttf') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Gotha Pro Medium';
+      src: url('fonts/GothaPro-Medium.ttf') format('woff2'),
+           url('fonts/GothaPro-Medium.ttf') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Gotha Pro Medium', sans-serif;
+    }
+    h1, h2, h3, .logo {
+      font-family: 'Gotham Pro', sans-serif;
+    }
+  </style>
   <!-- Подключаем CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Кнопка "Вверх" -->
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Прокрутить вверх">↑</button>
-  <!-- ШАПКА -->
+  
+  <!-- Шапка -->
   <header>
     <div class="logo" onclick="scrollToTop()">SPb Inside</div>
+    <!-- Бургер-кнопка -->
     <div class="burger" id="burgerBtn" onclick="toggleBurgerMenu()" aria-label="Открыть меню" role="button" tabindex="0">
       ☰
     </div>
@@ -41,36 +70,29 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
-    <!-- Кнопка "Забронировать" убрана из хедера согласно требованию -->
   </header>
   <div class="header-offset"></div>
+  
   <!-- HERO -->
   <section class="hero fade-up" id="hero">
     <div class="hero-overlay">
-      <!-- Удалены заголовок и описательный текст, оставлен только блок с линиями и кнопка -->
       <div class="hero-line-block">
         <hr class="hero-line" />
         <span class="hero-line-text">Исследуй неожиданное</span>
         <hr class="hero-line" />
       </div>
-      
       <div class="hero-btns">
-        <!-- Кнопка Book Now -->
-        <button class="cta-btn fancy-btn book-now" 
-                onclick="openBookingModal()" 
-                aria-label="Забронировать сейчас">
+        <!-- При клике на "Забронировать" из карточки в модальном окне будет передана выбранная экскурсия -->
+        <button class="cta-btn fancy-btn book-now" onclick="openBookingSidebar()" aria-label="Забронировать сейчас">
           Забронировать
         </button>
-      
-        <!-- Кнопка Discover More (ведёт к блоку #contacts) -->
-        <button class="cta-btn fancy-btn discover-more" 
-                onclick="scrollToSection('contacts')" 
-                aria-label="Перейти к контактам">
+        <button class="cta-btn fancy-btn discover-more" onclick="scrollToSection('contacts')" aria-label="Перейти к контактам">
           Контакты
         </button>
       </div>
     </div>
   </section>
+  
   <!-- ПОДБОРКА ЭКСКУРСИЙ -->
   <section class="tours-section fade-up" id="tours">
     <h2>Популярные экскурсии</h2>
@@ -79,30 +101,24 @@
       <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/image1.jpeg');" role="img" aria-label="Речная прогулка по каналам"></div>
         <div class="tour-content">
-          <div>
-            <h3 class="tour-title">Речная прогулка по каналам</h3>
-          </div>
-          <div>
-            <button class="tour-btn fancy-btn" onclick="openDetailsModal(
+          <h3 class="tour-title">Речная прогулка по каналам</h3>
+          <button class="tour-btn fancy-btn" onclick="openDetailsModal(
                 'Речная прогулка по каналам',
-                'Маршрут: Невский пр., река Мойка, канал Грибоедова.\\nДлительность ~1,5 часа.\\nУзнайте удивительные истории о городе!',
+                'Маршрут: Невский пр., река Мойка, канал Грибоедова.\nДлительность: ~1,5 часа.\nОписание: Прогулка по историческим каналам.\nЦена (групповая): 1500 руб., Цена (индивидуальная): 2000 руб.',
                 ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
               )" aria-label="Подробнее о речной прогулке по каналам">
-              Подробнее
-            </button>
-          </div>
+            Подробнее
+          </button>
         </div>
       </div>
       <!-- Экскурсия №2 -->
       <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/briges_background.jpeg');" role="img" aria-label="Ночной развод мостов"></div>
         <div class="tour-content">
-          <div>
-            <h3 class="tour-title">Ночной развод мостов</h3>
-          </div>
+          <h3 class="tour-title">Ночной развод мостов</h3>
           <button class="tour-btn fancy-btn" onclick="openDetailsModal(
               'Ночной развод мостов',
-              'Старт в 00:30, длительность ~2 часа, объезд главных мостов.\\nНочная подсветка и романтика!',
+              'Старт в 00:30, длительность: ~2 часа.\nОписание: Ночная прогулка с видом на развод мостов.\nЦена (групповая): 2000 руб., Цена (индивидуальная): 2500 руб.',
               ['images/image1.jpeg', 'images/image2.jpeg']
             )" aria-label="Подробнее о ночном разводе мостов">
             Подробнее
@@ -113,12 +129,10 @@
       <div class="tour-card fade-up">
         <div class="tour-image" style="background-image: url('images/tour3.jpeg');" role="img" aria-label="Дворцовый Петербург"></div>
         <div class="tour-content">
-          <div>
-            <h3 class="tour-title">Дворцовый Петербург</h3>
-          </div>
+          <h3 class="tour-title">Дворцовый Петербург</h3>
           <button class="tour-btn fancy-btn" onclick="openDetailsModal(
               'Дворцовый Петербург',
-              'Зимний дворец, Михайловский дворец, особняки на набережной.\\nИстории о жизни царской семьи!',
+              'Зимний дворец, Михайловский дворец, особняки на набережной.\nОписание: Экскурсия по дворцовым комплексам Петербурга.\nЦена (групповая): 1800 руб., Цена (индивидуальная): 2300 руб.',
               ['images/image1.jpeg', 'images/image2.jpeg', 'images/image3.jpeg']
             )" aria-label="Подробнее о дворцовом Петербурге">
             Подробнее
@@ -127,6 +141,7 @@
       </div>
     </div>
   </section>
+  
   <!-- "ПОЧЕМУ ВЫБИРАЮТ НАС" -->
   <section class="why-us slide-up" id="why-us">
     <div class="why-us-container">
@@ -151,6 +166,7 @@
       </div>
     </div>
   </section>
+  
   <!-- "ОТЗЫВЫ" -->
   <section class="reviews fade-up">
     <h2>Отзывы наших клиентов</h2>
@@ -169,31 +185,40 @@
       </div>
     </div>
   </section>
+  
   <!-- "О НАС" -->
   <section class="about fade-up" id="about">
-    <div class="about-img" style="background-image: url('images/spb-team.jpeg');"></div>
+    <div class="about-img" style="background-image: url('images/spb-team.jpeg');" loading="lazy"></div>
     <div class="about-text">
       <h2>О компании</h2>
       <p>Наша экскурсионная компания уже более 10 лет помогает гостям и жителям Санкт-Петербурга открывать уникальные грани Северной столицы. Мы гордимся своими опытными гидами и комфортным транспортом.</p>
       <p>Тысячи довольных туристов доверили нам показать самые красивые и значимые места города. Присоединяйтесь!</p>
     </div>
   </section>
-  <!-- FAQ -->
+  
+  <!-- FAQ (аккордеон) -->
   <section class="faq slide-up" id="faq">
     <h2>Часто задаваемые вопросы</h2>
-    <div class="faq-item fade-up">
-      <h3>Можно ли оплатить экскурсию онлайн?</h3>
-      <p>Да, мы принимаем онлайн-оплату (карты Visa/MasterCard). После оформления заявки с вами свяжется менеджер и пришлёт ссылку на оплату.</p>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">Можно ли оплатить экскурсию онлайн?</button>
+      <div class="faq-answer">
+        <p>Да, мы принимаем онлайн-оплату (карты Visa/MasterCard). После оформления заявки с вами свяжется менеджер и пришлёт ссылку на оплату.</p>
+      </div>
     </div>
-    <div class="faq-item fade-up">
-      <h3>Есть ли скидки для групп?</h3>
-      <p>Да, при бронировании от 10 человек предусмотрены скидки. Подробности можно уточнить у менеджера.</p>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">Есть ли скидки для групп?</button>
+      <div class="faq-answer">
+        <p>Да, при бронировании от 10 человек предусмотрены скидки. Подробности можно уточнить у менеджера.</p>
+      </div>
     </div>
-    <div class="faq-item fade-up">
-      <h3>Как отменить/перенести экскурсию?</h3>
-      <p>Достаточно связаться с нами по телефону или электронной почте. Перенос возможен при наличии свободных мест на другую дату.</p>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">Как отменить/перенести экскурсию?</button>
+      <div class="faq-answer">
+        <p>Достаточно связаться с нами по телефону или электронной почте. Перенос возможен при наличии свободных мест на другую дату.</p>
+      </div>
     </div>
   </section>
+  
   <!-- ПОДВАЛ -->
   <footer id="contacts">
     <div class="footer-container">
@@ -203,85 +228,109 @@
       </div>
       <div class="footer-contact">
         <h3>Контакты</h3>
-        <p>Телефон: +7 (999) 123-45-67</p>
-        <p>Email: info@spbinside.ru</p>
-        <p>Адрес: Невский проспект, д. 10, Санкт-Петербург</p>
+        <p><i class="fas fa-phone-alt"></i> +7 (999) 123-45-67</p>
+        <p><i class="fas fa-envelope"></i> info@spbinside.ru</p>
+        <p><i class="fas fa-map-marker-alt"></i> Невский проспект, д. 10, Санкт-Петербург</p>
       </div>
       <div class="footer-social">
         <h3>Мы в соцсетях</h3>
-        <ul>
-          <li><a href="#" aria-label="VK">VK</a></li>
-          <li><a href="#" aria-label="Instagram">Instagram</a></li>
-          <li><a href="#" aria-label="Telegram">Telegram</a></li>
-        </ul>
+        <div class="social-icons">
+          <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        </div>
       </div>
     </div>
   </footer>
-  <!-- МОДАЛЬНОЕ ОКНО / DETAILS -->
-  <div class="modal-overlay" id="detailsModal" onclick="closeDetailsModal()">
+  
+  <!-- Модальное окно для деталей экскурсии -->
+  <div class="modal-overlay" id="detailsModal">
     <div class="modal" id="modalContent">
       <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
-      <div class="modal-content-wrapper">
+      <div class="modal-content-wrapper mobile-reverse">
+        <!-- На мобильных фото сверху, текст снизу -->
         <div class="modal-photo">
+          <button class="carousel-prev" onclick="prevImage()" aria-label="Предыдущее изображение">‹</button>
           <img src="" alt="Изображение экскурсии" id="modalImage" loading="lazy" />
+          <button class="carousel-next" onclick="nextImage()" aria-label="Следующее изображение">›</button>
+          <div id="carouselDots"></div>
         </div>
         <div class="modal-text">
-          <h3 id="modalTitle"></h3>
+          <h3 id="modalTitle" tabindex="0"></h3>
           <p id="modalInfo" class="modal-info"></p>
           <div class="modal-action">
+            <!-- Теперь при клике передаётся название экскурсии для предварительного выбора -->
             <button id="modalBookingActionBtn" class="fancy-btn modal-booking-btn">Забронировать</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
   <!-- Модальное окно для бронирования -->
-  <div class="modal-overlay" id="bookingModal" onclick="bookingOverlayClick(event)">
-    <div class="modal" id="bookingModalContent">
-      <button class="close-modal" onclick="closeBookingModal()" aria-label="Закрыть окно">×</button>
-      <h3>Бронирование</h3>
-      <form onsubmit="submitBookingForm(event)">
+  <div class="sidebar-overlay" id="bookingSidebar">
+    <div class="sidebar-content">
+      <button class="close-sidebar" onclick="closeBookingSidebar()" aria-label="Закрыть панель">×</button>
+      <form onsubmit="submitBookingForm(event)" class="booking-form">
+        <h2 class="booking-title">Бронирование</h2>
+        <p class="booking-subtitle">Оставьте заявку, и наш менеджер свяжется с вами для подтверждения экскурсии.</p>
         <div class="form-group">
-          <label>Выберите экскурсию:</label>
-          <select id="tourSelect" required>
-            <option value="">Выберите экскурсию</option>
+          <select id="bookingTourSelect" required>
+            <option value="" disabled selected>Выбрать экскурсию</option>
             <option value="Речная прогулка по каналам">Речная прогулка по каналам</option>
             <option value="Ночной развод мостов">Ночной развод мостов</option>
             <option value="Дворцовый Петербург">Дворцовый Петербург</option>
           </select>
         </div>
-        <div class="form-group date-group">
-          <label>Дата экскурсии:</label>
-          <input type="date" id="bookingDateField" required />
-        </div>
         <div class="form-group">
-          <label>Время:</label>
-          <select id="bookingTimeField">
-            <option value="12:00" selected>12:00</option>
-            <option value="14:00">14:00</option>
-            <option value="18:00">18:00</option>
+          <select id="bookingTypeSelect" required>
+            <option value="" disabled selected>Выбрать формат</option>
+            <option value="Групповая">Групповая</option>
+            <option value="Индивидуальная">Индивидуальная</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Ваше имя:</label>
-          <input type="text" id="bookingNameField" placeholder="Иван" required />
+          <select id="bookingTimeSelect">
+            <option value="12:00">12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="16:00">16:00</option>
+            <option value="18:00">18:00</option>
+          </select>
         </div>
-        <div class="form-group">
-          <label>Телефон:</label>
-          <input type="tel" id="bookingPhoneField" placeholder="+7 (999) 999-99-99" pattern="^(\+7)\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$" required />
+        <div class="form-group date-picker">
+          <input type="date" id="bookingDateField" required placeholder="Желаемая дата">
         </div>
-        <div class="form-group">
-          <label>Сколько вас будет:</label>
-          <div class="people-input-container">
-            <button type="button" class="people-minus">−</button>
-            <input type="number" id="peopleCount" value="1" min="1" max="10">
-            <button type="button" class="people-plus">+</button>
+        <div class="people-count">
+          <label>Взрослый</label>
+          <div class="counter">
+            <button type="button" class="counter-btn" onclick="decreaseCount('adultCount')">–</button>
+            <span id="adultCount">0</span>
+            <button type="button" class="counter-btn" onclick="increaseCount('adultCount')">+</button>
           </div>
         </div>
-        <button type="submit" class="fancy-btn" aria-label="Отправить форму">Отправить</button>
+        <div class="people-count">
+          <label>Дети 6-10 лет</label>
+          <div class="counter">
+            <button type="button" class="counter-btn" onclick="decreaseCount('childCount')">–</button>
+            <span id="childCount">0</span>
+            <button type="button" class="counter-btn" onclick="increaseCount('childCount')">+</button>
+          </div>
+        </div>
+        <div class="total-price">Итого: <span id="totalPrice">0</span> ₽</div>
+        <div class="form-group">
+          <input type="text" id="bookingNameField" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="bookingPhoneField" placeholder="+7 (999) 999-99-99" required>
+        </div>
+        <div class="form-group">
+          <textarea id="bookingComment" placeholder="Ваш комментарий. По желанию можете указать всё, что считаете нужным"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Отправить</button>
       </form>
     </div>
   </div>
+  
   <!-- Подключаем скрипты -->
   <script src="script.js"></script>
 </body>
