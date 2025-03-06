@@ -233,9 +233,9 @@
       <div class="footer-social">
         <h3>Мы в соцсетях</h3>
         <div class="social-icons">
-          <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="https://t.me/yourchannel" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="https://wa.me/yourwhatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/yourprofile" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
@@ -243,13 +243,12 @@
   
   <!-- Модальное окно для деталей экскурсии -->
   <div class="modal-overlay" id="detailsModal">
+    <!-- Индикатор для свайпа (только в мобильной версии) -->
+    <div class="modal-swipe-indicator"></div>
     <div class="modal" id="modalContent">
-      <button class="close-modal" onclick="closeDetailsModal()" aria-label="Закрыть окно">×</button>
-      <div class="modal-content-wrapper mobile-reverse">
+      <div class="modal-content-wrapper">
         <div class="modal-photo">
-          <button class="carousel-prev" onclick="prevImage()" aria-label="Предыдущее изображение">‹</button>
           <img src="" alt="Изображение экскурсии" id="modalImage" loading="lazy" />
-          <button class="carousel-next" onclick="nextImage()" aria-label="Следующее изображение">›</button>
           <div id="carouselDots"></div>
         </div>
         <div class="modal-text">
@@ -329,5 +328,9 @@
   
   <!-- Подключаем скрипты -->
   <script src="script.js"></script>
+  <!-- Мобильная кнопка "Забронировать" (появляется при открытом модальном окне в мобильной версии) -->
+  <div id="mobileBookingBtnContainer" class="mobile-booking-btn-container" style="display: none;">
+      <button id="mobileBookingBtn" class="fancy-btn">Забронировать</button>
+  </div>
 </body>
 </html>

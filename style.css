@@ -6,11 +6,15 @@
   backface-visibility: hidden;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Убираем горизонтальный скролл */
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Фон сайта – анимированный градиентный перелив */
 body {
   background: linear-gradient(135deg, #F5F5F5, #EAEFF3, #F5F5F5);
   background-size: 400% 400%;
@@ -82,7 +86,6 @@ label { font-weight: 600; }
   font-weight: bold;
   transition: all 0.3s ease-in-out;
 }
-
 .fancy-btn:hover {
   background: #1A73E8;
   color: white;
@@ -102,7 +105,7 @@ nav ul li a::after {
   bottom: -5px;
   width: 0;
   height: 2px;
-  background-color: #1A73E8; /* изменено: теперь синий, как логотип */
+  background-color: #1A73E8;
   transition: width 0.3s ease;
 }
 nav ul li a:hover::after {
@@ -112,7 +115,7 @@ nav ul li a:hover {
   transform: translateY(-3px);
 }
 
-/* Бургер-меню – анимация выезда сбоку */
+/* Анимация выезда меню */
 @keyframes slideInFromRight {
   0% { transform: translateX(100%); }
   to { transform: translateX(0); }
@@ -138,7 +141,7 @@ nav ul li a:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Логотип */
+/* Шапка */
 header .logo {
   font-weight: 700;
   font-size: 1.6rem;
@@ -147,63 +150,10 @@ header .logo {
   color: #1A73E8;
 }
 
-/* HERO заголовок */
-.hero-line-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-.hero-line-block hr {
-  border: none;
-  border-top: 2px solid #FF6B35;
-  flex: 1;
-  margin: 0 10px;
-}
-.hero-line-text {
-  font-size: 1.5rem;
-  color: #1C1F2A;
-}
-@media (max-width: 768px) {
-  .hero-line-block {
-    flex-direction: column;
-  }
-  .hero-line-block hr {
-    width: 80%;
-    margin: 10px 0;
-  }
-}
-
-/* Кнопка "Вверх" */
-.scroll-top-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: #1A73E8;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 46px;
-  height: 46px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  transition: opacity 0.3s, transform 0.3s;
-  opacity: 0;
-  pointer-events: none;
-}
-.scroll-top-btn:hover {
-  opacity: 0.8;
-  transform: scale(1.1);
-}
-
-/* Шапка */
 header {
   position: fixed;
   top: 0;
+  left: 0; /* чтобы гарантированно не было смещения */
   width: 100%;
   height: 70px;
   background: rgba(255,255,255,0.9);
@@ -212,8 +162,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  z-index: 1001;
+  /* убираем горизонтальные отступы */
+  padding: 0; 
+  z-index: 11000; /* шапка выше модалки */
 }
 .header-offset {
   height: 70px;
@@ -224,12 +175,14 @@ header {
   cursor: pointer;
   background: none;
   border: none;
+  margin-right: 20px; /* небольшой отступ справа для бургер-кнопки */
 }
 @media (min-width: 769px) {
   .burger {
     display: none;
   }
 }
+
 nav {
   position: relative;
   transition: transform 0.3s ease-in-out;
@@ -237,9 +190,10 @@ nav {
 nav ul {
   display: flex;
   gap: 20px;
+  margin-right: 20px; /* чтобы пункты меню не липли к краю */
 }
 
-/* Мобильная версия: узкое меню с анимацией */
+/* Мобильная версия: выезжающее меню */
 @media (max-width: 768px) {
   nav {
     display: none;
@@ -261,6 +215,13 @@ nav ul {
   nav ul {
     flex-direction: column;
     gap: 15px;
+    margin-right: 0; /* сбросим на мобильном */
+  }
+  /* HERO: кнопки в одну строку */
+  .hero-btns {
+    flex-direction: row !important;
+    gap: 10px;
+    justify-content: center;
   }
 }
 
@@ -274,7 +235,7 @@ nav ul {
   align-items: center;
   justify-content: flex-end;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0; /* убрали боковые паддинги */
   position: relative;
 }
 .hero-overlay {
@@ -285,17 +246,6 @@ nav ul {
   gap: 30px;
   justify-content: center;
   margin-top: 40px;
-}
-@media (max-width: 768px) {
-  .hero-btns {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  .hero-btns .cta-btn {
-    width: 90%;
-    text-align: center;
-  }
 }
 
 /* Рамка для изображений */
@@ -318,7 +268,8 @@ nav ul {
 
 /* Секция "Популярные экскурсии" */
 .tours-section {
-  padding: 60px 20px;
+  width: 100%;
+  padding: 60px 0; /* убрали боковые отступы, только вертикальные */
   background-color: rgba(255,255,255,0.4);
   text-align: center;
 }
@@ -331,7 +282,7 @@ nav ul {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   justify-content: center;
 }
@@ -375,8 +326,9 @@ nav ul {
 
 /* Секция "Почему выбирают нас" */
 .why-us {
+  width: 100%;
   background-color: rgba(255,255,255,0.6);
-  padding: 60px 20px;
+  padding: 60px 0;
   text-align: center;
 }
 .why-us-container {
@@ -418,7 +370,8 @@ nav ul {
 
 /* Секция "Отзывы" */
 .reviews {
-  padding: 60px 20px;
+  width: 100%;
+  padding: 60px 0;
   background-color: rgba(255,255,255,0.4);
   text-align: center;
 }
@@ -460,7 +413,8 @@ nav ul {
 
 /* Секция "О нас" */
 .about {
-  padding: 60px 20px;
+  width: 100%;
+  padding: 60px 0;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -500,7 +454,8 @@ nav ul {
 
 /* FAQ */
 .faq {
-  padding: 60px 20px;
+  width: 100%;
+  padding: 60px 0;
   max-width: 1200px;
   margin: 0 auto;
   background-color: rgba(255,255,255,0.4);
@@ -526,10 +481,17 @@ nav ul {
   padding: 10px;
   cursor: pointer;
   color: #1A73E8;
+  position: relative;
+}
+.faq-question::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  font-size: 1rem;
   transition: transform 0.3s;
 }
-.faq-question:hover {
-  transform: translateY(-2px);
+.faq-question[aria-expanded="true"]::after {
+  transform: rotate(180deg);
 }
 .faq-answer {
   max-height: 0;
@@ -543,17 +505,19 @@ nav ul {
 }
 
 /* Модальное окно */
+/* Оверлей начинается с top:70px, чтобы НЕ закрывать шапку.
+   Ширина 100vw/100%, без левых отступов. */
 .modal-overlay {
   position: fixed;
-  top: 0;
+  top: 70px;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px);
   background: rgba(28,31,42,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 10000; /* Ниже, чем 11000 у шапки, чтобы не перекрывать её */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -564,129 +528,78 @@ nav ul {
   visibility: visible;
   pointer-events: auto;
 }
+
+/* Модалка (моб. версия) */
+@media (max-width: 768px) {
+  .modal {
+    width: 100%;
+    height: calc(100vh - 70px);
+    border-radius: 0;
+    background: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+  .modal-overlay.show .modal {
+    transform: translateY(0);
+  }
+  .modal-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .modal-photo {
+    margin-top: 20px;
+  }
+  .modal-swipe-indicator {
+    width: 40px;
+    height: 5px;
+    background: #ccc;
+    border-radius: 5px;
+    margin: 10px auto;
+  }
+  .modal-text {
+    padding: 20px;
+  }
+  .modal-booking-btn {
+    margin: 0 auto;
+  }
+}
+
+/* Модалка (ПК) */
 @media (min-width: 769px) {
   .modal {
-    width: 90%;
-    max-width: 900px;
+    width: 50vw;
     height: auto;
-    max-height: 80vh;
+    max-height: calc(80vh - 70px);
     padding: 40px;
     border-radius: 20px;
     background: rgba(255,255,255,0.95);
     box-shadow: 0 12px 40px rgba(0,0,0,0.2);
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
   }
-}
-@media (max-width: 768px) {
-  .modal {
-    width: 100vw;
-    height: calc(100vh - 70px);
-    margin-top: 70px;
-    padding: 20px;
-    border-radius: 0;
-    background: rgba(255,255,255,0.95);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .modal-overlay {
-    backdrop-filter: none;
-    z-index: 900; /* модальное окно не перекрывает шапку */
-  }
-}
-
-/* Кнопка закрытия модального окна */
-.close-modal {
-  font-size: 28px;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  color: #1C1F2A;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-.close-modal:hover {
-  transform: scale(1.2);
-}
-.modal-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-@media (max-width: 768px) {
-  .modal-content-wrapper.mobile-reverse {
-    flex-direction: column;
-  }
-}
-@media (min-width: 769px) {
   .modal-content-wrapper {
+    display: flex;
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
+    text-align: left;
   }
   .modal-photo {
-    position: relative;
-    order: 1;
-    flex: 1;
-    margin-right: 30px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 5px;
-    overflow: hidden;
+    flex: 0 0 40%;
+    margin-right: 20px;
+    margin-top: 0;
   }
-  .carousel-prev,
-  .carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.4);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    z-index: 2;
-  }
-  .carousel-prev {
-    left: 0;
-    margin-left: 10px;
-  }
-  .carousel-next {
-    right: 0;
-    margin-right: 10px;
+  .modal-photo img {
+    width: 100%;
+    height: auto;
   }
   .modal-text {
-    order: 2;
     flex: 1;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
   .modal-booking-btn {
-    font-size: 1.2rem;
-    padding: 16px 32px;
-    width: 100%;
+    display: block;
     margin-top: 20px;
-    background-color: #1A73E8; /* изменено: теперь цвет как у логотипа */
-    border: none;
-    color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 50px;
-  }
-  .modal-booking-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
 }
 
@@ -697,14 +610,12 @@ nav ul {
   text-align: center;
   margin-bottom: 10px;
 }
-
 .booking-subtitle {
   font-size: 14px;
   color: #666;
   text-align: center;
   margin-bottom: 15px;
 }
-
 .booking-form {
   max-width: 500px;
   margin: auto;
@@ -716,12 +627,10 @@ nav ul {
   flex-direction: column;
   gap: 15px;
 }
-
 .form-group {
   display: flex;
   flex-direction: column;
 }
-
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -742,19 +651,16 @@ nav ul {
 .date-picker {
   position: relative;
 }
-
 .people-count {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .counter {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .counter-btn {
   background: #1A73E8;
   color: #fff;
@@ -764,13 +670,11 @@ nav ul {
   border-radius: 5px;
   cursor: pointer;
 }
-
 .total-price {
   font-size: 18px;
   font-weight: bold;
   text-align: right;
 }
-
 .submit-btn {
   background: #1A73E8;
   color: white;
@@ -781,23 +685,22 @@ nav ul {
   cursor: pointer;
   width: 100%;
 }
-
 .submit-btn:hover {
   background: #1558c8;
 }
 
-/* Стили для Sidebar */
+/* Сайдбар (бронирование) */
 .sidebar-overlay {
   position: fixed;
-  top: 0;
+  top: 70px;
   right: -100%;
   width: 400px;
   max-width: 90%;
-  height: 100vh;
+  height: calc(100vh - 70px);
   background: #fff;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   transition: right 0.4s ease-in-out;
-  z-index: 1001;
+  z-index: 9000; /* Ниже хедера (11000) */
   overflow-y: auto;
   padding: 20px;
   display: flex;
@@ -806,15 +709,11 @@ nav ul {
 .sidebar-overlay.open {
   right: 0;
 }
-
-/* Новый блок для адаптивного контента в sidebar */
 .sidebar-content {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
-
-/* Затемнение фона при открытом сайдбаре */
 .sidebar-backdrop {
   position: fixed;
   top: 0;
@@ -831,8 +730,7 @@ nav ul {
   opacity: 1;
   visibility: visible;
 }
-
-/* Мобильная версия для Sidebar */
+/* Мобильная версия сайдбара */
 @media (max-width: 768px) {
   .sidebar-overlay {
     width: 100%;
@@ -849,6 +747,7 @@ nav ul {
 
 /* Футер */
 footer {
+  width: 100%;
   background-color: #222;
   color: #fff;
   padding: 40px 20px;
@@ -887,61 +786,11 @@ footer {
   margin-right: 10px;
   font-size: 1.5rem;
   color: #fff;
-  transition: color 0.3s;
+  transition: transform 0.1s ease, color 0.3s;
 }
 .social-icons a:hover {
   color: #FF6B35;
 }
-
-/* === Исправление модальных окон на мобильных устройствах === */
-@media (max-width: 768px) {
-  .modal {
-    width: 100vw;
-    height: calc(100vh - 70px);
-    margin-top: 70px;
-    padding: 20px;
-    border-radius: 0;
-    background: rgba(255,255,255,0.95);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .modal-content-wrapper {
-    flex-direction: column;
-  }
-  /* Скрываем кнопки карусели в мобильной версии */
-  .carousel-prev, .carousel-next {
-    display: none;
-  }
-}
-@media (max-width: 768px) {
-  .modal-content-wrapper.mobile-reverse {
-    flex-direction: column;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  .modal-photo,
-  .modal-text {
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  .modal-photo {
-    margin-bottom: 20px;
-  }
-}
-@media (max-width: 768px) {
-  nav {
-    display: none;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-  nav.open {
-    display: block;
-    transform: translateX(0);
-  }
+.social-icons a:active {
+  transform: scale(0.9);
 }

@@ -1,113 +1,17 @@
-
+// Функция переключения бургер-меню
 function toggleBurgerMenu(event) {
-    const menu = document.querySelector("nav");
-    const burgerBtn = document.getElementById("burgerBtn");
-
-    // Переключаем класс open у меню
-    menu.classList.toggle("open");
-
-    function closeMenu() {
-        menu.classList.remove("open");
-        document.removeEventListener("click", outsideClickListener);
-        document.querySelectorAll("nav a, nav button").forEach(element => {
-            element.removeEventListener("click", closeMenu);
-        });
-    }
-
-    function outsideClickListener(e) {
-        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
-            closeMenu();
-        }
-    }
-
-    // Удаляем старые обработчики перед добавлением новых, чтобы избежать дублирования
-    document.querySelectorAll("nav a, nav button").forEach(element => {
-        element.removeEventListener("click", closeMenu);
-        element.addEventListener("click", closeMenu);
-    });
-
-    // Закрываем меню при клике за его пределами
-    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
+  event.preventDefault();
+  event.stopPropagation();
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("open");
 }
 
-function toggleBurgerMenu(event) {
-    const menu = document.querySelector("nav");
-    const burgerBtn = document.getElementById("burgerBtn");
-
-    menu.classList.toggle("open");
-
-    function closeMenu() {
-        menu.classList.remove("open");
-        document.removeEventListener("click", outsideClickListener);
-    }
-
-    function outsideClickListener(e) {
-        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
-            closeMenu();
-        }
-    }
-
-    // Закрываем меню при клике на любую ссылку или кнопку внутри него
-    document.querySelectorAll("nav a, nav button").forEach(element => {
-        element.addEventListener("click", closeMenu);
-    });
-
-    // Закрываем меню при клике за его пределами
-    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
-}
-
-function toggleBurgerMenu(event) {
-    const menu = document.querySelector("nav");
-    const burgerBtn = document.getElementById("burgerBtn");
-
-    menu.classList.toggle("open");
-
-    function closeMenu() {
-        menu.classList.remove("open");
-        document.removeEventListener("click", outsideClickListener);
-    }
-
-    function outsideClickListener(e) {
-        if (!menu.contains(e.target) && !burgerBtn.contains(e.target)) {
-            closeMenu();
-        }
-    }
-
-    // Закрываем меню при клике на любую ссылку внутри него
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", closeMenu);
-    });
-
-    // Закрываем меню при клике за его пределами
-    setTimeout(() => document.addEventListener("click", outsideClickListener), 0);
-}
-
-function toggleBurgerMenu(event) {
-    const menu = document.querySelector("nav");
-    menu.classList.toggle("open");
-
-    // Закрытие меню при клике на ссылку
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", () => {
-            menu.classList.remove("open");
-        });
-    });
-
-    // Закрытие при клике вне меню
-    document.addEventListener("click", (e) => {
-        if (!menu.contains(e.target) && !event.target.closest(".burger")) {
-            menu.classList.remove("open");
-        }
-    });
-}
-/* ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ ===== */
-
-/* Прокрутка наверх */
+// Прокрутка наверх
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* Прокрутка к секции */
+// Прокрутка к секции
 function scrollToSection(sectionId) {
   const el = document.getElementById(sectionId);
   if (el) {
@@ -115,7 +19,7 @@ function scrollToSection(sectionId) {
   }
 }
 
-/* Фокус в модальном окне */
+// Фокус в модальном окне (перехват Tab)
 function trapFocus(modal) {
   const focusableElements = modal.querySelectorAll(
     'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -149,7 +53,7 @@ const tourPrices = {
   "Дворцовый Петербург": { group: 1800, individual: 2300 }
 };
 
-/* Функция обновления итоговой цены в форме бронирования */
+// Функция обновления итоговой цены в форме бронирования
 function updateTotalPrice() {
   const tourSelect = document.getElementById('bookingTourSelect');
   const typeSelect = document.getElementById('bookingTypeSelect');
@@ -173,7 +77,7 @@ function updateTotalPrice() {
   document.getElementById('totalPrice').innerText = totalPrice;
 }
 
-/* Функции для изменения количества участников */
+// Функции для изменения количества участников
 function increaseCount(id) {
   let countElement = document.getElementById(id);
   let count = parseInt(countElement.innerText);
@@ -190,7 +94,7 @@ function decreaseCount(id) {
   }
 }
 
-/* Функции для боковой панели бронирования */
+// Функции для боковой панели бронирования
 function openBookingSidebar(preselectedTour = "") {
   const sidebar = document.getElementById("bookingSidebar");
   let backdrop = document.querySelector(".sidebar-backdrop");
@@ -260,15 +164,78 @@ function openDetailsModal(title, info, images = []) {
   
   document.getElementById("modalTitle").focus();
   trapFocus(detailsModal);
+  
+  // Если мобильная версия, показываем внешнюю кнопку "Забронировать"
+  if (window.innerWidth < 768) {
+    const mobileBtn = document.getElementById("mobileBookingBtnContainer");
+    if (mobileBtn) mobileBtn.style.display = "block";
+  }
+  
+  // Сброс трансформаций для корректной работы свайпа
+  const modalElement = document.getElementById("modalContent");
+  modalElement.style.transform = 'translateY(0)';
+  modalElement.style.transition = '';
 }
 
 function closeDetailsModal() {
-  document.getElementById("detailsModal").classList.remove("show");
+  const detailsModal = document.getElementById("detailsModal");
+  detailsModal.classList.remove("show");
   document.body.style.overflow = "";
+  // Сброс трансформаций
+  const modalElement = document.getElementById("modalContent");
+  modalElement.style.transform = '';
+  modalElement.style.transition = '';
+  
   if (lastFocusedElementModal) {
     lastFocusedElementModal.focus();
   }
+  // Если мобильная версия, скрываем внешнюю кнопку "Забронировать"
+  if (window.innerWidth < 768) {
+    const mobileBtn = document.getElementById("mobileBookingBtnContainer");
+    if (mobileBtn) mobileBtn.style.display = "none";
+  }
 }
+
+// Закрытие модального окна при клике вне содержимого
+document.getElementById("detailsModal").addEventListener("click", function(e) {
+  if (!e.target.closest(".modal-content-wrapper")) {
+    closeDetailsModal();
+  }
+});
+
+/* ===== Свайп для закрытия модального окна в мобильной версии ===== */
+let touchStartY = 0;
+const modalElement = document.getElementById("modalContent");
+
+modalElement.addEventListener('touchstart', function(e) {
+  touchStartY = e.changedTouches[0].screenY;
+  modalElement.style.transition = ''; // отключаем анимацию для реального перемещения
+});
+
+modalElement.addEventListener('touchmove', function(e) {
+  let currentY = e.changedTouches[0].screenY;
+  let deltaY = currentY - touchStartY;
+  if (deltaY > 0) {
+    modalElement.style.transform = `translateY(${deltaY}px)`;
+  }
+});
+
+modalElement.addEventListener('touchend', function(e) {
+  let finalDelta = e.changedTouches[0].screenY - touchStartY;
+  if (finalDelta > 100) { // если свайп достаточно длинный, закрываем окно
+    modalElement.style.transition = 'transform 0.3s ease';
+    modalElement.style.transform = `translateY(100%)`;
+    setTimeout(() => {
+      closeDetailsModal();
+    }, 300);
+  } else {
+    modalElement.style.transition = 'transform 0.3s ease';
+    modalElement.style.transform = 'translateY(0)';
+    setTimeout(() => {
+      modalElement.style.transition = '';
+    }, 300);
+  }
+});
 
 /* ===== КАРУСЕЛЬ ИЗОБРАЖЕНИЙ ===== */
 function showImage(index) {
@@ -339,14 +306,6 @@ function submitBookingForm(event) {
   alert("Спасибо! Ваша заявка отправлена.");
 }
 
-/* ===== ОБРАБОТКА БУРГЕР-МЕНЮ ===== */
-/* Функция переключения меню. Используется в inline-обработчике onclick */
-function toggleBurgerMenu(event) {
-  event.stopPropagation();
-  const nav = document.getElementById("mainNav");
-  nav.classList.toggle("open");
-}
-
 /* ===== ИНИЦИАЛИЗАЦИЯ ===== */
 document.addEventListener("DOMContentLoaded", function () {
   // Intersection observer для анимаций
@@ -400,9 +359,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("detailsModal");
   window.addEventListener("resize", function () {
     if (window.innerWidth < 768) {
-      modal.style.width = "90vw";
-      modal.style.height = "auto";
-      modal.style.maxHeight = "80vh";
+      modal.style.width = "100vw";
+      modal.style.height = "calc(100vh - 70px)";
+      modal.style.maxHeight = "calc(100vh - 70px)";
     } else {
       modal.style.width = "50vw";
       modal.style.height = "auto";
@@ -414,11 +373,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const burgerBtn = document.getElementById("burgerBtn");
   const mainNav = document.getElementById("mainNav");
   document.addEventListener("click", function(event) {
-    const path = event.composedPath();
-    if (mainNav.classList.contains("open") &&
-        !path.includes(mainNav) &&
-        !path.includes(burgerBtn)) {
-      mainNav.classList.remove("open");
+    // Если клик вне nav и бургер-кнопки – закрываем меню
+    if (!event.target.closest("#mainNav") && !event.target.closest("#burgerBtn")) {
+      if (mainNav.classList.contains("open")) {
+        mainNav.classList.remove("open");
+      }
     }
   });
 });
